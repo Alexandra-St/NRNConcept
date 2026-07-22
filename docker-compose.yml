@@ -26,8 +26,10 @@ services:
       context: ./deploy/proxy
     environment:
       PORT: "8080"
+      LAB_SCHEME: http
       LAB_HOST: lab
       LAB_PORT: "8080"
+      MINIAPP_SCHEME: http
       MINIAPP_HOST: miniapp
       MINIAPP_PORT: "8080"
     depends_on:

@@ -40,23 +40,15 @@ services:
     dockerfilePath: Dockerfile
     healthCheckPath: /health
     envVars:
+      - key: LAB_SCHEME
+        value: https
       - key: LAB_HOST
-        fromService:
-          type: web
-          name: nrn-mvp-lab
-          property: host
+        value: nrn-mvp-lab.onrender.com
       - key: LAB_PORT
-        fromService:
-          type: web
-          name: nrn-mvp-lab
-          property: port
+        value: "443"
+      - key: MINIAPP_SCHEME
+        value: https
       - key: MINIAPP_HOST
-        fromService:
-          type: web
-          name: nrn-mvp-miniapp
-          property: host
+        value: nrn-mvp-miniapp.onrender.com
       - key: MINIAPP_PORT
-        fromService:
-          type: web
-          name: nrn-mvp-miniapp
-          property: port
+        value: "443"
