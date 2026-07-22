@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NRN запускается</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f6f4ef; color: #161616; }
+    main { width: min(560px, calc(100% - 40px)); padding: 36px; border: 1px solid #161616; border-radius: 24px; background: #fff; box-shadow: 8px 8px 0 #161616; }
+    .mark { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid #161616; border-radius: 50%; font-weight: 700; }
+    h1 { margin: 24px 0 12px; font-size: clamp(28px, 6vw, 44px); line-height: 1.02; }
+    p { margin: 0; max-width: 42ch; font-size: 17px; line-height: 1.5; }
+    .status { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 14px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .25; transform: scale(.75); } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">NRN</div>
+    <h1>Демо запускается (PLease wait, I need a minute..)</h1>
+    <p>Бесплатный сервер просыпается после паузы. Обычно это занимает до минуты — страница откроется автоматически.</p>
+    <p>The free server will come back online after a brief pause. This usually takes up to a minute—the page will open automatically.</p>
+    <div class="status"><span class="dot"></span><span id="status">Проверяем готовность…</span></div>
+  </main>
+  <script>
+    const status = document.getElementById('status');
+    let attempts = 0;
+
+    async function check() {
+      attempts += 1;
+      try {
+        const response = await fetch(window.location.href, {
+          method: 'GET',
+          cache: 'no-store',
+          headers: { 'X-NRN-Wakeup-Check': '1' }
+        });
+
+        if (response.ok) {
+          window.location.reload();
+          return;
+        }
+      } catch (_) {
+        // The upstream is still waking up.
+      }
+
+      status.textContent = attempts < 12
+        ? 'Сервер просыпается…'
+        : 'Запуск занимает чуть дольше обычного…';
+      window.setTimeout(check, 5000);
+    }
+
+    window.setTimeout(check, 3000);
+  </script>
+</body>
+</html>
