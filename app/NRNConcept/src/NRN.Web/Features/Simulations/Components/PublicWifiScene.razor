@@ -1,0 +1,143 @@
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Simulations.Models
+
+<section class="scene-stage motion-enter" aria-labelledby="scene-title">
+    <header class="scene-heading">
+        <p class="scene-location">@T("simulations.publicWifi.ui.airport")</p>
+        <h1 id="scene-title">@SceneTitle</h1>
+        <p>@ScenePrompt</p>
+    </header>
+
+    <div class="scene-grid">
+        <div class="device-frame" aria-label="@DeviceLabel">
+            <div class="device-status" aria-hidden="true">
+                <span>18:42</span>
+                <span class="status-icons">●●● ◒</span>
+            </div>
+
+            @if (Scene.Id == "network-choice")
+            {
+                <div class="screen network-screen">
+                    <div class="screen-bar">
+                        <span>‹</span>
+                        <strong>@T("simulations.publicWifi.ui.wifiSettings")</strong>
+                        <span class="toggle">●</span>
+                    </div>
+                    <div class="network-list">
+                        @foreach (var key in Scene.ContentKeys)
+                        {
+                            <div class="network-row">
+                                <span class="wifi-mark" aria-hidden="true">◔</span>
+                                <span>@T(key)</span>
+                                <span aria-hidden="true">›</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else if (Scene.Id == "access-page")
+            {
+                <div class="screen browser-screen">
+                    <div class="browser-bar"><span>‹</span><span class="address">@Content(0)</span><span>⋯</span></div>
+                    <div class="portal-card">
+                        <span class="wifi-emblem" aria-hidden="true">◉</span>
+                        <h2>@Content(1)</h2>
+                        <p>@Content(2)</p>
+                        <div class="demo-field"><span>@T("simulations.publicWifi.ui.email")</span></div>
+                        <div class="demo-field"><span>@T("simulations.publicWifi.ui.phone")</span></div>
+                        <small>@Content(3)</small>
+                    </div>
+                    <p class="demo-note">@T("simulations.publicWifi.ui.noRealData")</p>
+                </div>
+            }
+            else if (Scene.Id == "certificate-warning")
+            {
+                <div class="screen browser-screen warning-screen">
+                    <div class="browser-bar"><span>‹</span><span>@T("simulations.publicWifi.ui.browser")</span><span>⋯</span></div>
+                    <div class="warning-card">
+                        <span class="warning-icon" aria-hidden="true">!</span>
+                        <h2>@Content(0)</h2>
+                        <p>@Content(1)</p>
+                        <div class="warning-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            }
+            else if (IsSafeResolution)
+            {
+                <div class="screen mail-screen safe-mail">
+                    <div class="app-bar"><span>☰</span><strong>@T("simulations.publicWifi.ui.mail")</strong><span>⌕</span></div>
+                    <div class="connection-safe"><span aria-hidden="true">✓</span>@T("simulations.publicWifi.scene.login.safe.status")</div>
+                    <article class="mail-card">
+                        <span class="sender-avatar" aria-hidden="true">N</span>
+                        <div><strong>Northstar Travel</strong><small>@T("simulations.publicWifi.ui.booking")</small></div>
+                        <span class="mail-time">18:42</span>
+                    </article>
+                    <div class="boarding-pass" aria-hidden="true"><span>NS 204</span><span>GATE 12</span><i></i></div>
+                </div>
+            }
+            else
+            {
+                <div class="screen browser-screen login-screen">
+                    <div class="browser-bar suspicious"><span>‹</span><span class="address">@Content(0)</span><span>⋯</span></div>
+                    <div class="login-card">
+                        <span class="mail-emblem" aria-hidden="true">M</span>
+                        <h2>@Content(1)</h2>
+                        <div class="demo-field"><span>@T("simulations.publicWifi.ui.email")</span></div>
+                        <div class="demo-field"><span>@T("simulations.publicWifi.ui.password")</span><b>••••••••</b></div>
+                        <p class="password-signal">@Content(2)</p>
+                    </div>
+                    <p class="demo-note">@T("simulations.publicWifi.ui.noRealData")</p>
+                </div>
+            }
+        </div>
+
+        <fieldset class="decision-panel">
+            <legend>@T("simulations.common.chooseAction")</legend>
+            @foreach (var choice in VisibleChoices)
+            {
+                <button type="button" @onclick="() => ChooseAsync(choice.Id)">
+                    <span>@T(choice.LabelKey)</span><span aria-hidden="true">→</span>
+                </button>
+            }
+        </fieldset>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public SimulationScene Scene { get; set; } = default!;
+    [Parameter, EditorRequired] public SimulationState State { get; set; } = default!;
+    [Parameter, EditorRequired] public IReadOnlyDictionary<string, string> Texts { get; set; } =
+        new Dictionary<string, string>();
+    [Parameter] public EventCallback<string> ChoiceSelected { get; set; }
+
+    private bool IsSafeResolution =>
+        Scene.Id == "email-login" &&
+        State.IsSelected("certificate-warning", "use-mobile-data");
+
+    private string SceneTitle => IsSafeResolution
+        ? T("simulations.publicWifi.scene.login.safe.title")
+        : T(Scene.TitleKey);
+
+    private string ScenePrompt => IsSafeResolution
+        ? T("simulations.publicWifi.scene.login.safe.prompt")
+        : T(Scene.PromptKey);
+
+    private string DeviceLabel => Scene.Id switch
+    {
+        "network-choice" => T("simulations.publicWifi.ui.wifiSettings"),
+        "email-login" when IsSafeResolution => T("simulations.publicWifi.ui.mail"),
+        _ => T("simulations.publicWifi.ui.browser")
+    };
+
+    private IEnumerable<SimulationChoice> VisibleChoices => IsSafeResolution
+        ? Scene.Choices.Where(choice => choice.Id == "use-mail-app")
+        : Scene.Choices;
+
+    private string T(string key) => Texts.TryGetValue(key, out var value) ? value : key;
+
+    private string Content(int index) => index >= 0 && index < Scene.ContentKeys.Count
+        ? T(Scene.ContentKeys[index])
+        : string.Empty;
+
+    private Task ChooseAsync(string choiceId) => ChoiceSelected.InvokeAsync(choiceId);
+}

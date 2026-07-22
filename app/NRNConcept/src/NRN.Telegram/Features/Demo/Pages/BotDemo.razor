@@ -1,0 +1,92 @@
+@page "/demo"
+@layout DemoLayout
+@inject MiniAppLocalizer T
+
+<PageTitle>@T["demo.title"]</PageTitle>
+
+<main class="demo-page">
+    <header class="demo-intro">
+        <div>
+            <span class="demo-label">@T["demo.label"]</span>
+            <h1>@T["demo.heading"]</h1>
+            <p>@T["demo.description"]</p>
+        </div>
+        <a href="app" class="open-direct">@T["demo.openDirect"]</a>
+    </header>
+
+    <section class="phone" aria-label="@T["demo.phoneLabel"]">
+        <div class="phone__status" aria-hidden="true">
+            <strong>12:07</strong>
+            <span>●●● ᴡɪꜰɪ 78%</span>
+        </div>
+        <header class="chat-header">
+            <div class="bot-avatar">N</div>
+            <div>
+                <strong>Narayana Bot</strong>
+                <small>bot</small>
+            </div>
+            <span class="chat-header__more">•••</span>
+        </header>
+
+        <div class="chat" role="log" aria-label="@T["demo.chatLabel"]">
+            <span class="date-chip">@T["demo.today"]</span>
+            <div class="message message--out">/start <small>12:07 ✓✓</small></div>
+            <article class="message message--in welcome-message">
+                <p>@T["demo.welcome"]</p>
+                <p>@T["demo.logged"] <strong>TelegramUser_demo</strong><br />@T["demo.balance"]</p>
+                <hr />
+                <p>@T["demo.private"]</p>
+                <p>@T["demo.productsEsim"]<br />@T["demo.productsMobile"]</p>
+                <small>12:07</small>
+            </article>
+
+            <div class="message message--out">@T["demo.services"] <small>12:08 ✓✓</small></div>
+            <article class="message message--in">
+                <strong>@T["demo.choose"]</strong>
+                <p>@T["demo.data"]</p>
+                <p>@T["demo.mobile"]</p>
+                <small>12:08</small>
+            </article>
+
+            <div class="bot-actions" aria-label="@T["demo.commands"]">
+                <button type="button">@T["demo.account"]</button>
+                <button type="button">@T["demo.services"]</button>
+                <button type="button">@T["demo.prices"]</button>
+                <button type="button">@T["demo.help"]</button>
+            </div>
+
+            <button class="open-app" type="button" @onclick="OpenMiniApp">
+                <span>@T["demo.openApp"]</span>
+                <small>@T["demo.openAppHint"]</small>
+            </button>
+        </div>
+
+        <div class="composer" aria-hidden="true">
+            <span>☰ Menu</span>
+            <div>@T["demo.message"]</div>
+            <span>🎙</span>
+        </div>
+    </section>
+</main>
+
+@if (_miniAppOpen)
+{
+    <div class="mini-app-overlay" role="dialog" aria-modal="true" aria-label="@T["demo.dialog"]">
+        <button class="overlay-backdrop" type="button" aria-label="@T["demo.close"]" @onclick="CloseMiniApp"></button>
+        <section class="mini-app-sheet">
+            <header>
+                <button type="button" @onclick="CloseMiniApp">@T["common.close"]</button>
+                <div><strong>Narayana Bot</strong><small>mini app · demo</small></div>
+                <span>•••</span>
+            </header>
+            <iframe src="app?demo=1" title="@T["demo.frame"]"></iframe>
+        </section>
+    </div>
+}
+
+@code {
+    private bool _miniAppOpen;
+
+    private void OpenMiniApp() => _miniAppOpen = true;
+    private void CloseMiniApp() => _miniAppOpen = false;
+}

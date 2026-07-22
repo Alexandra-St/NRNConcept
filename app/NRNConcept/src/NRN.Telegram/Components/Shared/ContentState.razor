@@ -1,0 +1,36 @@
+<section class="content-state content-state--@Kind" role="@(Kind == "error" ? "alert" : "status")" aria-live="polite">
+    <span class="content-state__mark" aria-hidden="true">@(Kind == "error" ? "!" : "·")</span>
+    <div>
+        <h2>@Title</h2>
+        <p>@Message</p>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(ActionLabel))
+    {
+        @if (!string.IsNullOrWhiteSpace(ActionHref))
+        {
+            <a class="primary-action" href="@ActionHref">@ActionLabel</a>
+        }
+        else
+        {
+            <button class="primary-action" type="button" disabled="@Busy" @onclick="HandleAction">
+                @if (Busy)
+                {
+                    <span class="button-spinner" aria-hidden="true"></span>
+                }
+                @ActionLabel
+            </button>
+        }
+    }
+</section>
+
+@code {
+    [Parameter] public string Kind { get; set; } = "empty";
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Message { get; set; } = string.Empty;
+    [Parameter] public string? ActionLabel { get; set; }
+    [Parameter] public string? ActionHref { get; set; }
+    [Parameter] public bool Busy { get; set; }
+    [Parameter] public EventCallback Action { get; set; }
+
+    private Task HandleAction() => Busy ? Task.CompletedTask : Action.InvokeAsync();
+}

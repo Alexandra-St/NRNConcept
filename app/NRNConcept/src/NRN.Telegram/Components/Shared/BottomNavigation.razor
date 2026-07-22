@@ -1,0 +1,26 @@
+@inject MiniAppLocalizer T
+
+<nav class="bottom-nav" aria-label="@T["nav.label"]">
+    <div class="bottom-nav__inner">
+        <NavLink href="app" Match="NavLinkMatch.All" class="bottom-nav__item">
+            <AppIcon Name="home" Class="bottom-nav__icon" />
+            <span>@T["nav.home"]</span>
+        </NavLink>
+        <NavLink href="app/services" class="bottom-nav__item">
+            <AppIcon Name="services" Class="bottom-nav__icon" />
+            <span>@T["nav.services"]</span>
+        </NavLink>
+        <NavLink href="app/catalog" class="bottom-nav__item">
+            <AppIcon Name="buy" Class="bottom-nav__icon" />
+            <span>@T["nav.buy"]</span>
+        </NavLink>
+        <NavLink href="app/learn" class="bottom-nav__item">
+            <AppIcon Name="learn" Class="bottom-nav__icon" />
+            <span>@T["nav.learn"]</span>
+        </NavLink>
+        <NavLink href="app/help" class="bottom-nav__item">
+            <AppIcon Name="help" Class="bottom-nav__icon" />
+            <span>@T["nav.help"]</span>
+        </NavLink>
+    </div>
+</nav>

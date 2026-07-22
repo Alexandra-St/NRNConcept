@@ -1,0 +1,122 @@
+@page "/finder/results"
+@inject AppState AppState
+@inject SolutionFinderState FinderState
+@inject ISolutionFinderService FinderService
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.SolutionFinder
+@using NRN.Web.Features.SolutionFinder.Models
+@using NRN.Web.Features.SolutionFinder.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(Ru ? "Результат — Solution Finder" : "Results — Solution Finder")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="results-shell motion-enter">
+    @if (!FinderState.Completed)
+    {
+        <section class="empty-result">
+            <p class="eyebrow">SOLUTION FINDER</p>
+            <h1>@(Ru ? "Сначала ответьте на вопросы" : "Complete the questionnaire first")</h1>
+            <p>@(Ru ? "Рекомендация строится только на ваших ответах." : "Recommendations are based only on your answers.")</p>
+            <a class="primary-link" href="/finder">@(Ru ? "Начать" : "Start") →</a>
+        </section>
+    }
+    else
+    {
+        <header class="results-header">
+            <p class="eyebrow">@(Ru ? "ВАШ РЕЗУЛЬТАТ" : "YOUR RESULT")</p>
+            <h1>@ResultTitle</h1>
+            <p>@ResultDescription</p>
+        </header>
+
+        @if (Result.Recommendations.Count > 0)
+        {
+            <section class="recommendations" aria-label="@(Ru ? "Рекомендации" : "Recommendations")">
+                @for (var index = 0; index < Result.Recommendations.Count; index++)
+                {
+                    var recommendation = Result.Recommendations[index];
+                    <article class="recommendation-card">
+                        <div class="recommendation-topline">
+                            <span>@(recommendation.IsHighPriority ? (Ru ? "ОСНОВНАЯ РЕКОМЕНДАЦИЯ" : "PRIMARY RECOMMENDATION") : (Ru ? "ПОДХОДЯЩЕЕ РЕШЕНИЕ" : "RELEVANT SOLUTION"))</span>
+                            <span>@($"{index + 1:00}")</span>
+                        </div>
+                        <h2>@recommendation.Product.Name</h2>
+                        <p class="tagline">@recommendation.Product.Tagline</p>
+                        <dl>
+                            <div><dt>@(Ru ? "Ваша задача" : "Your need")</dt><dd>@recommendation.Need</dd></div>
+                            <div><dt>@(Ru ? "Почему подходит" : "Why it fits")</dt><dd>@recommendation.Why</dd></div>
+                            <div><dt>@(Ru ? "Важно учитывать" : "Keep in mind")</dt><dd>@recommendation.Product.Limitation</dd></div>
+                        </dl>
+                        <a class="card-link" href="/finder/product/@recommendation.Product.Id">
+                            <span>@(Ru ? "Подробнее о решении" : "View solution details")</span>
+                            <span class="link-arrow" aria-hidden="true">→</span>
+                        </a>
+                    </article>
+                }
+            </section>
+        }
+        else
+        {
+            <section class="honest-result">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>
+                <div>
+                    <h2>@HonestResultTitle</h2>
+                    <p>@HonestResultDescription</p>
+                </div>
+            </section>
+        }
+
+        @if (Result.LearningLinks.Count > 0)
+        {
+            <section class="learning-links" aria-labelledby="learn-more-title">
+                <p class="eyebrow">PRIVACY LAB</p>
+                <h2 id="learn-more-title">@(Ru ? "Понять, почему это важно" : "Understand why this matters")</h2>
+                @foreach (var link in Result.LearningLinks)
+                {
+                    <a href="@link.Url">
+                        <span><strong>@link.Title</strong><small>@link.Description</small></span>
+                        <LabArrow />
+                    </a>
+                }
+            </section>
+        }
+
+        <footer class="results-actions">
+            <button type="button" @onclick="Restart">← @(Ru ? "Пройти заново" : "Start again")</button>
+            <a href="/learn">@(Ru ? "Вернуться в Privacy Lab" : "Return to Privacy Lab")</a>
+        </footer>
+    }
+</main>
+
+@code {
+    private bool Ru => AppState.Locale == "ru";
+    private FinderResult Result => FinderService.Evaluate(AppState.Locale, FinderState);
+    private string ResultTitle => Result.Recommendations.Count > 0
+        ? (Ru ? "Вот что подходит вашей ситуации" : "Here is what fits your situation")
+        : (Ru ? "Сейчас вам не нужен новый продукт" : "You do not need a new product right now");
+    private string ResultDescription => Result.Recommendations.Count > 0
+        ? (Ru ? "Мы рекомендуем только то, что связано с вашими ответами." : "We recommend only what is connected to your answers.")
+        : (Ru ? "Хороший результат Finder — это не обязательно покупка." : "A useful Finder result does not always lead to a purchase.");
+    private string HonestResultTitle => Ru
+        ? "Мы не будем рекомендовать лишний продукт"
+        : "We will not recommend an unnecessary product";
+    private string HonestResultDescription => Ru
+        ? "По вашим ответам в каталоге Narayana нет решения, которое стоило бы советовать. Ниже — материалы, которые помогут сделать следующий шаг."
+        : "Based on your answers, the Narayana catalogue does not contain a solution we should recommend. The resources below can still help with your next step.";
+
+    private void Restart()
+    {
+        FinderState.Begin();
+        NavigationManager.NavigateTo("/finder/questions");
+    }
+
+    private Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

@@ -1,0 +1,192 @@
+@page "/simulations"
+@inject ISimulationContentService ContentService
+@inject ISimulationLocalizationService LocalizationService
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Learning.Components
+@using NRN.Web.Features.Simulations.Models
+@using NRN.Web.Features.Simulations.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@T("simulations.home.title")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+@if (_hasError)
+{
+    <main id="main-content" class="simulations-shell motion-enter">
+        <ContentErrorState Label="@T("simulations.common.error.label")"
+                           Title="@T("simulations.common.error.title")"
+                           Message="@T("simulations.common.error.message")"
+                           RetryLabel="@T("simulations.common.retry")"
+                           Retry="LoadContentAsync" />
+    </main>
+}
+else if (_simulations is null)
+{
+    <main id="main-content" class="simulations-shell" aria-busy="true">
+        <p class="loading-state" role="status">@T("simulations.common.loading")</p>
+    </main>
+}
+else
+{
+    <main id="main-content" class="simulations-shell motion-enter">
+        <header class="simulations-hero">
+            <div class="hero-intro">
+                <p class="eyebrow">@T("simulations.home.eyebrow")</p>
+                <h1>@T("simulations.home.title")</h1>
+                <p class="lead">@T("simulations.home.subtitle")</p>
+            </div>
+            <figure class="simulations-illustration">
+                <RasterIllustrationImage Source="images/simulations/home.png" FilterId="simulations-home-remove-white"
+                                         Width="1254" Height="1254" AltText="@IllustrationAlt"
+                                         RemoveWhiteBackground="true" />
+            </figure>
+        </header>
+
+        <PrivacyNotice Label="@PrivacyLabel"
+                       Title="@T("simulations.home.privacy.title")"
+                       Description="@T("simulations.home.privacy.description")" />
+
+        <section id="simulation-catalog" class="simulation-list" aria-label="@T("simulations.home.eyebrow")">
+            @foreach (var simulation in _simulations)
+            {
+                @if (simulation.Status == SimulationStatus.Available)
+                {
+                    <a class="simulation-card" href="/simulations/@simulation.Slug">
+                        <div class="card-topline">
+                            <span>@T("simulations.common.available")</span>
+                            <span>@simulation.DurationMinutes @T("simulations.common.minutes")</span>
+                        </div>
+                        <div class="card-visual" aria-hidden="true">
+                            <NrnIcon Name="@SimulationIcon(simulation.Slug)" Class="simulation-icon" />
+                        </div>
+                        <h2>@T(simulation.TitleKey)</h2>
+                        <p>@T(simulation.CardQuestionKey)</p>
+                        <span class="simulation-action">
+                            <strong>@T("simulations.common.start")</strong>
+                            <LabArrow />
+                        </span>
+                    </a>
+                }
+                else
+                {
+                    <article class="simulation-card coming-soon" aria-disabled="true">
+                        <div class="card-topline"><span>@T("simulations.common.comingSoon")</span></div>
+                        <h2>@T(simulation.TitleKey)</h2>
+                        <p>@T(simulation.CardQuestionKey)</p>
+                    </article>
+                }
+            }
+        </section>
+
+        <a class="all-simulations-card" href="/simulations#simulation-catalog">
+            <NrnIcon Name="overview" Class="all-simulations-icon" />
+            <span>
+                <strong>@AllSimulationsTitle</strong>
+                <small>@AllSimulationsDescription</small>
+            </span>
+            <LabArrow />
+        </a>
+    </main>
+}
+
+@code {
+    private static readonly string[] HomeKeys =
+    [
+        "simulations.home.eyebrow",
+        "simulations.home.title",
+        "simulations.home.subtitle",
+        "simulations.home.privacy.title",
+        "simulations.home.privacy.description",
+        "simulations.common.available",
+        "simulations.common.comingSoon",
+        "simulations.common.minutes",
+        "simulations.common.start",
+        "simulations.common.loading",
+        "simulations.common.error.label",
+        "simulations.common.error.title",
+        "simulations.common.error.message",
+        "simulations.common.retry"
+    ];
+
+    private readonly Dictionary<string, string> _texts = new(StringComparer.Ordinal);
+    private IReadOnlyList<Simulation>? _simulations;
+    private bool _hasError;
+    private bool Ru => AppState.Locale == "ru";
+    private string IllustrationAlt => Ru
+        ? "Схема выбора с несколькими путями и последствиями"
+        : "A choice diagram with multiple paths and outcomes";
+    private string PrivacyLabel => Ru ? "Как используются решения" : "How choices are used";
+    private string AllSimulationsTitle => Ru ? "Смотреть все симуляции" : "View all simulations";
+    private string AllSimulationsDescription => Ru
+        ? "Выберите интерактивный сценарий и попробуйте принять решение."
+        : "Choose an interactive scenario and try making a decision.";
+
+    protected override async Task OnInitializedAsync() => await LoadContentAsync();
+
+    private async Task LoadContentAsync()
+    {
+        _hasError = false;
+        _simulations = null;
+
+        try
+        {
+            var simulations = await ContentService.GetSimulationsAsync();
+            var keys = HomeKeys
+                .Concat(simulations.SelectMany(simulation =>
+                    new[] { simulation.TitleKey, simulation.CardQuestionKey }))
+                .Distinct(StringComparer.Ordinal);
+
+            _texts.Clear();
+            foreach (var key in keys)
+            {
+                _texts[key] = await LocalizationService.GetAsync(key, AppState.Locale);
+            }
+
+            _simulations = simulations
+                .OrderBy(simulation => simulation.Slug == "ordinary-day" ? 0 : 1)
+                .ThenBy(simulation => simulation.TitleKey, StringComparer.Ordinal)
+                .ToArray();
+        }
+        catch
+        {
+            _hasError = true;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private string T(string key) => _texts.TryGetValue(key, out var value)
+        ? value
+        : AppState.Locale == "ru" ? FallbackRu(key) : FallbackEn(key);
+
+    private static string SimulationIcon(string slug) => slug == "ordinary-day" ? "device" : "wifi";
+
+    private static string FallbackRu(string key) => key switch
+    {
+        "simulations.common.loading" => "Загрузка…",
+        "simulations.common.error.label" => "Ошибка",
+        "simulations.common.error.title" => "Не удалось загрузить симуляции",
+        "simulations.common.error.message" => "Попробуйте ещё раз.",
+        "simulations.common.retry" => "Повторить",
+        _ => key
+    };
+
+    private static string FallbackEn(string key) => key switch
+    {
+        "simulations.common.loading" => "Loading…",
+        "simulations.common.error.label" => "Error",
+        "simulations.common.error.title" => "The simulations could not be loaded",
+        "simulations.common.error.message" => "Try again.",
+        "simulations.common.retry" => "Try again",
+        _ => key
+    };
+
+    private async Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        await LoadContentAsync();
+    }
+}

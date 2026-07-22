@@ -1,0 +1,50 @@
+<svg class="@CssClass" viewBox="0 0 @Width @Height" role="img" aria-label="@AltText">
+    <defs>
+        <filter id="@FilterId" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            @if (RemoveWhiteBackground)
+            {
+                <feColorMatrix in="SourceGraphic" type="matrix" result="keyed" values="
+                    1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    -.2126 -.7152 -.0722 0 1" />
+            }
+            else
+            {
+                <feColorMatrix in="SourceGraphic" type="matrix" result="keyed" values="
+                    1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    .67 .67 .67 0 0" />
+            }
+            <feComponentTransfer in="keyed" result="keyed-alpha">
+                <feFuncA type="linear" slope="1.1" intercept="-.04" />
+            </feComponentTransfer>
+            @if (MonochromeInk)
+            {
+                <feFlood flood-color="#000000" result="ink-color" />
+                <feComposite in="ink-color" in2="keyed-alpha" operator="in" />
+            }
+            else
+            {
+                <feComposite in="keyed-alpha" in2="SourceAlpha" operator="in" />
+            }
+        </filter>
+    </defs>
+    <image href="@Source" width="@Width" height="@Height" preserveAspectRatio="xMidYMid meet"
+           filter="url(#@FilterId)" />
+</svg>
+
+@code {
+    [Parameter, EditorRequired] public string Source { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string FilterId { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public int Width { get; set; }
+    [Parameter, EditorRequired] public int Height { get; set; }
+    [Parameter] public string AltText { get; set; } = string.Empty;
+    [Parameter] public bool RemoveWhiteBackground { get; set; }
+    [Parameter] public bool MonochromeInk { get; set; }
+
+    private string CssClass => RemoveWhiteBackground
+        ? "raster-illustration raster-illustration--dark-ink"
+        : "raster-illustration";
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "foundations",
+    "nameKey": "learning.category.foundations.name",
+    "descriptionKey": "learning.category.foundations.description"
+  },
+  {
+    "id": "everyday-situations",
+    "nameKey": "learning.category.everyday.name",
+    "descriptionKey": "learning.category.everyday.description"
+  },
+  {
+    "id": "taking-control",
+    "nameKey": "learning.category.takingControl.name",
+    "descriptionKey": "learning.category.takingControl.description"
+  }
+]

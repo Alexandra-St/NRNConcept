@@ -1,0 +1,76 @@
+@page "/finder"
+@inject AppState AppState
+@inject SolutionFinderState FinderState
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Learning.Components
+@using NRN.Web.Features.SolutionFinder
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>Solution Finder</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="finder-shell motion-enter">
+    <header class="finder-hero">
+        <div class="finder-intro">
+            <p class="eyebrow">SOLUTION FINDER</p>
+            <h1>@Title</h1>
+            <p class="lead">@Description</p>
+        </div>
+        <figure class="finder-illustration">
+            <RasterIllustrationImage Source="images/finder/home.png" FilterId="finder-home-remove-white"
+                                     Width="1254" Height="1254" AltText="@IllustrationAlt"
+                                     RemoveWhiteBackground="true" />
+        </figure>
+    </header>
+
+    <PrivacyNotice Label="@PrivacyLabel" Title="@PrivacyTitle" Description="@PrivacyDescription" />
+
+    <button class="start-panel" type="button" @onclick="BeginQuestionnaire">
+        <NrnIcon Name="integrations" Class="start-icon" />
+        <div>
+            <span class="step-count">@QuestionCount</span>
+            <h2>@PanelTitle</h2>
+            <p>@PanelDescription</p>
+        </div>
+        <LabArrow />
+        <span class="visually-hidden">@StartLabel</span>
+    </button>
+</main>
+
+@code {
+    private bool Ru => AppState.Locale == "ru";
+    private string Title => Ru ? "Найдите решение для своей ситуации" : "Find a solution for your situation";
+    private string Description => Ru
+        ? "Расскажите, как вы пользуетесь связью и интернетом. Мы покажем только те решения, которые действительно подходят, и объясним ограничения."
+        : "Tell us how you use communication and the internet. We will show only relevant solutions and explain their limitations.";
+    private string IllustrationAlt => Ru
+        ? "Схема ветвящихся путей и вариантов выбора"
+        : "A diagram of branching paths and choices";
+    private string PrivacyLabel => Ru ? "Как используются ответы" : "How answers are used";
+    private string PrivacyTitle => Ru ? "Без аккаунта и профиля." : "No account or profile.";
+    private string PrivacyDescription => Ru
+        ? "Ответы нужны только для текущего прохождения и не сохраняются в истории."
+        : "Your answers are used only for this session and are not saved as history.";
+    private string QuestionCount => Ru ? "5–7 вопросов" : "5–7 questions";
+    private string PanelTitle => Ru ? "Небольшой опрос" : "A short questionnaire";
+    private string PanelDescription => Ru
+        ? "Вы сможете вернуться к предыдущему вопросу и изменить любой ответ."
+        : "You can go back and change any answer.";
+    private string StartLabel => Ru ? "Начать" : "Start";
+
+    private void BeginQuestionnaire()
+    {
+        FinderState.Begin();
+        NavigationManager.NavigateTo("/finder/questions");
+    }
+
+    private Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

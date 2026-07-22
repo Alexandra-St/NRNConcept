@@ -1,0 +1,110 @@
+@page "/learn"
+@inject ILearningLocalizationService LocalizationService
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Learning.Components
+@using NRN.Web.Features.Learning.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>Privacy Lab</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+@if (_hasError)
+{
+    <main id="main-content" class="learning-shell motion-enter">
+        <ContentErrorState Label="@ErrorLabel" Title="@ErrorTitle" Message="@ErrorMessage" RetryLabel="@RetryLabel" Retry="LoadContentAsync" />
+    </main>
+}
+else if (_content is null)
+{
+    <main id="main-content" class="learning-shell" aria-busy="true"><p class="loading-state" role="status">@LoadingLabel</p></main>
+}
+else
+{
+    <main id="main-content" class="learning-shell motion-enter">
+        <header class="learning-hero">
+            <div class="hero-intro">
+                <p class="eyebrow">@_content.Eyebrow</p>
+                <h1>@_content.Title</h1>
+                <p class="hero-copy">@_content.Subtitle</p>
+            </div>
+            <HomeIllustration AltText="@_content.IllustrationAlt" />
+        </header>
+
+        <PrivacyNotice Label="@_content.PrivacyPromiseLabel"
+                       Title="@_content.PrivacyPromiseTitle"
+                       Description="@_content.PrivacyPromiseDescription" />
+
+        <nav class="learning-sections" aria-label="@_content.SectionsLabel">
+            <CategoryCard Icon="book" Title="@_content.BasicsTitle" Description="@_content.BasicsDescription"
+                          ActionLabel="@_content.Explore" Href="/learn/foundations" />
+            <CategoryCard Icon="internet" Title="@_content.EverydayTitle" Description="@_content.EverydayDescription"
+                          ActionLabel="@_content.Explore" Href="/learn/everyday-situations" />
+            <CategoryCard Icon="privacy" Title="@_content.ToolsTitle" Description="@_content.ToolsDescription"
+                          ActionLabel="@_content.Explore" Href="/learn/taking-control" />
+        </nav>
+
+        <div class="toolkit-callout">
+            <CategoryCard Icon="integrations" Title="@_content.ToolkitTitle" Description="@_content.ToolkitDescription"
+                          ActionLabel="@_content.FindSolutions" Href="/finder" Emphasis="true" />
+        </div>
+    </main>
+}
+
+@code {
+    private HomeContent? _content;
+    private bool _hasError;
+    private string LoadingLabel => AppState.Locale == "ru" ? "Загрузка…" : "Loading…";
+    private string ErrorLabel => AppState.Locale == "ru" ? "Ошибка" : "Error";
+    private string ErrorTitle => AppState.Locale == "ru" ? "Не удалось загрузить Privacy Lab" : "Privacy Lab could not be loaded";
+    private string ErrorMessage => AppState.Locale == "ru" ? "Проверьте соединение и попробуйте ещё раз." : "Check the connection and try again.";
+    private string RetryLabel => AppState.Locale == "ru" ? "Повторить" : "Try again";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        _hasError = false;
+        _content = null;
+        try
+        {
+            _content = new HomeContent(
+            await T("learning.home.eyebrow"), await T("learning.home.title"), await T("learning.home.subtitle"),
+            await T("learning.home.illustration.alt"),
+            await T("learning.home.explore"), await T("learning.home.findSolutions"),
+            await T("learning.home.basics.title"), await T("learning.home.basics.description"),
+            await T("learning.home.everyday.title"), await T("learning.home.everyday.description"),
+            await T("learning.category.takingControl.name"), await T("learning.category.takingControl.description"),
+            await T("learning.home.toolkit.title"), await T("learning.home.toolkit.description"),
+                await T("learning.home.sectionsLabel"),
+                await T("learning.home.privacyPromise.label"), await T("learning.home.privacyPromise.title"),
+                await T("learning.home.privacyPromise.description"));
+        }
+        catch
+        {
+            _hasError = true;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private Task<string> T(string key) => LocalizationService.GetAsync(key, AppState.Locale);
+
+    private async Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        await LoadContentAsync();
+    }
+
+    private sealed record HomeContent(string Eyebrow, string Title, string Subtitle, string IllustrationAlt,
+        string Explore, string FindSolutions,
+        string BasicsTitle, string BasicsDescription, string EverydayTitle, string EverydayDescription,
+        string ToolsTitle, string ToolsDescription, string ToolkitTitle, string ToolkitDescription,
+        string SectionsLabel, string PrivacyPromiseLabel, string PrivacyPromiseTitle,
+        string PrivacyPromiseDescription);
+}

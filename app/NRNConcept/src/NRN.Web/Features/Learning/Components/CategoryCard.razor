@@ -1,0 +1,23 @@
+@using NRN.Web.Shared.Components
+
+<a class="category-card @(Emphasis ? "emphasis" : null) @(IsAvailable ? null : "unavailable")"
+   href="@(IsAvailable ? Href : null)"
+   aria-disabled="@(!IsAvailable)">
+    <span class="category-icon"><NrnIcon Name="@Icon" Class="category-icon-svg" /></span>
+    <span class="category-copy">
+        <strong>@Title</strong>
+        <span>@Description</span>
+    </span>
+    <LabArrow />
+    <span class="visually-hidden">@ActionLabel</span>
+</a>
+
+@code {
+    [Parameter, EditorRequired] public string Icon { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Description { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string ActionLabel { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Href { get; set; } = string.Empty;
+    [Parameter] public bool IsAvailable { get; set; } = true;
+    [Parameter] public bool Emphasis { get; set; }
+}

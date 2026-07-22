@@ -1,0 +1,62 @@
+services:
+  - type: web
+    name: nrn-mvp-lab
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: app/NRNConcept
+    dockerfilePath: src/NRN.Web/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: HttpsRedirection__Enabled
+        value: "false"
+
+  - type: web
+    name: nrn-mvp-miniapp
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: app/NRNConcept
+    dockerfilePath: src/NRN.Telegram/Dockerfile
+    healthCheckPath: /miniapp/health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: HttpsRedirection__Enabled
+        value: "false"
+      - key: PathBase
+        value: /miniapp
+      - key: ConnectionStrings__NrnServices
+        value: Data Source=/app/Data/nrn-telegram.db
+
+  - type: web
+    name: nrn-mvp
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: deploy/proxy
+    dockerfilePath: Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: LAB_HOST
+        fromService:
+          type: web
+          name: nrn-mvp-lab
+          property: host
+      - key: LAB_PORT
+        fromService:
+          type: web
+          name: nrn-mvp-lab
+          property: port
+      - key: MINIAPP_HOST
+        fromService:
+          type: web
+          name: nrn-mvp-miniapp
+          property: host
+      - key: MINIAPP_PORT
+        fromService:
+          type: web
+          name: nrn-mvp-miniapp
+          property: port

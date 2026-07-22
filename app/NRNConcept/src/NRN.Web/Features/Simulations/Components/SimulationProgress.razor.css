@@ -1,0 +1,9 @@
+.simulation-progress { width: min(100%, 54rem); margin: 0 auto 2rem; padding: 1.25rem 0; border-bottom: 1px solid var(--color-border); }
+.progress-copy { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; color: var(--color-text-subtle); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.progress-copy strong { color: var(--color-text); font-weight: 700; }
+ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .45rem; margin: 0; padding: 0; list-style: none; }
+li { height: .3rem; overflow: hidden; background: var(--color-surface-subtle); border-radius: 999px; }
+li span { display: block; width: 100%; height: 100%; background: transparent; transform: scaleX(0); transform-origin: left; }
+li.completed span, li.current span { background: var(--color-text); transform: scaleX(1); }
+li.current span { background: var(--color-nav-indicator); }
+@media (max-width: 520px) { .simulation-progress { margin-bottom: 1.25rem; } }

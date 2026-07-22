@@ -1,0 +1,72 @@
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+@if (EnableMainButton && !_telegramChromeActive)
+{
+    <button class="primary-action" type="button" disabled="@Disabled" @onclick="HandleMainButton">
+        @MainButtonText
+    </button>
+}
+
+@code {
+    [Parameter, EditorRequired] public string BackHref { get; set; } = "app";
+    [Parameter] public string MainButtonText { get; set; } = "Continue";
+    [Parameter] public bool EnableMainButton { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public EventCallback MainButtonClicked { get; set; }
+
+    private DotNetObjectReference<TelegramChrome>? _reference;
+    private bool _telegramChromeActive;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        _reference = DotNetObjectReference.Create(this);
+        _telegramChromeActive = await JS.InvokeAsync<bool>(
+            "nrnTelegram.bindChrome",
+            _reference,
+            MainButtonText,
+            EnableMainButton && !Disabled);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public Task OnTelegramBack()
+    {
+        Navigation.NavigateTo(BackHref);
+        return Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public Task OnTelegramMain() => HandleMainButton();
+
+    private async Task HandleMainButton()
+    {
+        if (!Disabled)
+        {
+            await MainButtonClicked.InvokeAsync();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("nrnTelegram.unbindChrome");
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+            // The component can be disposed during static prerendering, before JS interop is available.
+        }
+
+        _reference?.Dispose();
+    }
+}

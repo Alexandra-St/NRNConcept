@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+@inject AppState AppState
+@inject IJSRuntime JS
+@using NRN.Web.Shared.State
+@implements IDisposable
+
+<div class="app-surface theme-@AppState.Theme">
+    <a class="skip-link" href="#main-content">@(AppState.Locale == "ru" ? "Перейти к содержанию" : "Skip to content")</a>
+    @Body
+</div>
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <button class="dismiss" type="button" aria-label="Dismiss error">🗙</button>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        AppState.ThemeChanged += HandleThemeChanged;
+        AppState.LocaleChanged += HandleLocaleChanged;
+    }
+
+    private void HandleThemeChanged() => InvokeAsync(StateHasChanged);
+
+    private void HandleLocaleChanged() => InvokeAsync(async () =>
+    {
+        await JS.InvokeVoidAsync("document.documentElement.setAttribute", "lang", AppState.Locale);
+        StateHasChanged();
+    });
+
+    public void Dispose()
+    {
+        AppState.ThemeChanged -= HandleThemeChanged;
+        AppState.LocaleChanged -= HandleLocaleChanged;
+    }
+}

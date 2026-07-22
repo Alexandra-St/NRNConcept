@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ico-public-rights",
+    "publisher": "ICO",
+    "title": "Your personal data rights",
+    "url": "https://ico.org.uk/for-the-public/"
+  },
+  {
+    "id": "eff-digital-footprint",
+    "publisher": "Electronic Frontier Foundation",
+    "title": "How to Manage Your Digital Footprint",
+    "url": "https://ssd.eff.org/module/how-to-manage-your-digital-footprint"
+  },
+  {
+    "id": "eff-ssd",
+    "publisher": "Electronic Frontier Foundation",
+    "title": "Surveillance Self-Defense",
+    "url": "https://ssd.eff.org/"
+  },
+  {
+    "id": "ftc-public-wifi",
+    "publisher": "Federal Trade Commission",
+    "title": "Are Public Wi-Fi Networks Safe?",
+    "url": "https://consumer.ftc.gov/are-public-wi-fi-networks-safe-what-you-need-know"
+  },
+  {
+    "id": "nist-authentication",
+    "publisher": "NIST",
+    "title": "Digital Identity Guidelines: Authentication",
+    "url": "https://pages.nist.gov/800-63-4/sp800-63b.html"
+  },
+  {
+    "id": "cisa-secure-our-world",
+    "publisher": "CISA",
+    "title": "Secure Our World",
+    "url": "https://www.cisa.gov/secure-our-world"
+  },
+  {
+    "id": "ncsc-high-risk-individuals",
+    "publisher": "UK National Cyber Security Centre",
+    "title": "Protecting Your Accounts and Devices",
+    "url": "https://www.ncsc.gov.uk/collection/defending-democracy/guidance-for-high-risk-individuals"
+  },
+  {
+    "id": "ico-social-media",
+    "publisher": "ICO",
+    "title": "Online Safety and Social Networking",
+    "url": "https://ico.org.uk/for-the-public/online/social-networking/"
+  },
+  {
+    "id": "eff-encryption",
+    "publisher": "Electronic Frontier Foundation",
+    "title": "What Should I Know About Encryption?",
+    "url": "https://ssd.eff.org/module/what-should-i-know-about-encryption"
+  },
+  {
+    "id": "eff-vpn",
+    "publisher": "Electronic Frontier Foundation",
+    "title": "Choosing the VPN That's Right for You",
+    "url": "https://ssd.eff.org/ps/module/choisir-le-rpv-qui-vous-convient"
+  }
+]

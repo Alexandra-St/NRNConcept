@@ -1,0 +1,79 @@
+.privacy-notice {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    width: min(100%, 42rem);
+    margin: 0 0 var(--space-5);
+    padding: 1.75rem 2rem 1.75rem 2.25rem;
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    border-radius: 0 1.25rem 0 0;
+}
+
+.privacy-notice ::deep .privacy-icon {
+    width: 1.65rem;
+    height: 1.65rem;
+    color: var(--color-text-muted);
+    --nrn-icon-accent: var(--color-brand-orange);
+}
+
+.privacy-notice p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.privacy-notice strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.privacy-node {
+    position: absolute;
+    z-index: 1;
+    width: .55rem;
+    height: .55rem;
+    background: var(--color-brand-orange);
+    border-radius: 50%;
+}
+
+.privacy-node-start {
+    top: -.3rem;
+    left: -.3rem;
+}
+
+.privacy-node-start::after {
+    position: absolute;
+    top: .5rem;
+    left: calc(50% - .5px);
+    width: 1px;
+    height: 4.25rem;
+    content: "";
+    background: var(--color-border);
+}
+
+.privacy-node-end {
+    right: -.3rem;
+    bottom: -.3rem;
+}
+
+@media (max-width: 640px) {
+    .privacy-notice {
+        grid-template-columns: 1.5rem minmax(0, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem 1.25rem;
+        border-radius: 0 1rem 0 0;
+    }
+
+    .privacy-notice ::deep .privacy-icon {
+        width: 1.4rem;
+        height: 1.4rem;
+    }
+
+    .privacy-node-start::after {
+        height: 3.5rem;
+    }
+}

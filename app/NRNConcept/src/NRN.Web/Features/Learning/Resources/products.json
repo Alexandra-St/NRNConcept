@@ -1,0 +1,8 @@
+[
+  {
+    "id": "virtual-number",
+    "nameKey": "learning.product.virtualNumber.name",
+    "benefitKey": "learning.product.virtualNumber.benefit",
+    "limitationKey": "learning.product.virtualNumber.limitation"
+  }
+]

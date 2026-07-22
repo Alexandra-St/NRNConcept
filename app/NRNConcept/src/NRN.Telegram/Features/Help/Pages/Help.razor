@@ -1,0 +1,77 @@
+@page "/app/help"
+@inject IOptions<TelegramOptions> TelegramOptions
+@inject IJSRuntime JS
+@inject MiniAppLocalizer T
+@using NRN.Telegram.Features.Help
+
+<PageTitle>@T["help.title"]</PageTitle>
+
+<header class="standard-header">
+    <p class="eyebrow">@T["help.eyebrow"]</p>
+    <h1>@T["help.heading"]</h1>
+    <p>@T["help.description"]</p>
+</header>
+
+<section class="faq-list" aria-labelledby="faq-title">
+    <h2 id="faq-title">@T["help.faq"]</h2>
+    <details>
+        <summary>@T["help.connectQ"]</summary>
+        <p>@T["help.connectA"]</p>
+    </details>
+    <details>
+        <summary>@T["help.statusQ"]</summary>
+        <p>@T["help.statusA"]</p>
+    </details>
+    <details>
+        <summary>@T["help.cancelQ"]</summary>
+        <p>@T["help.cancelA"]</p>
+    </details>
+</section>
+
+<section class="support-card">
+    <AppIcon Name="help" />
+    <div>
+        <h2>@T["help.need"]</h2>
+        <p>@T["help.supportText"]</p>
+    </div>
+    <div class="support-actions">
+        <button type="button" disabled="@(Support is null)" @onclick="OpenSupport">
+            <span>@T["help.openSupport"]</span>
+            <small>@DestinationLabel(Support)</small>
+        </button>
+        <button type="button" disabled="@(Feedback is null)" @onclick="OpenFeedback">
+            <span>@T["help.feedback"]</span>
+            <small>@DestinationLabel(Feedback)</small>
+        </button>
+    </div>
+    @if (Support is null || Feedback is null)
+    {
+        <p class="support-configuration" role="status">@T["help.linksPending"]</p>
+    }
+</section>
+
+@code {
+    private SupportLink? Support => SupportLink.Create(TelegramOptions.Value.SupportUrl);
+    private SupportLink? Feedback => SupportLink.Create(TelegramOptions.Value.FeedbackUrl);
+
+    private Task OpenSupport() => OpenSupportLink(Support);
+    private Task OpenFeedback() => OpenSupportLink(Feedback);
+
+    private string DestinationLabel(SupportLink? link) => link?.Kind switch
+    {
+        SupportLinkKind.Telegram => T["help.opensTelegram"],
+        SupportLinkKind.External => T["help.opensBrowser"],
+        _ => T["help.notConfigured"]
+    };
+
+    private async Task OpenSupportLink(SupportLink? link)
+    {
+        if (link is not null)
+        {
+            await JS.InvokeVoidAsync(
+                "nrnTelegram.openLink",
+                link.Url.AbsoluteUri,
+                link.Kind == SupportLinkKind.Telegram);
+        }
+    }
+}

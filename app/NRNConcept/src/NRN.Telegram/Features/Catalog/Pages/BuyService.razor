@@ -1,0 +1,111 @@
+@page "/app/catalog"
+@inject UserServicesState UserServices
+@inject TelegramSessionState TelegramSession
+@inject MiniAppLocalizer T
+@inject IOptions<NarayanaPublicCatalogOptions> PublicCatalog
+@inject IJSRuntime JS
+@using NRN.Telegram.Features.Catalog
+@implements IDisposable
+
+<PageTitle>@T["catalog.title"]</PageTitle>
+
+<header class="standard-header">
+    <p class="eyebrow">@T["catalog.eyebrow"]</p>
+    <h1>@T["catalog.heading"]</h1>
+    <p>@T["catalog.description"]</p>
+</header>
+
+<section class="catalog-source" aria-label="@T["catalog.sourceLabel"]">
+    <span>@T.Format("catalog.source", PublicCatalog.Value.VerifiedOn.ToString("dd.MM.yyyy"))</span>
+    <button type="button" @onclick="OpenOfficialPrices">@T["catalog.checkPrice"] ↗</button>
+</section>
+
+@if (UserServices.Status == UserServicesStatus.Ready)
+{
+    @if (UserServices.HasRefreshError)
+    {
+        <div class="action-notice" role="alert">
+            <span>@T["catalog.refreshError"]</span>
+            <button type="button" disabled="@UserServices.IsRefreshing" @onclick="RetryAsync">@T["common.retry"]</button>
+        </div>
+    }
+    @if (UserServices.ProductOffers.Count == 0)
+    {
+        <ContentState Title="@T["catalog.emptyTitle"]"
+                      Message="@T["catalog.emptyDescription"]"
+                      ActionLabel="@T["common.retry"]"
+                      Busy="@UserServices.IsRefreshing"
+                      Action="RetryAsync" />
+    }
+    else
+    {
+    <div class="card-list" aria-busy="@UserServices.IsRefreshing">
+        @foreach (var offer in UserServices.ProductOffers)
+        {
+            <a class="content-card offer-card offer-card--@offer.Accent" href="app/catalog/@offer.Id">
+                @if (offer.IsPopular)
+                {
+                    <span class="popular-label">@T["catalog.popular"]</span>
+                }
+                <span class="offer-flag">@offer.FlagEmoji</span>
+                <h2>@T.ProductName(offer.Id, offer.Name)</h2>
+                <p>@T.ProductDescription(offer.Id, offer.Description)</p>
+                <div class="offer-footer">
+                    <span>
+                        <small>@T[PriceLabelKey(offer)]</small>
+                        <strong>@PrimaryPrice(offer)</strong>
+                    </span>
+                    <small class="offer-price-note">@T[$"product.{offer.Id}.priceNote"]</small>
+                    <span class="offer-arrow">→</span>
+                </div>
+            </a>
+        }
+    </div>
+    }
+}
+else if (UserServices.Status == UserServicesStatus.Error)
+{
+    <ContentState Kind="error" Title="@T["catalog.errorTitle"]" Message="@LoadErrorMessage" ActionLabel="@T["common.retry"]" Action="RetryAsync" />
+}
+else if (UserServices.Status == UserServicesStatus.Unauthorized)
+{
+    <div class="state-card">@T["catalog.unauthorized"]</div>
+}
+else
+{
+    <LoadingState Label="@T["catalog.loading"]" Rows="3" />
+}
+
+@code {
+    protected override void OnInitialized() => UserServices.Changed += HandleStateChanged;
+
+    private void HandleStateChanged() => InvokeAsync(StateHasChanged);
+    private string LoadErrorMessage => T[UserServices.LoadErrorKey ?? "catalog.error"];
+
+    private Task RetryAsync() => UserServices.LoadAsync(TelegramSession);
+
+    private static string Money(decimal amount, string currency)
+    {
+        var symbol = currency == "EUR" ? "€" : currency + " ";
+        return $"{symbol}{amount:0.##}";
+    }
+
+    private string PrimaryPrice(ProductOfferDto offer)
+    {
+        var monthly = offer.ConnectionPrice == 0 && offer.MonthlyPrice > 0;
+        var amount = monthly ? offer.MonthlyPrice : offer.ConnectionPrice;
+        var isFrom = monthly ? offer.MonthlyPriceIsFrom : offer.ConnectionPriceIsFrom;
+        var suffix = monthly ? $"/{T["common.month"]}" : string.Empty;
+        return $"{(isFrom ? T["catalog.from"] + " " : string.Empty)}{Money(amount, offer.Currency)}{suffix}";
+    }
+
+    private static string PriceLabelKey(ProductOfferDto offer) =>
+        offer.ConnectionPrice == 0 && offer.MonthlyPrice > 0
+            ? "catalog.monthly"
+            : "catalog.oneTime";
+
+    private async Task OpenOfficialPrices() =>
+        await JS.InvokeVoidAsync("nrnTelegram.openLink", PublicCatalog.Value.PricesUrl, false);
+
+    public void Dispose() => UserServices.Changed -= HandleStateChanged;
+}

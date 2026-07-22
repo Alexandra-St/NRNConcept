@@ -1,0 +1,71 @@
+flowchart TD
+
+A[Telegram Mini App]
+
+subgraph TMA[Telegram Mini App Screens]
+  B[Dashboard]
+  C[My Services]
+  D[Buy Service]
+  X[Service Details]
+  E[Prices]
+  F[Help]
+  G[Settings]
+  H[Learn / Ecosystem Entry]
+end
+
+A --> B
+B --> C
+B --> D
+D --> X
+B --> E
+B --> F
+B --> G
+B --> H
+
+H --> I[Privacy Lab]
+
+subgraph LAB[Privacy Lab Screens]
+  J[Home]
+  K[Topic]
+  L[Categories]
+  M[Glossary]
+  N[About]
+end
+
+I --> J
+J --> K
+J --> L
+J --> M
+J --> N
+L --> K
+K --> K
+
+J --> O[Interactive Simulations]
+J --> P[Solution Finder]
+K --> O
+K --> P
+
+subgraph SIM[Interactive Simulations Screens]
+  Q[Simulations List]
+  R[Simulation]
+end
+
+O --> Q
+Q --> R
+R --> Q
+R --> K
+R --> P
+
+subgraph FINDER[Solution Finder Screens]
+  S[Start]
+  T[Questionnaire]
+  U[Results]
+end
+
+P --> S
+S --> T
+T --> U
+
+U --> W[Narayana Products]
+X --> W
+C --> W

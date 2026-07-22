@@ -1,0 +1,32 @@
+.language-options {
+    display: grid;
+    gap: .75rem;
+}
+
+.language-options button {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .8rem;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-medium);
+    background: var(--app-surface);
+    color: var(--app-text);
+    text-align: left;
+}
+
+.language-options button.selected {
+    border-color: var(--app-accent);
+    box-shadow: inset 0 0 0 1px var(--app-accent);
+}
+
+.language-options span {
+    font-size: 1.35rem;
+}
+
+.language-options small {
+    color: var(--app-muted);
+    font-weight: 800;
+}

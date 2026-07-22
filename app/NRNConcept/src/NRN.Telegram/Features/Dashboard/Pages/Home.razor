@@ -1,0 +1,130 @@
+@page "/app"
+@inject TelegramSessionState TelegramSession
+@inject UserServicesState UserServices
+@inject MiniAppLocalizer T
+@implements IDisposable
+
+<PageTitle>@T["home.title"]</PageTitle>
+
+<header class="page-header">
+    <div>
+        <p class="eyebrow">NRN</p>
+        <h1>@Greeting</h1>
+    </div>
+    <a class="profile-mark" href="app/account" aria-label="@T["home.account"]">@ProfileInitial</a>
+</header>
+
+<section class="protection-card" aria-labelledby="services-summary-title">
+    <div class="protection-card__icon"><AppIcon Name="services" /></div>
+    <div>
+        <p class="status-label">@T["home.connected"]</p>
+        <h2 id="services-summary-title">@ServicesSummaryTitle</h2>
+        @if (UserServices.Status == UserServicesStatus.Ready)
+        {
+            <p>@ServicesSummary</p>
+        }
+        else
+        {
+            <p>@T["home.checkingConnected"]</p>
+        }
+    </div>
+</section>
+
+<section class="section-block" aria-labelledby="services-title">
+    <div class="section-heading">
+        <h2 id="services-title">@T["home.myServices"]</h2>
+        <a href="app/services">@T["home.all"]</a>
+    </div>
+    @if (UserServices.Status == UserServicesStatus.Ready && UserServices.HasRefreshError)
+    {
+        <div class="action-notice" role="alert">
+            <span>@T["services.refreshError"]</span>
+            <button type="button" disabled="@UserServices.IsRefreshing" @onclick="RetryAsync">@T["common.retry"]</button>
+        </div>
+    }
+    @if (UserServices.Status == UserServicesStatus.Ready)
+    {
+        @if (Services.Count == 0)
+        {
+            <ContentState Title="@T["services.emptyTitle"]" Message="@T["home.empty"]" ActionLabel="@T["services.choose"]" ActionHref="app/catalog" />
+        }
+        else
+        {
+            <div class="service-stack">
+                @foreach (var service in Services)
+                {
+                    <a class="compact-card" href="app/services">
+                        <span class="compact-card__mark"></span>
+                        <span class="compact-card__content">
+                            <strong>@T.ProductName(service.Id, service.Name)</strong>
+                            <small>@T.ServiceStatus(service.Status) · @T.ServiceStatusDetail(service.StatusDetail)</small>
+                        </span>
+                        <AppIcon Name="arrow" Class="compact-card__arrow" />
+                    </a>
+                }
+            </div>
+        }
+    }
+    else if (UserServices.Status == UserServicesStatus.Unauthorized)
+    {
+        <div class="inline-state">@T["home.unauthorized"]</div>
+    }
+    else if (UserServices.Status == UserServicesStatus.Error)
+    {
+        <ContentState Kind="error" Title="@T["services.errorTitle"]" Message="@LoadErrorMessage" ActionLabel="@T["common.retry"]" Action="RetryAsync" />
+    }
+    else
+    {
+        <LoadingState Label="@T["common.loading"]" Rows="1" />
+    }
+</section>
+
+<a class="learn-card" href="app/learn">
+    <span class="eyebrow">PRIVACY LAB</span>
+    <strong>@T["home.labTitle"]</strong>
+    <span>@T["home.labDescription"]</span>
+    <span class="learn-card__action">@T["home.labAction"]</span>
+</a>
+
+@code {
+    private IReadOnlyList<ConnectedServiceDto> Services => UserServices.ConnectedServices;
+    private int ActiveServices => Services.Count(service => service.Status == ConnectedServiceStatus.Active);
+    private string ServicesSummaryTitle => UserServices.Status switch
+    {
+        UserServicesStatus.Ready when Services.Count == 0 => T["home.summary.none"],
+        UserServicesStatus.Ready when ActiveServices == Services.Count => T["home.summary.working"],
+        UserServicesStatus.Ready => T["home.summary.check"],
+        UserServicesStatus.Unauthorized => T["home.summary.telegram"],
+        UserServicesStatus.Error => T["home.summary.unavailable"],
+        _ => T["home.summary.checking"]
+    };
+    private string ServicesSummary => Services.Count switch
+    {
+        0 => T["home.summary.openCatalog"],
+        1 => ActiveServices == 1 ? T["home.summary.oneActive"] : T["home.summary.oneAttention"],
+        _ => T.Format("home.summary.many", ActiveServices, Services.Count)
+    };
+    private string Greeting => TelegramSession.User is { FirstName.Length: > 0 } user
+        ? T.Format("home.greetingNamed", user.FirstName)
+        : T["home.greeting"];
+    private string ProfileInitial => TelegramSession.User is { FirstName.Length: > 0 } user
+        ? user.FirstName[..1].ToUpperInvariant()
+        : "N";
+
+    protected override void OnInitialized()
+    {
+        TelegramSession.Changed += HandleStateChanged;
+        UserServices.Changed += HandleStateChanged;
+    }
+
+    private void HandleStateChanged() => InvokeAsync(StateHasChanged);
+    private string LoadErrorMessage => T[UserServices.LoadErrorKey ?? "home.error"];
+
+    private Task RetryAsync() => UserServices.LoadAsync(TelegramSession);
+
+    public void Dispose()
+    {
+        TelegramSession.Changed -= HandleStateChanged;
+        UserServices.Changed -= HandleStateChanged;
+    }
+}

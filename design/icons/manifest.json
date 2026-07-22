@@ -1,0 +1,12 @@
+{
+  "navigation": ["home", "overview", "navigation", "search", "favorite", "menu", "book"],
+  "everyday": ["work", "house", "travel", "shopping", "finance", "calendar"],
+  "control": ["controls", "select", "timer", "lock", "settings", "users"],
+  "privacy": ["privacy", "visibility", "protection", "fingerprint", "incognito", "delete"],
+  "network": ["wifi", "internet", "mobile-network", "hotspot", "vpn", "connection"],
+  "devices": ["device", "laptop", "tablet", "cloud", "files", "storage"],
+  "actions": ["add", "edit", "copy", "share", "download", "send"],
+  "services": ["mail", "messages", "upload", "payment", "api", "integrations"],
+  "status": ["success", "information", "warning", "error", "waiting", "pause"],
+  "more": ["filter", "sort", "scanner", "statistics", "configure", "more"]
+}

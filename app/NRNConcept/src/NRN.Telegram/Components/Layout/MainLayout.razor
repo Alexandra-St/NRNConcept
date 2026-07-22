@@ -1,0 +1,60 @@
+@inherits LayoutComponentBase
+@inject TelegramSessionState TelegramSession
+@inject UserServicesState UserServices
+@inject MiniAppPreferencesState Preferences
+@inject MiniAppLocalizer T
+@inject IJSRuntime JS
+@implements IDisposable
+
+<div @key="Preferences.Language" class="app-shell">
+    <a class="skip-link" href="#main-content">@T["layout.skip"]</a>
+    @if (TelegramSession.Status == TelegramSessionStatus.Rejected)
+    {
+        <div class="session-warning" role="alert">
+            @T["layout.sessionRejected"]
+        </div>
+    }
+    <main id="main-content" class="app-content">
+        @Body
+    </main>
+    <BottomNavigation />
+</div>
+
+<div id="blazor-error-ui" data-nosnippet>
+    @T["layout.error"]
+    <a href="." class="reload">@T["layout.reload"]</a>
+    <button class="dismiss" type="button" aria-label="@T["layout.dismiss"]">×</button>
+</div>
+
+@code {
+    protected override void OnInitialized() => Preferences.Changed += HandleLanguageChanged;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        try
+        {
+            var initData = await JS.InvokeAsync<string?>("nrnTelegram.getInitData");
+            TelegramSession.Initialize(initData);
+            var savedLanguage = await JS.InvokeAsync<string?>("nrnTelegram.getSavedLanguage");
+            Preferences.Initialize(savedLanguage, TelegramSession.User?.LanguageCode);
+            await JS.InvokeVoidAsync("nrnTelegram.setLanguage", Preferences.Language);
+            await UserServices.LoadAsync(TelegramSession);
+        }
+        catch (JSException)
+        {
+            TelegramSession.UsePreviewMode();
+            await UserServices.LoadAsync(TelegramSession);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleLanguageChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Preferences.Changed -= HandleLanguageChanged;
+}

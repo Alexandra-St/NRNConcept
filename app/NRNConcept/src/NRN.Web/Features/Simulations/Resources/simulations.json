@@ -1,0 +1,580 @@
+[
+  {
+    "slug": "public-wifi",
+    "durationMinutes": 4,
+    "status": "Available",
+    "titleKey": "simulations.publicWifi.title",
+    "cardQuestionKey": "simulations.publicWifi.cardQuestion",
+    "introTitleKey": "simulations.publicWifi.intro.title",
+    "introBodyKey": "simulations.publicWifi.intro.body",
+    "privacyNoteKey": "simulations.publicWifi.intro.privacyNote",
+    "completionKey": "simulations.publicWifi.completion",
+    "scenes": [
+      {
+        "id": "network-choice",
+        "order": 1,
+        "titleKey": "simulations.publicWifi.scene.network.title",
+        "promptKey": "simulations.publicWifi.scene.network.prompt",
+        "contentKeys": [
+          "simulations.publicWifi.scene.network.option.strong",
+          "simulations.publicWifi.scene.network.option.official",
+          "simulations.publicWifi.scene.network.option.free5g"
+        ],
+        "choices": [
+          {
+            "id": "strongest-signal",
+            "labelKey": "simulations.publicWifi.scene.network.choice.strongest",
+            "nextSceneId": "access-page",
+            "outcomeIds": ["unverified-network"]
+          },
+          {
+            "id": "official-looking-name",
+            "labelKey": "simulations.publicWifi.scene.network.choice.officialLooking",
+            "nextSceneId": "access-page",
+            "outcomeIds": ["trusted-name-only"]
+          },
+          {
+            "id": "verify-network-name",
+            "labelKey": "simulations.publicWifi.scene.network.choice.verify",
+            "nextSceneId": "access-page",
+            "outcomeIds": ["verified-network-name"]
+          }
+        ]
+      },
+      {
+        "id": "access-page",
+        "order": 2,
+        "titleKey": "simulations.publicWifi.scene.access.title",
+        "promptKey": "simulations.publicWifi.scene.access.prompt",
+        "contentKeys": [
+          "simulations.publicWifi.scene.access.url",
+          "simulations.publicWifi.scene.access.offer",
+          "simulations.publicWifi.scene.access.request",
+          "simulations.publicWifi.scene.access.terms"
+        ],
+        "choices": [
+          {
+            "id": "primary-contacts",
+            "labelKey": "simulations.publicWifi.scene.access.choice.primary",
+            "nextSceneId": "certificate-warning",
+            "outcomeIds": ["shared-primary-contacts"]
+          },
+          {
+            "id": "secondary-contacts",
+            "labelKey": "simulations.publicWifi.scene.access.choice.secondary",
+            "nextSceneId": "certificate-warning",
+            "outcomeIds": ["shared-secondary-contact"]
+          },
+          {
+            "id": "continue-as-guest",
+            "labelKey": "simulations.publicWifi.scene.access.choice.guest",
+            "nextSceneId": "certificate-warning",
+            "outcomeIds": ["minimized-data"]
+          }
+        ]
+      },
+      {
+        "id": "certificate-warning",
+        "order": 3,
+        "titleKey": "simulations.publicWifi.scene.certificate.title",
+        "promptKey": "simulations.publicWifi.scene.certificate.prompt",
+        "contentKeys": [
+          "simulations.publicWifi.scene.certificate.warning",
+          "simulations.publicWifi.scene.certificate.time"
+        ],
+        "choices": [
+          {
+            "id": "ignore-warning",
+            "labelKey": "simulations.publicWifi.scene.certificate.choice.continue",
+            "nextSceneId": "email-login",
+            "outcomeIds": ["ignored-certificate-warning"]
+          },
+          {
+            "id": "use-vpn",
+            "labelKey": "simulations.publicWifi.scene.certificate.choice.vpn",
+            "nextSceneId": "email-login",
+            "outcomeIds": ["vpn-trust"]
+          },
+          {
+            "id": "use-mobile-data",
+            "labelKey": "simulations.publicWifi.scene.certificate.choice.mobile",
+            "nextSceneId": "email-login",
+            "outcomeIds": ["left-untrusted-connection"]
+          }
+        ]
+      },
+      {
+        "id": "email-login",
+        "order": 4,
+        "titleKey": "simulations.publicWifi.scene.login.title",
+        "promptKey": "simulations.publicWifi.scene.login.prompt",
+        "contentKeys": [
+          "simulations.publicWifi.scene.login.url",
+          "simulations.publicWifi.scene.login.message",
+          "simulations.publicWifi.scene.login.passwordManager",
+          "simulations.publicWifi.scene.login.safe.title",
+          "simulations.publicWifi.scene.login.safe.prompt",
+          "simulations.publicWifi.scene.login.safe.status"
+        ],
+        "choices": [
+          {
+            "id": "enter-credentials",
+            "labelKey": "simulations.publicWifi.scene.login.choice.enter",
+            "nextSceneId": null,
+            "outcomeIds": ["credentials-exposed"]
+          },
+          {
+            "id": "check-domain",
+            "labelKey": "simulations.publicWifi.scene.login.choice.domain",
+            "nextSceneId": null,
+            "outcomeIds": ["checked-domain"]
+          },
+          {
+            "id": "use-mail-app",
+            "labelKey": "simulations.publicWifi.scene.login.choice.app",
+            "nextSceneId": null,
+            "outcomeIds": ["used-trusted-app"]
+          }
+        ]
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "unverified-network",
+        "kind": "Risk",
+        "titleKey": "simulations.publicWifi.outcome.unverifiedNetwork.title",
+        "explanationKey": "simulations.publicWifi.outcome.unverifiedNetwork.explanation",
+        "impactKey": "simulations.publicWifi.outcome.unverifiedNetwork.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.unverifiedNetwork.alternative"
+      },
+      {
+        "id": "trusted-name-only",
+        "kind": "Risk",
+        "titleKey": "simulations.publicWifi.outcome.trustedName.title",
+        "explanationKey": "simulations.publicWifi.outcome.trustedName.explanation",
+        "impactKey": "simulations.publicWifi.outcome.trustedName.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.trustedName.alternative"
+      },
+      {
+        "id": "verified-network-name",
+        "kind": "SafeAction",
+        "titleKey": "simulations.publicWifi.outcome.verifiedName.title",
+        "explanationKey": "simulations.publicWifi.outcome.verifiedName.explanation",
+        "impactKey": "simulations.publicWifi.outcome.verifiedName.impact"
+      },
+      {
+        "id": "shared-primary-contacts",
+        "kind": "Risk",
+        "titleKey": "simulations.publicWifi.outcome.primaryContacts.title",
+        "explanationKey": "simulations.publicWifi.outcome.primaryContacts.explanation",
+        "impactKey": "simulations.publicWifi.outcome.primaryContacts.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.primaryContacts.alternative"
+      },
+      {
+        "id": "shared-secondary-contact",
+        "kind": "Risk",
+        "titleKey": "simulations.publicWifi.outcome.secondaryContact.title",
+        "explanationKey": "simulations.publicWifi.outcome.secondaryContact.explanation",
+        "impactKey": "simulations.publicWifi.outcome.secondaryContact.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.secondaryContact.alternative"
+      },
+      {
+        "id": "minimized-data",
+        "kind": "SafeAction",
+        "titleKey": "simulations.publicWifi.outcome.minimizedData.title",
+        "explanationKey": "simulations.publicWifi.outcome.minimizedData.explanation",
+        "impactKey": "simulations.publicWifi.outcome.minimizedData.impact"
+      },
+      {
+        "id": "ignored-certificate-warning",
+        "kind": "CriticalRisk",
+        "titleKey": "simulations.publicWifi.outcome.ignoredCertificate.title",
+        "explanationKey": "simulations.publicWifi.outcome.ignoredCertificate.explanation",
+        "impactKey": "simulations.publicWifi.outcome.ignoredCertificate.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.ignoredCertificate.alternative"
+      },
+      {
+        "id": "vpn-trust",
+        "kind": "Risk",
+        "titleKey": "simulations.publicWifi.outcome.vpnTrust.title",
+        "explanationKey": "simulations.publicWifi.outcome.vpnTrust.explanation",
+        "impactKey": "simulations.publicWifi.outcome.vpnTrust.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.vpnTrust.alternative"
+      },
+      {
+        "id": "left-untrusted-connection",
+        "kind": "SafeAction",
+        "titleKey": "simulations.publicWifi.outcome.leftConnection.title",
+        "explanationKey": "simulations.publicWifi.outcome.leftConnection.explanation",
+        "impactKey": "simulations.publicWifi.outcome.leftConnection.impact"
+      },
+      {
+        "id": "credentials-exposed",
+        "kind": "CriticalRisk",
+        "titleKey": "simulations.publicWifi.outcome.credentials.title",
+        "explanationKey": "simulations.publicWifi.outcome.credentials.explanation",
+        "impactKey": "simulations.publicWifi.outcome.credentials.impact",
+        "alternativeKey": "simulations.publicWifi.outcome.credentials.alternative"
+      },
+      {
+        "id": "checked-domain",
+        "kind": "SafeAction",
+        "titleKey": "simulations.publicWifi.outcome.checkedDomain.title",
+        "explanationKey": "simulations.publicWifi.outcome.checkedDomain.explanation",
+        "impactKey": "simulations.publicWifi.outcome.checkedDomain.impact"
+      },
+      {
+        "id": "used-trusted-app",
+        "kind": "SafeAction",
+        "titleKey": "simulations.publicWifi.outcome.trustedApp.title",
+        "explanationKey": "simulations.publicWifi.outcome.trustedApp.explanation",
+        "impactKey": "simulations.publicWifi.outcome.trustedApp.impact"
+      }
+    ],
+    "result": {
+      "safeTitleKey": "simulations.publicWifi.result.safe.title",
+      "riskTitleKey": "simulations.publicWifi.result.risk.title",
+      "criticalTitleKey": "simulations.publicWifi.result.critical.title",
+      "subtitleKey": "simulations.publicWifi.result.subtitle"
+    },
+    "keyTakeaways": [
+      {
+        "id": "verify-network",
+        "titleKey": "simulations.publicWifi.takeaway.verify.title",
+        "descriptionKey": "simulations.publicWifi.takeaway.verify.description"
+      },
+      {
+        "id": "respect-warnings",
+        "titleKey": "simulations.publicWifi.takeaway.warning.title",
+        "descriptionKey": "simulations.publicWifi.takeaway.warning.description"
+      },
+      {
+        "id": "pause-before-password",
+        "titleKey": "simulations.publicWifi.takeaway.password.title",
+        "descriptionKey": "simulations.publicWifi.takeaway.password.description"
+      }
+    ],
+    "relatedTopic": {
+      "titleKey": "simulations.publicWifi.relatedTopic.title",
+      "descriptionKey": "simulations.publicWifi.relatedTopic.description",
+      "url": "/learn/everyday-situations/public-wifi"
+    },
+    "relatedProduct": {
+      "titleKey": "simulations.publicWifi.relatedProduct.title",
+      "descriptionKey": "simulations.publicWifi.relatedProduct.description",
+      "url": "/finder/product/esim"
+    },
+    "alternativeExit": {
+      "titleKey": "simulations.publicWifi.alternativeExit.title",
+      "descriptionKey": "simulations.publicWifi.alternativeExit.description",
+      "url": "/finder"
+    },
+    "uiLocalizationKeys": [
+      "simulations.publicWifi.ui.airport",
+      "simulations.publicWifi.ui.wifiSettings",
+      "simulations.publicWifi.ui.email",
+      "simulations.publicWifi.ui.phone",
+      "simulations.publicWifi.ui.password",
+      "simulations.publicWifi.ui.browser",
+      "simulations.publicWifi.ui.mail",
+      "simulations.publicWifi.ui.booking",
+      "simulations.publicWifi.ui.connected",
+      "simulations.publicWifi.ui.noRealData"
+    ]
+  },
+  {
+    "slug": "ordinary-day",
+    "durationMinutes": 4,
+    "status": "Available",
+    "titleKey": "simulations.ordinaryDay.title",
+    "cardQuestionKey": "simulations.ordinaryDay.cardQuestion",
+    "introTitleKey": "simulations.ordinaryDay.intro.title",
+    "introBodyKey": "simulations.ordinaryDay.intro.body",
+    "privacyNoteKey": "simulations.ordinaryDay.intro.privacyNote",
+    "completionKey": "simulations.ordinaryDay.completion",
+    "scenes": [
+      {
+        "id": "weather-permission",
+        "order": 1,
+        "titleKey": "simulations.ordinaryDay.scene.weather.title",
+        "promptKey": "simulations.ordinaryDay.scene.weather.prompt",
+        "contentKeys": [
+          "simulations.ordinaryDay.scene.weather.city",
+          "simulations.ordinaryDay.scene.weather.temperature",
+          "simulations.ordinaryDay.scene.weather.permission"
+        ],
+        "choices": [
+          {
+            "id": "allow-once",
+            "labelKey": "simulations.ordinaryDay.scene.weather.choice.once",
+            "nextSceneId": "cafe-search",
+            "outcomeIds": ["location-once"]
+          },
+          {
+            "id": "allow-always",
+            "labelKey": "simulations.ordinaryDay.scene.weather.choice.always",
+            "nextSceneId": "cafe-search",
+            "outcomeIds": ["location-always"]
+          },
+          {
+            "id": "deny-location",
+            "labelKey": "simulations.ordinaryDay.scene.weather.choice.deny",
+            "nextSceneId": "cafe-search",
+            "outcomeIds": ["location-approximate"]
+          }
+        ]
+      },
+      {
+        "id": "cafe-search",
+        "order": 2,
+        "titleKey": "simulations.ordinaryDay.scene.cafe.title",
+        "promptKey": "simulations.ordinaryDay.scene.cafe.prompt",
+        "contentKeys": [
+          "simulations.ordinaryDay.scene.cafe.search",
+          "simulations.ordinaryDay.scene.cafe.coffee",
+          "simulations.ordinaryDay.scene.cafe.sushi",
+          "simulations.ordinaryDay.scene.cafe.music"
+        ],
+        "choices": [
+          {
+            "id": "open-coffee",
+            "labelKey": "simulations.ordinaryDay.scene.cafe.choice.coffee",
+            "nextSceneId": "social-feed",
+            "outcomeIds": ["coffee-interest"]
+          },
+          {
+            "id": "open-sushi",
+            "labelKey": "simulations.ordinaryDay.scene.cafe.choice.sushi",
+            "nextSceneId": "social-feed",
+            "outcomeIds": ["sushi-interest"]
+          },
+          {
+            "id": "open-music-cafe",
+            "labelKey": "simulations.ordinaryDay.scene.cafe.choice.music",
+            "nextSceneId": "social-feed",
+            "outcomeIds": ["music-cafe-interest"]
+          }
+        ]
+      },
+      {
+        "id": "social-feed",
+        "order": 3,
+        "titleKey": "simulations.ordinaryDay.scene.social.title",
+        "promptKey": "simulations.ordinaryDay.scene.social.prompt",
+        "contentKeys": [
+          "simulations.ordinaryDay.scene.social.music",
+          "simulations.ordinaryDay.scene.social.travel",
+          "simulations.ordinaryDay.scene.social.coffee"
+        ],
+        "choices": [
+          {
+            "id": "like-music",
+            "labelKey": "simulations.ordinaryDay.scene.social.choice.music",
+            "nextSceneId": "ticket-checkout",
+            "outcomeIds": ["music-interest"]
+          },
+          {
+            "id": "open-travel",
+            "labelKey": "simulations.ordinaryDay.scene.social.choice.travel",
+            "nextSceneId": "ticket-checkout",
+            "outcomeIds": ["travel-interest"]
+          },
+          {
+            "id": "watch-coffee",
+            "labelKey": "simulations.ordinaryDay.scene.social.choice.coffee",
+            "nextSceneId": "ticket-checkout",
+            "outcomeIds": ["coffee-content-interest"]
+          }
+        ]
+      },
+      {
+        "id": "ticket-checkout",
+        "order": 4,
+        "titleKey": "simulations.ordinaryDay.scene.tickets.title",
+        "promptKey": "simulations.ordinaryDay.scene.tickets.prompt",
+        "contentKeys": [
+          "simulations.ordinaryDay.scene.tickets.route",
+          "simulations.ordinaryDay.scene.tickets.date",
+          "simulations.ordinaryDay.scene.tickets.price",
+          "simulations.ordinaryDay.scene.tickets.email"
+        ],
+        "choices": [
+          {
+            "id": "use-primary-email",
+            "labelKey": "simulations.ordinaryDay.scene.tickets.choice.primary",
+            "nextSceneId": null,
+            "outcomeIds": ["primary-email"]
+          },
+          {
+            "id": "use-email-alias",
+            "labelKey": "simulations.ordinaryDay.scene.tickets.choice.alias",
+            "nextSceneId": null,
+            "outcomeIds": ["alias-email"]
+          },
+          {
+            "id": "use-social-login",
+            "labelKey": "simulations.ordinaryDay.scene.tickets.choice.social",
+            "nextSceneId": null,
+            "outcomeIds": ["social-login"]
+          }
+        ]
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "location-once",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.locationOnce.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.locationOnce.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.locationOnce.impact"
+      },
+      {
+        "id": "location-always",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.locationAlways.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.locationAlways.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.locationAlways.impact"
+      },
+      {
+        "id": "location-approximate",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.locationApproximate.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.locationApproximate.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.locationApproximate.impact"
+      },
+      {
+        "id": "coffee-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.coffee.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.coffee.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.coffee.impact"
+      },
+      {
+        "id": "sushi-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.sushi.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.sushi.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.sushi.impact"
+      },
+      {
+        "id": "music-cafe-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.musicCafe.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.musicCafe.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.musicCafe.impact"
+      },
+      {
+        "id": "music-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.music.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.music.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.music.impact"
+      },
+      {
+        "id": "travel-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.travel.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.travel.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.travel.impact"
+      },
+      {
+        "id": "coffee-content-interest",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.coffeeContent.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.coffeeContent.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.coffeeContent.impact"
+      },
+      {
+        "id": "primary-email",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.primaryEmail.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.primaryEmail.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.primaryEmail.impact"
+      },
+      {
+        "id": "alias-email",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.aliasEmail.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.aliasEmail.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.aliasEmail.impact"
+      },
+      {
+        "id": "social-login",
+        "kind": "SafeAction",
+        "titleKey": "simulations.ordinaryDay.outcome.socialLogin.title",
+        "explanationKey": "simulations.ordinaryDay.outcome.socialLogin.explanation",
+        "impactKey": "simulations.ordinaryDay.outcome.socialLogin.impact"
+      }
+    ],
+    "result": {
+      "safeTitleKey": "simulations.ordinaryDay.result.title",
+      "riskTitleKey": "simulations.ordinaryDay.result.title",
+      "criticalTitleKey": "simulations.ordinaryDay.result.title",
+      "subtitleKey": "simulations.ordinaryDay.result.subtitle"
+    },
+    "keyTakeaways": [
+      {
+        "id": "small-signals",
+        "titleKey": "simulations.ordinaryDay.takeaway.signals.title",
+        "descriptionKey": "simulations.ordinaryDay.takeaway.signals.description"
+      },
+      {
+        "id": "combined-context",
+        "titleKey": "simulations.ordinaryDay.takeaway.context.title",
+        "descriptionKey": "simulations.ordinaryDay.takeaway.context.description"
+      },
+      {
+        "id": "privacy-control",
+        "titleKey": "simulations.ordinaryDay.takeaway.control.title",
+        "descriptionKey": "simulations.ordinaryDay.takeaway.control.description"
+      }
+    ],
+    "relatedTopic": {
+      "titleKey": "simulations.ordinaryDay.relatedTopic.title",
+      "descriptionKey": "simulations.ordinaryDay.relatedTopic.description",
+      "url": "/learn/foundations/digital-footprint"
+    },
+    "alternativeExit": {
+      "titleKey": "simulations.ordinaryDay.alternativeExit.title",
+      "descriptionKey": "simulations.ordinaryDay.alternativeExit.description",
+      "url": "/learn/foundations/why-should-i-care"
+    },
+    "uiLocalizationKeys": [
+      "simulations.ordinaryDay.ui.saturday",
+      "simulations.ordinaryDay.ui.dayShort",
+      "simulations.ordinaryDay.ui.weather",
+      "simulations.ordinaryDay.ui.maps",
+      "simulations.ordinaryDay.ui.social",
+      "simulations.ordinaryDay.ui.tickets",
+      "simulations.ordinaryDay.ui.search",
+      "simulations.ordinaryDay.ui.permissionTitle",
+      "simulations.ordinaryDay.ui.profile.location",
+      "simulations.ordinaryDay.ui.profile.routine",
+      "simulations.ordinaryDay.ui.profile.interests",
+      "simulations.ordinaryDay.ui.profile.social",
+      "simulations.ordinaryDay.ui.profile.travel",
+      "simulations.ordinaryDay.ui.profile.seller",
+      "simulations.ordinaryDay.ui.profile.device",
+      "simulations.ordinaryDay.ui.profile.browser",
+      "simulations.ordinaryDay.ui.profile.language",
+      "simulations.ordinaryDay.ui.profile.identity",
+      "simulations.ordinaryDay.ui.profile.locationOnce",
+      "simulations.ordinaryDay.ui.profile.locationAlways",
+      "simulations.ordinaryDay.ui.profile.locationApproximate",
+      "simulations.ordinaryDay.ui.profile.routineValue",
+      "simulations.ordinaryDay.ui.profile.travelValue",
+      "simulations.ordinaryDay.ui.profile.sellerValue",
+      "simulations.ordinaryDay.ui.profile.deviceValue",
+      "simulations.ordinaryDay.ui.profile.browserValue",
+      "simulations.ordinaryDay.ui.profile.languageValue",
+      "simulations.ordinaryDay.ui.resultLead",
+      "simulations.ordinaryDay.ui.resultNote",
+      "simulations.ordinaryDay.ui.resultPrivacy",
+      "simulations.ordinaryDay.ui.noRealData",
+      "simulations.ordinaryDay.ui.relatedPrivacy",
+      "simulations.ordinaryDay.ui.relatedPrivacyDescription",
+      "simulations.ordinaryDay.ui.relatedWhy",
+      "simulations.ordinaryDay.ui.relatedWhyDescription"
+    ]
+  }
+]

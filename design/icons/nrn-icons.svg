@@ -1,0 +1,417 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="nrn-home" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3.5 11 12 3l8.5 8"/>
+    <path d="M5.5 9.2V20h5v-5.5h3V20h3.2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M16.7 20h1.8v-7.3"/>
+  </g></symbol>
+<symbol id="nrn-overview" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3.5 4.5h6v6h-6zM14.5 3.5h6v6h-6zM4.5 14.5h6v6h-6zM14.5 14.5h5v5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M19.5 19.5h-5v-3"/>
+  </g></symbol>
+<symbol id="nrn-navigation" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m4 20 4.1-15.2L20 3.5l-4.4 4.7-3.2 3.4-2.9 8.9-2-6.2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m12.4 11.6 3.2-3.4"/>
+  </g></symbol>
+<symbol id="nrn-search" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M15.9 14.8A7 7 0 1 0 5 15.1a7 7 0 0 0 8.5 1.1"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m15.9 14.8 4.6 5.7"/>
+  </g></symbol>
+<symbol id="nrn-favorite" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M5 3.5h13.5v16L12 16l-7 4V3.5h9"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M14 3.5h4.5v4"/>
+  </g></symbol>
+<symbol id="nrn-menu" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 5h13M4 12h16M4 19h11"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M19 5h1M17 19h3"/>
+  </g></symbol>
+<symbol id="nrn-book" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M12 6 8 4H3v14h5l4 2V6Z"/>
+    <path d="m12 6 4-2h5v14h-2.5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18.5 18H16l-4 2"/>
+  </g></symbol>
+<symbol id="nrn-work" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 8h18v11H3zM8 8V5h8v3M3 12h7M14 12h7M10 11h4v3h-4z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18 19h3v-4"/>
+  </g></symbol>
+<symbol id="nrn-house" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m3 11 9-8 4 3.5V4h3v5.2l2 1.8M5.5 9v11h5v-6h3v6h3.5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 20h2v-7.2l2-1.8"/>
+  </g></symbol>
+<symbol id="nrn-travel" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m3 10 18-7-6.5 18-3.2-7.2L3 10zM11.3 13.8 21 3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m14.5 21 1.3-3.7"/>
+  </g></symbol>
+<symbol id="nrn-shopping" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 4h2l2 11h10.5l2.5-8H6M8.5 11H18M10 20h.1M17 20h.1"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17.5 15h-4"/>
+  </g></symbol>
+<symbol id="nrn-finance" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m3 9 9-6 9 6H3zM5 10.5v7M9.5 10.5v7M14.5 10.5v7M19 10.5v7M3 18h14M3 21h18"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 18h4"/>
+  </g></symbol>
+<symbol id="nrn-calendar" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 5.5h16v15H4zM4 9h16M8 3v5M16 3v5M8 13h2M13 13h3M8 17h2M13 17h2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 20.5h3v-4"/>
+  </g></symbol>
+<symbol id="nrn-controls" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 6h5M12 6h9M3 12h10M17 12h4M3 18h3M10 18h11"/>
+    <path d="M8 4v4h4V4H8ZM13 10v4h4v-4h-4ZM6 16v4h4v-4H6Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M20 5v2M3 17v2"/>
+  </g></symbol>
+<symbol id="nrn-select" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M18 18l3-6-2-6-4-3H9L5 5l-2 5 1 6 4 4 6 1"/>
+    <path d="m7.5 11.5 3 3 6-7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m18.5 18.5-3 2.25"/>
+  </g></symbol>
+<symbol id="nrn-timer" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M9 2h6M12 2v3M18 6l2-2M18.5 7.5 21 12l-1 5M16 21H9l-5-4-1-5 2.5-4.5L9 5h6l3.5 2.5Z"/>
+    <path d="M12 8v5l3 2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m19.5 18-2.5 2.5"/>
+  </g></symbol>
+<symbol id="nrn-lock" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M7 10V7l2-4h6l2 4v3M5 10h14l1 2v5M18 21H6l-2-2v-7l1-2"/>
+    <path d="M12 14v3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m20.5 17.5-2.5 2.5"/>
+  </g></symbol>
+<symbol id="nrn-settings" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m10 2 1 2h2l1-2 3 2v3l3 1 1 4-2 2 1 3M17 20l-3-1-2 3-4-1-1-3-3-1-1-4 2-2-1-3 3-3 3 1V2"/>
+    <path d="m10 9-1 3 2 3 3-1 1-3-2-2h-3Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m20.5 17.5-2.75 2.75"/>
+  </g></symbol>
+<symbol id="nrn-users" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m9 3-2 2v4l2 2h4l2-2V5l-2-2H9ZM5 21v-5l3-3h6l4 3v3M16 5h2l2 2v3l-2 2h-2M19 13l2 2v3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18 21h3v-2"/>
+  </g></symbol>
+<symbol id="nrn-privacy" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m19 17-7 5-7-5V6l7-4 7 4v8"/>
+    <path d="M12 6v12"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m19.5 15.5v2l-3 2.25"/>
+  </g></symbol>
+<symbol id="nrn-visibility" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m19 16 3-4-5-6H7l-5 6 5 6h7"/>
+    <path d="m10 9-2 3 2 3h4l2-3-2-3h-4Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m19.5 16.5-2 2H15.5"/>
+  </g></symbol>
+<symbol id="nrn-protection" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m17 17-5 5-5-5-2-5V5l7-3 7 3v7l-.75 2"/>
+    <path d="m8.5 12 2.5 2.5 5-6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m18.5 15.5-1 2-2.25 2.25"/>
+  </g></symbol>
+<symbol id="nrn-fingerprint" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M5 10 6 6l4-3h4l4 3 1 4M4 14v-3M20 14v-3M7 20l-2-4M17 20l2-4M8 15v-5l2-2h4l2 2v5l-2 6M11 20l-1-5v-4l2-1 2 1v4"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m18 18-1 3"/>
+  </g></symbol>
+<symbol id="nrn-incognito" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m7 4 2-2h6l2 2 2 5H5l2-5ZM3 12h5l2 2-2 3H5l-2-2v-3ZM21 12h-5l-2 2 2 3M19 17l2-2v-3M10 14h4"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m19.5 17.5-2.5 1.5"/>
+  </g></symbol>
+<symbol id="nrn-delete" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 6h16M9 3h6l1 3M6 6l1 15h7M18 18l1-12M10 10v7M14 10v7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m17.5 21.5 2-2.5"/>
+  </g></symbol>
+<symbol id="nrn-wifi" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 9.5 6 6.7 10 5.3 14 5.3 18 6.7 21 9.5"/>
+    <path d="M6.5 13 9 11.2 12 10.6 15 11.2 17.5 13"/>
+    <path d="m9.5 16.4 1.2-.8 1.3-.3 1.3.3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m13.3 15.6 1.2.8"/>
+    <path d="M12 19h.01"/>
+  </g></symbol>
+<symbol id="nrn-internet" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m8 3.4 4-1 4 1 3.2 2.4 1.4 3.7-.4 4-2.1 3.4-3.6 2-4 .2-3.7-1.8-2.4-3.2-1-4 1.2-3.8L8 3.4Z"/>
+    <path d="M3.3 10h17.3M5.2 15h12.9M12 2.4l-2 4.2-.7 5.2 1.2 4.8 2 2.5M12 2.4l2 4.2.7 5.2-1.2 4.8"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m12.5 19.1 2-.2M18.1 16.9l-1.1 1"/>
+  </g></symbol>
+<symbol id="nrn-mobile-network" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 19v-3M8 19v-6M12 19v-9M16 19V7M20 15V4"/>
+    <path d="M3 21h14"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 21h3v-3"/>
+    <path d="M20 18v-1"/>
+  </g></symbol>
+<symbol id="nrn-hotspot" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M12 9v11M8.5 20h7L12 9l-3.5 11Z"/>
+    <path d="m8.5 12-2-2.3-.7-3.2.7-3M15.5 12l2-2.3.7-3.2-.7-3"/>
+    <path d="M9.7 7.6 9 6.5l.4-1.7M14.3 7.6l.7-1.1-.4-1.7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M12 3v2"/>
+    <path d="M8.5 20H6.8"/>
+  </g></symbol>
+<symbol id="nrn-vpn" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m12 2.5 7 4v8.2L12 21.5l-7-6.8V6.5l7-4Z"/>
+    <path d="M9 12.5V11l1-1h4l1 1v1.5M9.5 12.5h5v4h-5z"/>
+    <path d="M12 13.7v1.2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m5 14.7 2 2M7 16.7l1.2 1.2"/>
+  </g></symbol>
+<symbol id="nrn-connection" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m8 4 4-2 4 2 3 3.5.7 4.5-1.5 4.2-3.7 2.7-4.5.3-4-2.3L3.8 13 4 8.5 8 4Z"/>
+    <path d="M8 4 6.8 9l3.2 3 5-1 1-7M10 12v7.2M15 11l3.2 5.2M6.8 9 4 8.5"/>
+    <path d="M7.2 8.8h.01M10 12h.01M15 11h.01M16 4h.01"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m4 8.5-.2 4.5M18.2 16.2l-1.5 1.1"/>
+  </g></symbol>
+<symbol id="nrn-device" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M8 3h7l2 2v12l-2 2H8l-2-2V5l2-2Z"/>
+    <path d="M10 5h3M10 17h3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M15 19h-2M6 15v2l2 2"/>
+  </g></symbol>
+<symbol id="nrn-laptop" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M5 4h14l1 1v10H4V5l1-1Z"/>
+    <path d="m4 15-2 4h15M7 18h6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 19h3l2-4h-2"/>
+  </g></symbol>
+<symbol id="nrn-tablet" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M7 3h9l2 2v14l-2 2H7l-2-2V5l2-2Z"/>
+    <path d="M10 18h3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18 15v4l-2 2h-2"/>
+  </g></symbol>
+<symbol id="nrn-cloud" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M6 18 3 16v-4l3-2 1-4 3-2h4l3 3v2l3 2 1 3-2 4H6Z"/>
+    <path d="M8 18h7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M15 18h4l2-4"/>
+  </g></symbol>
+<symbol id="nrn-files" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 6h7l2 2h8v10l-2 2H5l-2-2V6Z"/>
+    <path d="M6 6V3h6l2 2h6v3M7 12h9M7 15h6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18 20h-3M20 15v3l-2 2"/>
+  </g></symbol>
+<symbol id="nrn-storage" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m5 5 7-3 7 3-7 3-7-3Z"/>
+    <path d="M5 5v5l7 3 7-3V5M5 10v5l7 3 5-2.2M12 8v10"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m17 15.8 2-.8v-5M12 18l2 .9"/>
+  </g></symbol>
+<symbol id="nrn-add" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M12 3v6M12 15v6M3 12h6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M15 12h6"/>
+  </g></symbol>
+<symbol id="nrn-edit" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m4 17 1-5L15.5 1.5l5 5L10 17l-5 1Z"/>
+    <path d="m13 4 5 5M5 12l5 5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m4 17-1 4 4-1"/>
+  </g></symbol>
+<symbol id="nrn-copy" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M8 3h9l2 2v3M8 17H5l-2-2V5l2-2"/>
+    <path d="M9 8h10l2 2v9l-2 2H9l-2-2v-9Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 21h2l2-2v-2"/>
+  </g></symbol>
+<symbol id="nrn-share" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M12 16V3M7 8l5-5 5 5"/>
+    <path d="M5 12H3v9h16l2-2v-7h-2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 21h2l2-2v-2"/>
+  </g></symbol>
+<symbol id="nrn-download" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M12 3v12M7 10l5 5 5-5"/>
+    <path d="M3 17v4h14M21 17v2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 21h2l2-2"/>
+  </g></symbol>
+<symbol id="nrn-send" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m2 4 20 8-9 4-4 6-1-7-6-3 6-2 7-3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m2 12 6-2M9 22l4-6"/>
+  </g></symbol>
+<symbol id="nrn-mail" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 5h18v12l-2 2H5l-2-2V5Z"/>
+    <path d="m3 6 9 7 9-7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 19h2l2-2v-2"/>
+  </g></symbol>
+<symbol id="nrn-messages" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M5 4h14l2 2v9l-2 2H9l-5 4v-4l-2-2V7l3-3Z"/>
+    <path d="M7 9h10M7 12h7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m4 17 5-4"/>
+  </g></symbol>
+<symbol id="nrn-upload" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M8 8V5l2-3h4l2 3v3"/>
+    <path d="M5 8h14l2 2v11H5l-2-2v-9l2-2Z"/>
+    <path d="M12 17V11M9 14l3-3 3 3"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 21h4v-4"/>
+  </g></symbol>
+<symbol id="nrn-payment" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 5h16l2 2v10l-2 2H4l-2-2V7l2-2Z"/>
+    <path d="M2 9h20M6 14h6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 19h3l2-2v-3"/>
+  </g></symbol>
+<symbol id="nrn-api" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m8 5-6 7 6 7M16 5l6 7-6 7"/>
+    <path d="m13 5-3 14"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m2 12 3 3M22 12l-3 3"/>
+  </g></symbol>
+<symbol id="nrn-integrations" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M9 3h4v3l2 1 2-2 3 3-2 2 1 2h3v4h-3l-1 2 2 2-3 3-2-2-2 1v2H9v-3l-2-1-2 2-3-3 2-2-1-2H1v-4h3l1-2-2-2 3-3 2 2 1-1V3Z"/>
+    <path d="m9 10 3-1 3 2v3l-3 2-3-2v-4Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m15 21 2 2 3-3"/>
+  </g></symbol>
+<symbol id="nrn-success" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m16 3 4 4 1 5-2 5-4 3H9l-4-3-2-5 2-5 4-4h4"/>
+    <path d="m7.5 11.5 3 3 6-7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m14.5 3 2 .5"/>
+  </g></symbol>
+<symbol id="nrn-information" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m15 3 4 3 2 5-1 5-4 4-5 1-5-2-3-4V9l3-4 4-2h2"/>
+    <path d="M12 10v6h2M11.75 7h.5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m13.5 3 2 .5"/>
+  </g></symbol>
+<symbol id="nrn-warning" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 19 11 3h2l8 16H8"/>
+    <path d="M12 8v5M12 16.5v.5"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M3 19h3"/>
+  </g></symbol>
+<symbol id="nrn-error" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m15 3 4 3 2 5-1 5-4 4-5 1-5-2-3-4V9l3-4 4-2h2"/>
+    <path d="m9 9 6 6M15 9l-6 6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m13.5 3 2 .5"/>
+  </g></symbol>
+<symbol id="nrn-waiting" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m15 3 4 3 2 5-1 5-4 4-5 1-5-2-3-4V9l3-4 4-2h2" stroke-dasharray="4 2"/>
+    <path d="M12 8v5l3 2"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m13.5 3 2 .5"/>
+  </g></symbol>
+<symbol id="nrn-pause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m15 3 4 3 2 5-1 5-4 4-5 1-5-2-3-4V9l3-4 4-2h2"/>
+    <path d="M9.5 8.5v7M14.5 8.5v7"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m13.5 3 2 .5"/>
+  </g></symbol>
+<symbol id="nrn-filter" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M3 4h18l-7 8v6l-4 3v-9L3 4Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m18 7 3-3"/>
+  </g></symbol>
+<symbol id="nrn-sort" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M7 6h13M7 12h10M7 18h7"/>
+    <path d="M3 4v4M1 6h4M3 10v4M1 12h4M3 16v4M1 18h4"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M17 18h3"/>
+  </g></symbol>
+<symbol id="nrn-scanner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M9 3H5L3 5v4M15 3h4l2 2v4M3 15v4l2 2h4M21 15v4l-2 2h-4"/>
+    <path d="M7 15 11 7h2l4 8M9 12h6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M8 18h8"/>
+  </g></symbol>
+<symbol id="nrn-statistics" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M4 19v-5h3v5M10.5 19V8h3v11M17 19V4h3v12"/>
+    <path d="M2 21h16"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="M18 21h3v-3M4 11v-1"/>
+  </g></symbol>
+<symbol id="nrn-configure" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="M14 4a5 5 0 0 1 6-1l-4 4 1 3 3 1 2-2a5 5 0 0 1-7 6L8 22H4l-2-2v-4l7-7a5 5 0 0 1 2-6"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m11 3 3 1"/>
+  </g></symbol>
+<symbol id="nrn-more" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel"><g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m3 10 2-1 2 1v3l-2 1-2-1v-3ZM9 10l2-1 2 1v3l-2 1-2-1v-3Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m15 10 2-1 2 1v3l-2 1-2-1v-3Z"/>
+  </g></symbol>
+</svg>

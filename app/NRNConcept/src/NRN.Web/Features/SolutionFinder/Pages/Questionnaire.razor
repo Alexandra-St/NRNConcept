@@ -1,0 +1,133 @@
+@page "/finder/questions"
+@inject AppState AppState
+@inject SolutionFinderState FinderState
+@inject ISolutionFinderService FinderService
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.SolutionFinder
+@using NRN.Web.Features.SolutionFinder.Models
+@using NRN.Web.Features.SolutionFinder.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(Ru ? "Вопросы — Solution Finder" : "Questions — Solution Finder")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="question-shell motion-enter">
+    <div class="question-topline">
+        <a class="exit-link" href="/finder">← @(Ru ? "Выйти" : "Exit")</a>
+        <span aria-live="polite">@ProgressLabel</span>
+    </div>
+
+    <div class="progress-track" role="progressbar" aria-label="@ProgressLabel"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="@ProgressPercent">
+        <span style="@($"width: {ProgressPercent}%")"></span>
+    </div>
+
+    @if (CurrentQuestion is not null)
+    {
+        <section class="question-card" aria-labelledby="question-title">
+            <p class="eyebrow">@CurrentQuestion.Kicker</p>
+            <h1 id="question-title">@CurrentQuestion.Title</h1>
+            @if (!string.IsNullOrWhiteSpace(CurrentQuestion.Description))
+            {
+                <p class="question-help">@CurrentQuestion.Description</p>
+            }
+
+            <div class="options" role="group" aria-labelledby="question-title">
+                @foreach (var option in CurrentQuestion.Options)
+                {
+                    var selected = FinderState.IsSelected(CurrentQuestion.Id, option.Id);
+                    <button type="button" class="option @(selected ? "selected" : null)"
+                            aria-pressed="@selected.ToString().ToLowerInvariant()"
+                            @onclick="() => Select(option.Id)">
+                        <span class="option-marker" aria-hidden="true">@(selected ? "✓" : string.Empty)</span>
+                        <span>@option.Label</span>
+                    </button>
+                }
+            </div>
+        </section>
+
+        <nav class="question-actions" aria-label="@(Ru ? "Навигация по опросу" : "Questionnaire navigation")">
+            <button class="secondary-action" type="button" @onclick="Back">
+                <span class="action-arrow" aria-hidden="true">←</span>
+                <span>@(Ru ? "Назад" : "Back")</span>
+            </button>
+            <button class="primary-action" type="button" disabled="@(!CanContinue)" @onclick="Next">
+                <span>@NextLabel</span>
+                <span class="action-arrow" aria-hidden="true">→</span>
+            </button>
+        </nav>
+    }
+</main>
+
+@code {
+    private int _currentIndex;
+    private bool Ru => AppState.Locale == "ru";
+    private IReadOnlyList<FinderQuestion> Questions => FinderService.GetQuestions(AppState.Locale, FinderState);
+    private FinderQuestion? CurrentQuestion => Questions.Count == 0 ? null : Questions[Math.Min(_currentIndex, Questions.Count - 1)];
+    private bool CanContinue => CurrentQuestion is not null && FinderState.HasAnswer(CurrentQuestion.Id);
+    private string ProgressLabel => Ru
+        ? $"Вопрос {Math.Min(_currentIndex + 1, Questions.Count)} из {Questions.Count}"
+        : $"Question {Math.Min(_currentIndex + 1, Questions.Count)} of {Questions.Count}";
+    private double ProgressPercent => Questions.Count == 0 ? 0 : Math.Round(100d * (_currentIndex + 1) / Questions.Count, 1);
+    private string NextLabel => _currentIndex >= Questions.Count - 1
+        ? (Ru ? "Показать результат" : "Show results")
+        : (Ru ? "Продолжить" : "Continue");
+
+    protected override void OnInitialized()
+    {
+        if (!FinderState.Started) FinderState.Begin();
+    }
+
+    private void Select(string answerId)
+    {
+        if (CurrentQuestion is null) return;
+        if (CurrentQuestion.AllowsMultiple)
+        {
+            FinderState.ToggleMultiple(CurrentQuestion.Id, answerId, ExclusiveAnswers(CurrentQuestion.Id));
+        }
+        else
+        {
+            FinderState.SelectSingle(CurrentQuestion.Id, answerId);
+        }
+
+        var visibleIds = Questions.Select(question => question.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (!visibleIds.Contains(FinderQuestionIds.NumberPurpose)) FinderState.ClearAnswers(FinderQuestionIds.NumberPurpose);
+        if (!visibleIds.Contains(FinderQuestionIds.TravelChallenge)) FinderState.ClearAnswers(FinderQuestionIds.TravelChallenge);
+    }
+
+    private static string[] ExclusiveAnswers(string questionId) => questionId switch
+    {
+        FinderQuestionIds.Goals => [FinderAnswerIds.Explore],
+        FinderQuestionIds.NumberUse => [FinderAnswerIds.CloseCircleOnly, FinderAnswerIds.AvoidSharing],
+        FinderQuestionIds.Calls => [FinderAnswerIds.RareCalls],
+        _ => []
+    };
+
+    private void Back()
+    {
+        if (_currentIndex == 0) NavigationManager.NavigateTo("/finder");
+        else _currentIndex--;
+    }
+
+    private void Next()
+    {
+        if (!CanContinue) return;
+        if (_currentIndex >= Questions.Count - 1)
+        {
+            FinderState.Complete();
+            NavigationManager.NavigateTo("/finder/results");
+            return;
+        }
+        _currentIndex++;
+    }
+
+    private Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

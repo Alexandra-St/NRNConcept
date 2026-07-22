@@ -1,0 +1,17 @@
+<div class="loading-state" role="status" aria-live="polite" aria-busy="true">
+    <span class="sr-only">@Label</span>
+    @for (var index = 0; index < Rows; index++)
+    {
+        <div class="skeleton-card" aria-hidden="true">
+            <span class="skeleton skeleton--icon"></span>
+            <span class="skeleton skeleton--title"></span>
+            <span class="skeleton skeleton--text"></span>
+            <span class="skeleton skeleton--text skeleton--short"></span>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "Loading…";
+    [Parameter] public int Rows { get; set; } = 2;
+}

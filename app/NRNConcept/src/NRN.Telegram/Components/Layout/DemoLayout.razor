@@ -1,0 +1,28 @@
+@inherits LayoutComponentBase
+@inject MiniAppPreferencesState Preferences
+@inject IJSRuntime JS
+@implements IDisposable
+
+<div @key="Preferences.Language" class="demo-surface">
+    @Body
+</div>
+
+@code {
+    protected override void OnInitialized() => Preferences.Changed += HandleLanguageChanged;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        var savedLanguage = await JS.InvokeAsync<string?>("nrnTelegram.getSavedLanguage");
+        Preferences.Initialize(savedLanguage, null);
+        await JS.InvokeVoidAsync("nrnTelegram.setLanguage", Preferences.Language);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleLanguageChanged() => InvokeAsync(StateHasChanged);
+    public void Dispose() => Preferences.Changed -= HandleLanguageChanged;
+}

@@ -1,0 +1,295 @@
+@page "/learn/{CategoryId}/{TopicSlug}"
+@inject ILearningContentService ContentService
+@inject ILearningLocalizationService LocalizationService
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Learning.Components
+@using NRN.Web.Features.Learning.Models
+@using NRN.Web.Features.Learning.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(_topic?.Title ?? "Privacy Lab")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="topic-shell">
+    <a class="back-link" href="/learn/@CategoryId">← @(_categoryName ?? CategoryId)</a>
+    @if (_hasError)
+    {
+        <div class="motion-enter">
+            <ContentErrorState Label="@ErrorLabel" Title="@ErrorTitle" Message="@ErrorMessage" RetryLabel="@RetryLabel" Retry="LoadContentAsync" />
+        </div>
+    }
+    else if (_loading)
+    {
+        <p class="loading-state" role="status" aria-busy="true">@LoadingLabel</p>
+    }
+    else if (_topic is null)
+    {
+        <section class="not-found motion-enter" role="status">
+            <p class="eyebrow">404</p>
+            <h1>@_notFoundTitle</h1>
+            <p>@_notFoundDescription</p>
+            <a href="/learn">@_backToLab →</a>
+        </section>
+    }
+    else
+    {
+        <div class="topic-content motion-enter">
+        <header class="topic-header">
+            <div class="topic-heading">
+                <p class="eyebrow">@_categoryName</p>
+                <h1>@_topic.Title</h1>
+                <p class="tagline">@_topic.Tagline</p>
+            </div>
+            @if (string.Equals(TopicSlug, "what-is-digital-privacy", StringComparison.OrdinalIgnoreCase))
+            {
+                <DigitalPrivacyIllustration AltText="@_digitalPrivacyAlt" />
+            }
+            else if (string.Equals(TopicSlug, "digital-footprint", StringComparison.OrdinalIgnoreCase))
+            {
+                <DigitalFootprintIllustration AltText="@_digitalFootprintAlt" />
+            }
+            else if (string.Equals(TopicSlug, "why-should-i-care", StringComparison.OrdinalIgnoreCase))
+            {
+                <WhyCareIllustration AltText="@_whyCareAlt" />
+            }
+            else if (string.Equals(TopicSlug, "public-wifi", StringComparison.OrdinalIgnoreCase))
+            {
+                <PublicWifiIllustration AltText="@_publicWifiAlt" />
+            }
+            else if (string.Equals(TopicSlug, "passwords", StringComparison.OrdinalIgnoreCase))
+            {
+                <PasswordsIllustration AltText="@_passwordsAlt" />
+            }
+            else if (string.Equals(TopicSlug, "sms-authentication", StringComparison.OrdinalIgnoreCase))
+            {
+                <SmsAuthenticationIllustration AltText="@_smsAuthenticationAlt" />
+            }
+            else if (string.Equals(TopicSlug, "social-media", StringComparison.OrdinalIgnoreCase))
+            {
+                <SocialMediaIllustration AltText="@_socialMediaAlt" />
+            }
+            else if (string.Equals(TopicSlug, "messaging-apps", StringComparison.OrdinalIgnoreCase))
+            {
+                <MessagingAppsIllustration AltText="@_messagingAppsAlt" />
+            }
+            else if (string.Equals(TopicSlug, "vpn", StringComparison.OrdinalIgnoreCase))
+            {
+                <VpnIllustration AltText="@_vpnAlt" />
+            }
+            else if (string.Equals(TopicSlug, "building-your-privacy-toolkit", StringComparison.OrdinalIgnoreCase))
+            {
+                <PrivacyToolkitIllustration AltText="@_privacyToolkitAlt" />
+            }
+        </header>
+
+        <article class="story">
+            <section><p class="section-number">01</p><h2>@(_labels!.Situation)</h2><p>@_topic.Situation</p></section>
+            <section><p class="section-number">02</p><h2>@_labels.Problem</h2><p>@_topic.Problem</p></section>
+            <section><p class="section-number">03</p><h2>@_labels.Reality</h2><p>@_topic.Reality</p></section>
+            <section class="solution-section"><p class="section-number">04</p><h2>@_labels.Solution</h2><p>@_topic.Solution</p></section>
+        </article>
+
+        @if (_relatedSources.Count > 0)
+        {
+            <aside class="further-reading" aria-labelledby="further-reading-title">
+                <p class="related-kicker">@_labels!.SourcesLabel</p>
+                <h2 id="further-reading-title">@_labels.FurtherReading</h2>
+                <ul>
+                    @foreach (var source in _relatedSources)
+                    {
+                        <li>
+                            <a href="@source.Url">
+                                <span>@source.Publisher</span>
+                                <strong>@source.Title →</strong>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </aside>
+        }
+
+        @if (_relatedSimulationSlug is not null || _relatedProducts.Count > 0)
+        {
+            <section class="related-content" aria-label="@_labels!.RelatedContent">
+                @if (_relatedSimulationSlug is not null)
+                {
+                    <a class="related-card" href="/simulations/@_relatedSimulationSlug">
+                        <p class="related-kicker">@_labels.RelatedSimulation</p>
+                        <h2>@_labels.SimulationTitle</h2>
+                        <p>@_labels.SimulationDescription</p>
+                        <strong>@_labels.OpenSimulation →</strong>
+                    </a>
+                }
+                @foreach (var product in _relatedProducts)
+                {
+                    <a class="related-card" href="/finder">
+                        <p class="related-kicker">@_labels.RelatedProduct</p>
+                        <h2>@product.Name</h2>
+                        <p>@product.Benefit</p>
+                        <p class="product-limitation"><strong>@_labels.KeepInMind:</strong> @product.Limitation</p>
+                        <strong>@_labels.OpenFinder →</strong>
+                    </a>
+                }
+            </section>
+        }
+
+        @if (_previousTopic is not null || _nextTopic is not null)
+        {
+            <nav class="topic-navigation" aria-label="@_labels.Navigation">
+                @if (_previousTopic is not null)
+                {
+                    <a class="topic-direction previous-topic" href="/learn/@CategoryId/@_previousTopic.Slug">
+                        <span>@_labels.Previous</span><strong>← @_previousTopic.Title</strong>
+                    </a>
+                }
+                @if (_nextTopic is not null)
+                {
+                    <a class="topic-direction next-topic" href="/learn/@CategoryId/@_nextTopic.Slug">
+                        <span>@_labels.Next</span><strong>@_nextTopic.Title →</strong>
+                    </a>
+                }
+            </nav>
+        }
+        </div>
+    }
+</main>
+
+@code {
+    [Parameter] public string CategoryId { get; set; } = string.Empty;
+    [Parameter] public string TopicSlug { get; set; } = string.Empty;
+    private bool _loading = true;
+    private bool _hasError;
+    private string? _categoryName;
+    private string _digitalPrivacyAlt = string.Empty;
+    private string _digitalFootprintAlt = string.Empty;
+    private string _whyCareAlt = string.Empty;
+    private string _publicWifiAlt = string.Empty;
+    private string _passwordsAlt = string.Empty;
+    private string _smsAuthenticationAlt = string.Empty;
+    private string _socialMediaAlt = string.Empty;
+    private string _messagingAppsAlt = string.Empty;
+    private string _vpnAlt = string.Empty;
+    private string _privacyToolkitAlt = string.Empty;
+    private string _notFoundTitle = string.Empty;
+    private string _notFoundDescription = string.Empty;
+    private string _backToLab = string.Empty;
+    private string? _relatedSimulationSlug;
+    private IReadOnlyList<LocalizedProduct> _relatedProducts = [];
+    private IReadOnlyList<LearningSource> _relatedSources = [];
+    private LocalizedTopic? _topic;
+    private TopicLink? _nextTopic;
+    private TopicLink? _previousTopic;
+    private Labels? _labels;
+    private string LoadingLabel => AppState.Locale == "ru" ? "Загрузка…" : "Loading…";
+    private string ErrorLabel => AppState.Locale == "ru" ? "Ошибка" : "Error";
+    private string ErrorTitle => AppState.Locale == "ru" ? "Не удалось загрузить статью" : "The topic could not be loaded";
+    private string ErrorMessage => AppState.Locale == "ru" ? "Проверьте соединение и попробуйте ещё раз." : "Check the connection and try again.";
+    private string RetryLabel => AppState.Locale == "ru" ? "Повторить" : "Try again";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        _loading = true;
+        _hasError = false;
+        _relatedSimulationSlug = null;
+        _relatedProducts = [];
+        _relatedSources = [];
+        try
+        {
+        _notFoundTitle = await T("learning.topic.notFound.title");
+        _notFoundDescription = await T("learning.topic.notFound.description");
+        _backToLab = await T("learning.common.backToLab");
+        var source = await ContentService.GetTopicBySlugAsync(TopicSlug);
+        if (source is null || !string.Equals(source.CategoryId, CategoryId, StringComparison.OrdinalIgnoreCase))
+        {
+            _topic = null;
+            _loading = false;
+            return;
+        }
+
+        var categories = await ContentService.GetCategoriesAsync();
+        var category = categories.FirstOrDefault(item => string.Equals(item.Id, CategoryId, StringComparison.OrdinalIgnoreCase));
+        _categoryName = category is null ? CategoryId : await T(category.NameKey);
+        _digitalPrivacyAlt = await T("learning.topic.digitalPrivacy.illustration.alt");
+        _digitalFootprintAlt = await T("learning.topic.digitalFootprint.illustration.alt");
+        _whyCareAlt = await T("learning.topic.whyCare.illustration.alt");
+        _publicWifiAlt = await T("learning.topic.publicWifi.illustration.alt");
+        _passwordsAlt = await T("learning.topic.passwords.illustration.alt");
+        _smsAuthenticationAlt = await T("learning.topic.smsAuth.illustration.alt");
+        _socialMediaAlt = await T("learning.topic.socialMedia.illustration.alt");
+        _messagingAppsAlt = await T("learning.topic.messagingApps.illustration.alt");
+        _vpnAlt = await T("learning.topic.vpn.illustration.alt");
+        _privacyToolkitAlt = await T("learning.topic.privacyToolkit.illustration.alt");
+        _labels = new Labels(await T("learning.topic.situation"), await T("learning.topic.problem"),
+            await T("learning.topic.reality"), await T("learning.topic.solution"), await T("learning.topic.next"),
+            await T("learning.topic.previous"), await T("learning.topic.navigation"),
+            await T("learning.related.content"), await T("learning.related.simulation.label"),
+            await T("learning.related.simulation.title"), await T("learning.related.simulation.description"),
+            await T("learning.related.comingSoon"), await T("learning.related.simulation.open"),
+            await T("learning.related.product.label"),
+            await T("learning.related.product.keepInMind"), await T("learning.related.product.openFinder"),
+            await T("learning.sources.label"), await T("learning.sources.furtherReading"));
+        _topic = new LocalizedTopic(await T(source.TitleKey), await T(source.TaglineKey),
+            await T(source.SituationKey), await T(source.ProblemKey), await T(source.RealityKey), await T(source.SolutionKey));
+        _relatedSimulationSlug = source.RelatedSimulationSlug;
+        var productIds = source.RelatedProductIds ?? [];
+        if (productIds.Count > 0)
+        {
+            var products = await ContentService.GetProductsAsync();
+            var localizedProducts = new List<LocalizedProduct>();
+            foreach (var productId in productIds)
+            {
+                var product = products.FirstOrDefault(item => string.Equals(item.Id, productId, StringComparison.OrdinalIgnoreCase));
+                if (product is not null)
+                {
+                    localizedProducts.Add(new LocalizedProduct(product.Id, await T(product.NameKey),
+                        await T(product.BenefitKey), await T(product.LimitationKey)));
+                }
+            }
+            _relatedProducts = localizedProducts;
+        }
+
+        var sourceIds = source.RelatedSourceIds ?? [];
+        if (sourceIds.Count > 0)
+        {
+            var sources = await ContentService.GetSourcesAsync();
+            _relatedSources = sourceIds.Select(sourceId => sources.FirstOrDefault(item =>
+                    string.Equals(item.Id, sourceId, StringComparison.OrdinalIgnoreCase)))
+                .Where(item => item is not null).Cast<LearningSource>().ToList();
+        }
+
+        var allTopics = await ContentService.GetTopicsAsync();
+        var categoryTopics = allTopics.Where(item => string.Equals(item.CategoryId, CategoryId, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(item => item.Order).ToList();
+        var previous = categoryTopics.LastOrDefault(item => item.Order < source.Order);
+        var next = categoryTopics.FirstOrDefault(item => item.Order > source.Order);
+        _previousTopic = previous is null ? null : new TopicLink(previous.Slug, await T(previous.TitleKey));
+        _nextTopic = next is null ? null : new TopicLink(next.Slug, await T(next.TitleKey));
+        }
+        catch
+        {
+            _hasError = true;
+            _topic = null;
+        }
+        _loading = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private Task<string> T(string key) => LocalizationService.GetAsync(key, AppState.Locale);
+    private async Task ChangeLocaleAsync(string locale) { AppState.SetLocale(locale); await LoadContentAsync(); }
+    private sealed record LocalizedTopic(string Title, string Tagline, string Situation, string Problem, string Reality, string Solution);
+    private sealed record LocalizedProduct(string Id, string Name, string Benefit, string Limitation);
+    private sealed record TopicLink(string Slug, string Title);
+    private sealed record Labels(string Situation, string Problem, string Reality, string Solution, string Next,
+        string Previous, string Navigation,
+        string RelatedContent, string RelatedSimulation, string SimulationTitle, string SimulationDescription,
+        string ComingSoon, string OpenSimulation, string RelatedProduct, string KeepInMind, string OpenFinder,
+        string SourcesLabel, string FurtherReading);
+}

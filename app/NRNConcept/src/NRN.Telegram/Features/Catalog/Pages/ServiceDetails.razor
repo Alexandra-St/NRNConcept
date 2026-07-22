@@ -1,0 +1,349 @@
+@page "/app/catalog/{ProductId}"
+@inject UserServicesState UserServices
+@inject TelegramSessionState TelegramSession
+@inject IJSRuntime JS
+@inject INrnPaymentsApi PaymentsApi
+@inject MiniAppLocalizer T
+@inject IOptions<NarayanaPublicCatalogOptions> PublicCatalog
+@using NRN.Telegram.Features.Catalog
+@implements IDisposable
+
+<PageTitle>NRN — @(_product is null ? T["details.serviceFallback"] : ProductName)</PageTitle>
+
+@if (_product is not null)
+{
+    <header class="service-hero service-hero--@_product.Accent">
+        <span class="service-hero__flag">@_product.FlagEmoji</span>
+        <p class="eyebrow">@KindLabel</p>
+        <h1>@ProductName</h1>
+        <p>@T.ProductDescription(_product.Id, _product.Description)</p>
+    </header>
+
+    <section class="price-grid @PriceGridClass" aria-label="@T["details.priceLabel"]">
+        @if (_product.ConnectionPrice > 0)
+        {
+            <article>
+                <span>@T["catalog.oneTime"]</span>
+                <strong>@Price(_product.ConnectionPrice, _product.ConnectionPriceIsFrom)</strong>
+                <small>@T[$"product.{_product.Id}.priceNote"]</small>
+            </article>
+        }
+        @if (_product.MonthlyPrice > 0)
+        {
+            <article>
+                <span>@T["catalog.monthly"]</span>
+                <strong>@Price(_product.MonthlyPrice, _product.MonthlyPriceIsFrom)/@T["common.month"]</strong>
+                <small>@T[$"product.{_product.Id}.priceNote"]</small>
+            </article>
+        }
+    </section>
+
+    <section class="public-price-note">
+        <span>@T.Format("catalog.source", PublicCatalog.Value.VerifiedOn.ToString("dd.MM.yyyy"))</span>
+        <button type="button" @onclick="OpenOfficialPrices">@T["catalog.checkPrice"] ↗</button>
+    </section>
+
+    <section class="content-card feature-list">
+        <h2>@T["details.includes"]</h2>
+        <ul>
+            @foreach (var featureKey in FeatureKeys)
+            {
+                <li>@T[featureKey]</li>
+            }
+        </ul>
+    </section>
+
+    @if (UserServices.IsPreview)
+    {
+        <div class="state-card demo-purchase-note">@T["details.demoPurchase"]</div>
+    }
+    else
+    {
+        <div class="state-card">@T["details.livePurchasePending"]</div>
+    }
+
+    <TelegramChrome @key="_purchased"
+                    BackHref="app/catalog"
+                    MainButtonText="@BuyButtonText"
+                    EnableMainButton="@UserServices.IsPreview"
+                    Disabled="@(UserServices.IsPurchasing || _purchased || _confirmationOpen)"
+                    MainButtonClicked="OpenConfirmation" />
+
+    @if (_showSuccess)
+    {
+        <section class="purchase-success" role="status">
+            <strong>@T["details.connected"]</strong>
+            <span>@T.Format("details.appeared", ProductName)</span>
+            <a href="app/services">@T["details.openServices"]</a>
+        </section>
+    }
+    else if (_insufficientBalance)
+    {
+        <section class="purchase-warning" role="alert">
+            <strong>@T["details.insufficient"]</strong>
+            <span>@T.Format("details.balanceRequired", Money(UserServices.Balance), Money(InitialPrice))</span>
+            <span>@T["details.topUp"]</span>
+            @if (TelegramSession.Status == TelegramSessionStatus.Authenticated)
+            {
+                <button type="button" disabled="@_isOpeningInvoice" @onclick="PayWithStarsAsync">
+                    @(_isOpeningInvoice ? T["details.openingTelegram"] : T["details.payStars"])
+                </button>
+            }
+            @if (_starsMessage is not null)
+            {
+                <span>@_starsMessage</span>
+            }
+            <button type="button" @onclick="TryAgain">@T["common.retry"]</button>
+        </section>
+    }
+    else if (UserServices.PurchaseError is not null)
+    {
+        <div class="state-card" role="alert">@T[UserServices.PurchaseError]</div>
+    }
+}
+else if (UserServices.Status == UserServicesStatus.Ready)
+{
+    <TelegramChrome BackHref="app/catalog" />
+    <div class="state-card">@T["details.notFound"]</div>
+}
+else if (UserServices.Status == UserServicesStatus.Error)
+{
+    <TelegramChrome BackHref="app/catalog" />
+    <ContentState Kind="error" Title="@T["catalog.errorTitle"]" Message="@LoadErrorMessage" ActionLabel="@T["common.retry"]" Action="ReloadAsync" />
+}
+else if (UserServices.Status == UserServicesStatus.Unauthorized)
+{
+    <TelegramChrome BackHref="app/catalog" />
+    <ContentState Kind="error" Title="@T["account.unavailableHeading"]" Message="@T["catalog.unauthorized"]" />
+}
+else
+{
+    <LoadingState Label="@T["details.loading"]" Rows="2" />
+}
+
+@if (_confirmationOpen && _product is not null)
+{
+    <div class="purchase-dialog" role="dialog" aria-modal="true" aria-labelledby="purchase-dialog-title">
+        <button class="purchase-dialog__backdrop" type="button" aria-label="@T["details.cancelPurchase"]" @onclick="CancelPurchase"></button>
+        <section class="purchase-dialog__sheet">
+            <span class="purchase-dialog__handle" aria-hidden="true"></span>
+            <p class="eyebrow">@T["details.confirmation"]</p>
+            <h2 id="purchase-dialog-title">@T.Format("details.connectQuestion", ProductName)</h2>
+            <div class="purchase-dialog__summary">
+                <span>@T[InitialPriceLabelKey]</span><strong>@Price(InitialPrice, InitialPriceIsFrom)</strong>
+                <span>@T["details.yourBalance"]</span><strong>@Money(UserServices.Balance)</strong>
+            </div>
+            <p>@T["details.chargeAfterConfirm"]</p>
+            <button class="primary-action" type="button" disabled="@UserServices.IsPurchasing" @onclick="BuyAsync">
+                @if (UserServices.IsPurchasing)
+                {
+                    <span class="button-spinner" aria-hidden="true"></span>
+                }
+                @(UserServices.IsPurchasing ? T["details.connecting"] : T.Format("details.confirm", Price(InitialPrice, InitialPriceIsFrom)))
+            </button>
+            <button class="secondary-action" type="button" disabled="@UserServices.IsPurchasing" @onclick="CancelPurchase">@T["common.cancel"]</button>
+        </section>
+    </div>
+}
+
+@code {
+    [Parameter] public string ProductId { get; set; } = string.Empty;
+
+    private ProductOfferDto? _product;
+    private bool _purchased;
+    private bool _confirmationOpen;
+    private bool _showSuccess;
+    private bool _insufficientBalance;
+    private bool _isOpeningInvoice;
+    private string? _starsMessage;
+    private string ProductName => _product is null
+        ? T["details.serviceFallback"]
+        : T.ProductName(_product.Id, _product.Name);
+    private string LoadErrorMessage => T[UserServices.LoadErrorKey ?? "catalog.error"];
+    private string BuyButtonText => UserServices.IsPurchasing
+        ? T["details.connecting"]
+        : _purchased ? T["details.connectedButton"] : T.Format("details.demoConnectFor", Price(InitialPrice, InitialPriceIsFrom));
+    private decimal InitialPrice => _product?.ConnectionPrice > 0
+        ? _product.ConnectionPrice
+        : _product?.MonthlyPrice ?? 0;
+    private bool InitialPriceIsFrom => _product?.ConnectionPrice > 0
+        ? _product.ConnectionPriceIsFrom
+        : _product?.MonthlyPriceIsFrom ?? false;
+    private string InitialPriceLabelKey => _product?.ConnectionPrice > 0
+        ? "catalog.oneTime"
+        : "catalog.monthly";
+    private string PriceGridClass => _product is { ConnectionPrice: > 0, MonthlyPrice: > 0 }
+        ? string.Empty
+        : "price-grid--single";
+    private string KindLabel => T[_product?.Kind switch
+    {
+        ServicePlanKind.VirtualNumber => "details.kindVirtual",
+        ServicePlanKind.Esim => "details.kindEsim",
+        ServicePlanKind.PhysicalSim => "details.kindPhysical",
+        _ => "details.serviceFallback"
+    }];
+    private IReadOnlyList<string> FeatureKeys => _product?.Kind switch
+    {
+        ServicePlanKind.VirtualNumber => ["details.virtualTypes", "details.voiceSms", "details.countries"],
+        ServicePlanKind.Esim => ["details.dataVoice", "details.noPhysicalCard", "details.instantActivation"],
+        ServicePlanKind.PhysicalSim => ["details.fullSim", "details.dataCallsSms", "details.deliverySeparate"],
+        _ => []
+    };
+
+    protected override void OnInitialized()
+    {
+        UserServices.Changed += HandleStateChanged;
+        ResolveProduct();
+    }
+
+    protected override void OnParametersSet() => ResolveProduct();
+
+    private void ResolveProduct()
+    {
+        _product = UserServices.FindProduct(ProductId);
+        _purchased = _purchased || UserServices.ConnectedServices.Any(service => service.Id == ProductId);
+    }
+
+    private Task OpenConfirmation()
+    {
+        if (!_purchased)
+        {
+            _confirmationOpen = true;
+            _insufficientBalance = false;
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void CancelPurchase() => _confirmationOpen = false;
+
+    private void TryAgain()
+    {
+        _insufficientBalance = false;
+        _confirmationOpen = true;
+    }
+
+    private async Task PayWithStarsAsync()
+    {
+        // TODO(real-data): Enable authenticated Stars checkout only after Narayana provides
+        // authoritative product ids/prices and the live bot webhook is configured.
+        if (_product is null || TelegramSession.User is null || _isOpeningInvoice)
+        {
+            return;
+        }
+
+        _isOpeningInvoice = true;
+        _starsMessage = null;
+        try
+        {
+            var invoice = await PaymentsApi.CreateStarsInvoiceAsync(
+                TelegramSession.User.Id,
+                _product.Id);
+            if (invoice is null)
+            {
+                _starsMessage = T["stars.priceMissing"];
+                return;
+            }
+
+            var status = await JS.InvokeAsync<string>("nrnTelegram.openInvoice", invoice.InvoiceUrl);
+            if (string.Equals(status, "paid", StringComparison.OrdinalIgnoreCase))
+            {
+                await UserServices.LoadAsync(TelegramSession);
+                ResolveProduct();
+                _showSuccess = _purchased;
+                _insufficientBalance = !_purchased;
+                _starsMessage = _purchased
+                    ? null
+                    : T["stars.webhookPending"];
+            }
+            else if (string.Equals(status, "cancelled", StringComparison.OrdinalIgnoreCase))
+            {
+                _starsMessage = T["stars.cancelled"];
+            }
+            else
+            {
+                _starsMessage = T["stars.failed"];
+            }
+        }
+        catch (UnauthorizedAccessException)
+        {
+            _starsMessage = T["purchase.telegramRequired"];
+        }
+        catch (TaskCanceledException)
+        {
+            _starsMessage = T["purchase.timeout"];
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            _starsMessage = T["purchase.telegramRequired"];
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode is null)
+        {
+            _starsMessage = T["purchase.offline"];
+        }
+        catch
+        {
+            _starsMessage = T["stars.openFailed"];
+        }
+        finally
+        {
+            _isOpeningInvoice = false;
+        }
+    }
+
+    private void HandleStateChanged()
+    {
+        ResolveProduct();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ReloadAsync()
+    {
+        await UserServices.LoadAsync(TelegramSession);
+        ResolveProduct();
+    }
+
+    private async Task BuyAsync()
+    {
+        // TODO(real-data): This button is deliberately preview-only. Replace the local
+        // purchase call with the existing bot/backend checkout contract in Telegram mode.
+        if (_product is null || _purchased || !_confirmationOpen || UserServices.IsPurchasing)
+        {
+            return;
+        }
+
+        var result = await UserServices.PurchaseAsync(_product.Id, TelegramSession);
+        if (result is null)
+        {
+            return;
+        }
+
+        _confirmationOpen = false;
+        if (result.Status == PurchaseServiceStatus.InsufficientBalance)
+        {
+            _insufficientBalance = true;
+            await JS.InvokeVoidAsync("nrnTelegram.hapticError");
+        }
+        else
+        {
+            _purchased = true;
+            _showSuccess = result.Status == PurchaseServiceStatus.Completed;
+            await JS.InvokeVoidAsync("nrnTelegram.hapticSuccess");
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private string Money(decimal amount)
+    {
+        var symbol = _product?.Currency == "EUR" ? "€" : _product?.Currency + " ";
+        return $"{symbol}{amount:0.##}";
+    }
+
+    private string Price(decimal amount, bool isFrom) =>
+        $"{(isFrom ? T["catalog.from"] + " " : string.Empty)}{Money(amount)}";
+
+    private async Task OpenOfficialPrices() =>
+        await JS.InvokeVoidAsync("nrnTelegram.openLink", PublicCatalog.Value.PricesUrl, false);
+
+    public void Dispose() => UserServices.Changed -= HandleStateChanged;
+}

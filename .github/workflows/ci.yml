@@ -1,0 +1,24 @@
+name: MVP checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Restore
+        run: dotnet restore app/NRNConcept/NRNConcept.sln
+      - name: Test
+        run: dotnet test app/NRNConcept/NRNConcept.sln --configuration Release --no-restore
+      - name: Publish Lab
+        run: dotnet publish app/NRNConcept/src/NRN.Web/NRN.Web.csproj --configuration Release --no-restore
+      - name: Publish Mini App
+        run: dotnet publish app/NRNConcept/src/NRN.Telegram/NRN.Telegram.csproj --configuration Release --no-restore
+      - name: Build Docker Compose
+        run: docker compose build

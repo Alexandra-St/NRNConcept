@@ -1,0 +1,8 @@
+<svg class="@Class" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <use href="icons/nrn-icons.svg#nrn-@Name"></use>
+</svg>
+
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = string.Empty;
+    [Parameter] public string? Class { get; set; }
+}

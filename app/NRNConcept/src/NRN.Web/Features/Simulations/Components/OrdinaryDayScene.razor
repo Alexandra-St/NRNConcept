@@ -1,0 +1,103 @@
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Simulations.Models
+
+<section class="ordinary-stage motion-enter" aria-labelledby="ordinary-scene-title">
+    <header class="ordinary-heading">
+        <p>@T("simulations.ordinaryDay.ui.saturday")</p>
+        <h1 id="ordinary-scene-title">@T(Scene.TitleKey)</h1>
+        <span>@T(Scene.PromptKey)</span>
+    </header>
+
+    <div class="ordinary-grid">
+        <div class="ordinary-phone" aria-label="@AppLabel">
+            <div class="phone-status"><span>@Time</span><span>●●● ◒</span></div>
+
+            @if (Scene.Id == "weather-permission")
+            {
+                <div class="ordinary-screen weather-screen">
+                    <div class="app-title"><span>☁</span><strong>@T("simulations.ordinaryDay.ui.weather")</strong><span>⋯</span></div>
+                    <div class="weather-main"><small>@Content(0)</small><b>@Content(1).Split('·')[0]</b><span>@Content(1)</span></div>
+                    <div class="forecast-row" aria-hidden="true"><i>10:00<br>18°</i><i>12:00<br>20°</i><i>14:00<br>19°</i></div>
+                    <div class="permission-sheet">
+                        <span class="location-mark">⌖</span>
+                        <small>@T("simulations.ordinaryDay.ui.permissionTitle")</small>
+                        <strong>@Content(2)</strong>
+                    </div>
+                </div>
+            }
+            else if (Scene.Id == "cafe-search")
+            {
+                <div class="ordinary-screen map-screen">
+                    <div class="map-search"><span>⌕</span><strong>@Content(0)</strong><span>×</span></div>
+                    <div class="map-field" aria-hidden="true"><i></i><i></i><i></i><b>1</b><b>2</b><b>3</b></div>
+                    <div class="place-list">
+                        @for (var index = 1; index < Scene.ContentKeys.Count; index++)
+                        {
+                            <article><span>@index</span><p>@Content(index)</p></article>
+                        }
+                    </div>
+                </div>
+            }
+            else if (Scene.Id == "social-feed")
+            {
+                <div class="ordinary-screen feed-screen">
+                    <div class="app-title"><span>◎</span><strong>@T("simulations.ordinaryDay.ui.social")</strong><span>✉</span></div>
+                    @for (var index = 0; index < Scene.ContentKeys.Count; index++)
+                    {
+                        <article class="feed-post">
+                            <div class="post-image post-@index" aria-hidden="true"><span>@(index == 0 ? "♫" : index == 1 ? "↗" : "☕")</span></div>
+                            <div><small>northstar.daily</small><strong>@Content(index)</strong><span>♡ &nbsp; ◯ &nbsp; ↗</span></div>
+                        </article>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="ordinary-screen ticket-screen">
+                    <div class="app-title"><span>‹</span><strong>@T("simulations.ordinaryDay.ui.tickets")</strong><span>⋯</span></div>
+                    <div class="ticket-card">
+                        <small>@Content(1)</small>
+                        <h2>@Content(0)</h2>
+                        <div><span>NS 118</span><b>@Content(2)</b></div>
+                    </div>
+                    <div class="checkout-card">
+                        <strong>@Content(3)</strong>
+                        <div class="email-demo">name@example.com</div>
+                        <small>@T("simulations.ordinaryDay.ui.noRealData")</small>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <fieldset class="ordinary-choices">
+            <legend>@T("simulations.common.chooseAction")</legend>
+            @foreach (var choice in Scene.Choices)
+            {
+                <button type="button" @onclick="() => ChoiceSelected.InvokeAsync(choice.Id)">
+                    <span>@T(choice.LabelKey)</span><span aria-hidden="true">→</span>
+                </button>
+            }
+        </fieldset>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public SimulationScene Scene { get; set; } = default!;
+    [Parameter, EditorRequired] public IReadOnlyDictionary<string, string> Texts { get; set; } =
+        new Dictionary<string, string>();
+    [Parameter] public EventCallback<string> ChoiceSelected { get; set; }
+
+    private string Time => Scene.Order switch { 1 => "09:12", 2 => "11:20", 3 => "14:08", _ => "18:36" };
+    private string AppLabel => Scene.Id switch
+    {
+        "weather-permission" => T("simulations.ordinaryDay.ui.weather"),
+        "cafe-search" => T("simulations.ordinaryDay.ui.maps"),
+        "social-feed" => T("simulations.ordinaryDay.ui.social"),
+        _ => T("simulations.ordinaryDay.ui.tickets")
+    };
+
+    private string T(string key) => Texts.TryGetValue(key, out var value) ? value : key;
+    private string Content(int index) => index >= 0 && index < Scene.ContentKeys.Count
+        ? T(Scene.ContentKeys[index])
+        : string.Empty;
+}

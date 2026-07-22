@@ -1,0 +1,35 @@
+@inject AppState AppState
+@inject NavigationManager NavigationManager
+@using NRN.Web.Shared.State
+
+<header class="site-header">
+    <div class="header-inner">
+        <a class="brand" href="https://narayana.im/welcome"
+           aria-label="@(AppState.Locale == "ru" ? "Официальный сайт Narayana" : "Narayana official website")">NARAYANA</a>
+        <nav aria-label="@(AppState.Locale == "ru" ? "Основная навигация" : "Primary navigation")">
+            <a class="@ActiveClass("/learn")" aria-current="@AriaCurrent("/learn")" href="/learn">@(AppState.Locale == "ru" ? "Обучение" : "Learn")</a>
+            <a class="@ActiveClass("/simulations")" aria-current="@AriaCurrent("/simulations")" href="/simulations">
+                @(AppState.Locale == "ru" ? "Симуляции" : "Simulations")
+            </a>
+            <a class="@ActiveClass("/finder")" aria-current="@AriaCurrent("/finder")" href="/finder">
+                @(AppState.Locale == "ru" ? "Подбор решений" : "Solution Finder")
+            </a>
+        </nav>
+        <div class="header-tools">
+            <LanguageSwitcher LocaleChanged="LocaleChanged" />
+            <ThemeSwitcher Locale="@AppState.Locale" />
+        </div>
+    </div>
+</header>
+
+@code {
+    [Parameter] public EventCallback<string> LocaleChanged { get; set; }
+
+    private string? ActiveClass(string path)
+    {
+        var currentPath = new Uri(NavigationManager.Uri).AbsolutePath;
+        return currentPath.StartsWith(path, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+    }
+
+    private string? AriaCurrent(string path) => ActiveClass(path) is null ? null : "page";
+}

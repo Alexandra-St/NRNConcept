@@ -1,0 +1,23 @@
+@page "/app/learn"
+@inject MiniAppLocalizer T
+
+<PageTitle>@T["learn.title"]</PageTitle>
+
+<header class="standard-header">
+    <p class="eyebrow">PRIVACY LAB</p>
+    <h1>@T["learn.heading"]</h1>
+    <p>@T["learn.description"]</p>
+</header>
+
+<section class="content-card learning-hero">
+    <div class="learning-hero__visual">
+        <AppIcon Name="learn" />
+        <span>@T["common.minutes"]</span>
+    </div>
+    <p class="eyebrow">@T["learn.first"]</p>
+    <h2>@T["learn.wifi"]</h2>
+    <p>@T["learn.scenario"]</p>
+    <button class="primary-action" type="button">@T["learn.start"]</button>
+</section>
+
+<p class="coming-soon">@T["learn.coming"]</p>

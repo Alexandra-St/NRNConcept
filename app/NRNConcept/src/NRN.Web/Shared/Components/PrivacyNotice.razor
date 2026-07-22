@@ -1,0 +1,17 @@
+<aside class="privacy-notice" aria-label="@Label">
+    <span class="privacy-node privacy-node-start" aria-hidden="true"></span>
+    <span class="privacy-node privacy-node-end" aria-hidden="true"></span>
+    <NrnIcon Name="lock" Class="privacy-icon" />
+    <p><strong>@Title</strong> @Description</p>
+</aside>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string Description { get; set; } = string.Empty;
+}

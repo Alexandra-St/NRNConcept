@@ -1,0 +1,111 @@
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Simulations.Models
+@using NRN.Web.Shared.Components
+
+<section class="results-stage motion-enter" aria-labelledby="results-title">
+    <header class="results-header">
+        <p class="eyebrow">@T("simulations.results.eyebrow")</p>
+        <h1 id="results-title">@ResultTitle</h1>
+        <p>@T(Simulation.Result.SubtitleKey)</p>
+        <div class="completion-note"><span aria-hidden="true">✓</span>@T(Simulation.CompletionKey)</div>
+    </header>
+
+    <section class="decision-review" aria-labelledby="decisions-title">
+        <h2 id="decisions-title">@T("simulations.results.yourDecisions")</h2>
+        <div class="outcome-list">
+            @foreach (var outcome in State.GetSelectedOutcomes())
+            {
+                <article class="outcome-card">
+                    <p class="outcome-kind">@KindLabel(outcome.Kind)</p>
+                    <h3>@T(outcome.TitleKey)</h3>
+                    <p class="outcome-explanation">@T(outcome.ExplanationKey)</p>
+                    <dl>
+                        <div>
+                            <dt>@(outcome.Kind == SimulationOutcomeKind.SafeAction
+                                ? T("simulations.results.whatWorked")
+                                : T("simulations.results.whyImportant"))</dt>
+                            <dd>@T(outcome.ImpactKey)</dd>
+                        </div>
+                        @if (outcome.AlternativeKey is not null)
+                        {
+                            <div class="alternative">
+                                <dt>@T("simulations.results.alternative")</dt>
+                                <dd>@T(outcome.AlternativeKey)</dd>
+                            </div>
+                        }
+                    </dl>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="takeaways" aria-labelledby="takeaways-title">
+        <h2 id="takeaways-title">@T("simulations.common.keyTakeaways")</h2>
+        <ol>
+            @for (var index = 0; index < Simulation.KeyTakeaways.Count; index++)
+            {
+                var takeaway = Simulation.KeyTakeaways[index];
+                <li><span>@((index + 1).ToString("00"))</span><div><strong>@T(takeaway.TitleKey)</strong><p>@T(takeaway.DescriptionKey)</p></div></li>
+            }
+        </ol>
+    </section>
+
+    <section class="related-links" aria-labelledby="related-title">
+        <h2 id="related-title">@T("simulations.results.related")</h2>
+        <div class="related-grid">
+            <a href="@Simulation.RelatedTopic.Url">
+                <small>@T("simulations.common.relatedTopic")</small>
+                <strong>@T(Simulation.RelatedTopic.TitleKey)</strong>
+                <span>@T(Simulation.RelatedTopic.DescriptionKey)</span>
+                <span class="related-action"><b>@T("simulations.results.openTopic")</b><LabArrow /></span>
+            </a>
+            @if (Simulation.RelatedProduct is not null)
+            {
+                <a href="@Simulation.RelatedProduct.Url">
+                    <small>@T("simulations.common.relatedProduct")</small>
+                    <strong>@T(Simulation.RelatedProduct.TitleKey)</strong>
+                    <span>@T(Simulation.RelatedProduct.DescriptionKey)</span>
+                    <span class="related-action"><b>@T("simulations.results.openProduct")</b><LabArrow /></span>
+                </a>
+            }
+            @if (Simulation.AlternativeExit is not null)
+            {
+                <a href="@Simulation.AlternativeExit.Url">
+                    <small>Solution Finder</small>
+                    <strong>@T(Simulation.AlternativeExit.TitleKey)</strong>
+                    <span>@T(Simulation.AlternativeExit.DescriptionKey)</span>
+                    <span class="related-action"><b>@T("simulations.results.openFinder")</b><LabArrow /></span>
+                </a>
+            }
+        </div>
+    </section>
+
+    <div class="results-actions">
+        <button type="button" @onclick="Restart">↻ @T("simulations.results.restart")</button>
+        <a href="/simulations">@T("simulations.results.otherSimulations") →</a>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public Simulation Simulation { get; set; } = default!;
+    [Parameter, EditorRequired] public SimulationState State { get; set; } = default!;
+    [Parameter, EditorRequired] public IReadOnlyDictionary<string, string> Texts { get; set; } =
+        new Dictionary<string, string>();
+    [Parameter] public EventCallback Restart { get; set; }
+
+    private string ResultTitle => State.ResultKind switch
+    {
+        SimulationOutcomeKind.CriticalRisk => T(Simulation.Result.CriticalTitleKey),
+        SimulationOutcomeKind.Risk => T(Simulation.Result.RiskTitleKey),
+        _ => T(Simulation.Result.SafeTitleKey)
+    };
+
+    private string KindLabel(SimulationOutcomeKind kind) => kind switch
+    {
+        SimulationOutcomeKind.CriticalRisk => T("simulations.results.criticalRisk"),
+        SimulationOutcomeKind.Risk => T("simulations.results.risk"),
+        _ => T("simulations.results.safeDecision")
+    };
+
+    private string T(string key) => Texts.TryGetValue(key, out var value) ? value : key;
+}

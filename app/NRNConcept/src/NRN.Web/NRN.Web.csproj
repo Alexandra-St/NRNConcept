@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="Features\Learning\Resources\**\*.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <None Update="Features\Simulations\Resources\**\*.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+      <Folder Include="Features\Learning\Components\" />
+      <Folder Include="Features\Learning\Models\" />
+      <Folder Include="Features\Learning\Resources\" />
+      <Folder Include="Features\Learning\Services\" />
+      <Folder Include="Shared\Components\" />
+    </ItemGroup>
+
+</Project>

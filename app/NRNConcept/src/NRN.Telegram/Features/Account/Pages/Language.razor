@@ -1,0 +1,30 @@
+@page "/app/language"
+@inject MiniAppPreferencesState Preferences
+@inject MiniAppLocalizer T
+@inject IJSRuntime JS
+
+<PageTitle>@T["language.title"]</PageTitle>
+<TelegramChrome BackHref="app/account" />
+
+<header class="standard-header">
+    <p class="eyebrow">@T["language.eyebrow"]</p>
+    <h1>@T["language.heading"]</h1>
+    <p>@T["language.description"]</p>
+</header>
+
+<div class="language-options">
+    <button class="@(Preferences.Language == "ru" ? "selected" : null)" type="button" @onclick='() => Select("ru")'>
+        <span>🇷🇺</span><strong>Русский</strong><small>RU</small>
+    </button>
+    <button class="@(Preferences.Language == "en" ? "selected" : null)" type="button" @onclick='() => Select("en")'>
+        <span>🇬🇧</span><strong>English</strong><small>EN</small>
+    </button>
+</div>
+
+@code {
+    private async Task Select(string language)
+    {
+        Preferences.SetLanguage(language);
+        await JS.InvokeVoidAsync("nrnTelegram.setLanguage", Preferences.Language);
+    }
+}

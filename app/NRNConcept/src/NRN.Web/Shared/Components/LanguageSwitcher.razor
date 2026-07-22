@@ -1,0 +1,30 @@
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Shared.State
+
+<div class="language-switcher" role="group" aria-label="@(AppState.Locale == "ru" ? "Язык" : "Language")">
+    <button class="@(AppState.Locale == "en" ? "active" : null)"
+            type="button"
+            aria-pressed="@(AppState.Locale == "en")"
+            @onclick="SelectEnglishAsync">
+        EN
+    </button>
+    <button class="@(AppState.Locale == "ru" ? "active" : null)"
+            type="button"
+            aria-pressed="@(AppState.Locale == "ru")"
+            @onclick="SelectRussianAsync">
+        RU
+    </button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> LocaleChanged { get; set; }
+
+    private Task SelectEnglishAsync() => SelectAsync("en");
+    private Task SelectRussianAsync() => SelectAsync("ru");
+
+    private async Task SelectAsync(string locale)
+    {
+        await LocaleChanged.InvokeAsync(locale);
+    }
+}

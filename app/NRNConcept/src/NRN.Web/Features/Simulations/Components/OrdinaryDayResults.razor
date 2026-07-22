@@ -1,0 +1,89 @@
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Simulations.Models
+@using NRN.Web.Shared.Components
+
+<section class="footprint-results motion-enter" aria-labelledby="footprint-title">
+    <header>
+        <p>@T("simulations.results.eyebrow")</p>
+        <h1 id="footprint-title">@T("simulations.ordinaryDay.ui.resultLead")</h1>
+    </header>
+
+    <div class="profile-grid">
+        @foreach (var fact in ProfileFacts)
+        {
+            <article><span aria-hidden="true">@fact.Icon</span><div><small>@fact.Label</small><strong>@fact.Value</strong></div></article>
+        }
+    </div>
+
+    <div class="ordinary-reveal">
+        <p>@T("simulations.ordinaryDay.ui.resultNote")</p>
+        <h2>@T(Simulation.Result.SafeTitleKey)</h2>
+        <span>@T(Simulation.Result.SubtitleKey)</span>
+        <small>@T("simulations.ordinaryDay.ui.resultPrivacy")</small>
+    </div>
+
+    <section class="footprint-takeaways" aria-labelledby="footprint-takeaways-title">
+        <h2 id="footprint-takeaways-title">@T("simulations.common.keyTakeaways")</h2>
+        <ol>
+            @for (var index = 0; index < Simulation.KeyTakeaways.Count; index++)
+            {
+                var takeaway = Simulation.KeyTakeaways[index];
+                <li><span>@((index + 1).ToString("00"))</span><div><strong>@T(takeaway.TitleKey)</strong><p>@T(takeaway.DescriptionKey)</p></div></li>
+            }
+        </ol>
+    </section>
+
+    <section class="foundation-links" aria-labelledby="foundation-links-title">
+        <h2 id="foundation-links-title">@T("simulations.results.related")</h2>
+        <div>
+            <a href="/learn/foundations/what-is-digital-privacy"><small>Privacy Lab</small><strong>@T("simulations.ordinaryDay.ui.relatedPrivacy")</strong><span>@T("simulations.ordinaryDay.ui.relatedPrivacyDescription")</span><LabArrow /></a>
+            <a href="@Simulation.RelatedTopic.Url"><small>Privacy Lab</small><strong>@T(Simulation.RelatedTopic.TitleKey)</strong><span>@T(Simulation.RelatedTopic.DescriptionKey)</span><LabArrow /></a>
+            <a href="/learn/foundations/why-should-i-care"><small>Privacy Lab</small><strong>@T("simulations.ordinaryDay.ui.relatedWhy")</strong><span>@T("simulations.ordinaryDay.ui.relatedWhyDescription")</span><LabArrow /></a>
+        </div>
+    </section>
+
+    <div class="footprint-actions">
+        <button type="button" @onclick="Restart">↻ @T("simulations.results.restart")</button>
+        <a href="/simulations">@T("simulations.results.otherSimulations") →</a>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public Simulation Simulation { get; set; } = default!;
+    [Parameter, EditorRequired] public SimulationState State { get; set; } = default!;
+    [Parameter, EditorRequired] public IReadOnlyDictionary<string, string> Texts { get; set; } =
+        new Dictionary<string, string>();
+    [Parameter] public EventCallback Restart { get; set; }
+
+    private IReadOnlyList<ProfileFact> ProfileFacts =>
+    [
+        new("⌖", T("simulations.ordinaryDay.ui.profile.location"), LocationValue),
+        new("◷", T("simulations.ordinaryDay.ui.profile.routine"), T("simulations.ordinaryDay.ui.profile.routineValue")),
+        new("⌕", T("simulations.ordinaryDay.ui.profile.interests"), OutcomeValue("cafe-search")),
+        new("♡", T("simulations.ordinaryDay.ui.profile.social"), OutcomeValue("social-feed")),
+        new("↗", T("simulations.ordinaryDay.ui.profile.travel"), T("simulations.ordinaryDay.ui.profile.travelValue")),
+        new("▣", T("simulations.ordinaryDay.ui.profile.seller"), T("simulations.ordinaryDay.ui.profile.sellerValue")),
+        new("▯", T("simulations.ordinaryDay.ui.profile.device"), T("simulations.ordinaryDay.ui.profile.deviceValue")),
+        new("◎", T("simulations.ordinaryDay.ui.profile.browser"), T("simulations.ordinaryDay.ui.profile.browserValue")),
+        new("Aa", T("simulations.ordinaryDay.ui.profile.language"), T("simulations.ordinaryDay.ui.profile.languageValue")),
+        new("@", T("simulations.ordinaryDay.ui.profile.identity"), OutcomeValue("ticket-checkout"))
+    ];
+
+    private string LocationValue => State.SelectedOutcomeIds.FirstOrDefault(id => id.StartsWith("location-", StringComparison.OrdinalIgnoreCase)) switch
+    {
+        "location-always" => T("simulations.ordinaryDay.ui.profile.locationAlways"),
+        "location-approximate" => T("simulations.ordinaryDay.ui.profile.locationApproximate"),
+        _ => T("simulations.ordinaryDay.ui.profile.locationOnce")
+    };
+
+    private string OutcomeValue(string sceneId)
+    {
+        if (!State.SelectedChoiceIds.TryGetValue(sceneId, out var choiceId)) return string.Empty;
+        var choice = Simulation.Scenes.First(scene => scene.Id == sceneId).Choices.First(item => item.Id == choiceId);
+        var outcome = Simulation.Outcomes.First(item => choice.OutcomeIds.Contains(item.Id, StringComparer.OrdinalIgnoreCase));
+        return T(outcome.ImpactKey);
+    }
+
+    private string T(string key) => Texts.TryGetValue(key, out var value) ? value : key;
+    private sealed record ProfileFact(string Icon, string Label, string Value);
+}

@@ -1,0 +1,40 @@
+.bottom-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    padding: 0 max(var(--tg-content-safe-area-inset-right, 0px), env(safe-area-inset-right)) max(var(--tg-content-safe-area-inset-bottom, 0px), env(safe-area-inset-bottom)) max(var(--tg-content-safe-area-inset-left, 0px), env(safe-area-inset-left));
+    border-top: 1px solid var(--app-border);
+    background: color-mix(in srgb, var(--app-surface) 94%, transparent);
+    backdrop-filter: blur(18px);
+}
+
+.bottom-nav__inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: min(100%, 44rem);
+    margin: 0 auto;
+}
+
+.bottom-nav__inner ::deep .bottom-nav__item {
+    display: grid;
+    place-items: center;
+    gap: .2rem;
+    min-width: 0;
+    padding: .65rem .2rem .55rem;
+    color: var(--app-muted);
+    font-size: .68rem;
+    font-weight: 650;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.bottom-nav__inner ::deep .bottom-nav__item.active {
+    color: var(--app-accent);
+}
+
+.bottom-nav__inner ::deep .bottom-nav__icon {
+    width: 1.45rem;
+    height: 1.45rem;
+}

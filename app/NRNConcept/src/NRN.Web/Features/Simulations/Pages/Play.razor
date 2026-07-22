@@ -1,0 +1,263 @@
+@page "/simulations/{Slug}"
+@inject ISimulationContentService ContentService
+@inject ISimulationLocalizationService LocalizationService
+@inject SimulationState SimulationState
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Simulations.Components
+@using NRN.Web.Features.Simulations.Models
+@using NRN.Web.Features.Simulations.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(_simulation is null ? "Simulations" : T(_simulation.TitleKey))</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+@if (_hasError)
+{
+    <main id="main-content" class="play-shell motion-enter">
+        <ContentErrorState Label="@T("simulations.common.error.label")"
+                           Title="@T("simulations.common.error.title")"
+                           Message="@T("simulations.common.error.message")"
+                           RetryLabel="@T("simulations.common.retry")"
+                           Retry="LoadContentAsync" />
+    </main>
+}
+else if (_loading)
+{
+    <main id="main-content" class="play-shell" aria-busy="true">
+        <p class="loading-state" role="status">@T("simulations.common.loading")</p>
+    </main>
+}
+else if (_simulation is null)
+{
+    <main id="main-content" class="play-shell motion-enter">
+        <section class="not-found">
+            <p class="eyebrow">404</p>
+            <h1>@T("simulations.common.notFound.title")</h1>
+            <p>@T("simulations.common.notFound.description")</p>
+            <a href="/simulations">← @T("simulations.common.backToList")</a>
+        </section>
+    </main>
+}
+else
+{
+    <main id="main-content" class="play-shell">
+        @if (!SimulationState.Started)
+        {
+            <section class="simulation-intro motion-enter" aria-labelledby="intro-title">
+                <a class="back-link" href="/simulations">← @T("simulations.common.backToList")</a>
+                <div class="intro-layout">
+                    <div class="intro-copy">
+                        <p class="eyebrow">@T("simulations.common.introEyebrow") · @_simulation.DurationMinutes @T("simulations.common.minutes")</p>
+                        <h1 id="intro-title">@T(_simulation.IntroTitleKey)</h1>
+                        <p class="intro-body">@T(_simulation.IntroBodyKey)</p>
+                        <PrivacyNotice Label="@PrivacyTitle"
+                                       Title="@PrivacyTitle"
+                                       Description="@PrivacyDescription" />
+                        <button class="primary-action" type="button" @onclick="StartSimulation">@T("simulations.common.start") →</button>
+                    </div>
+                    @if (_simulation.Slug == "ordinary-day")
+                    {
+                        <div class="ordinary-intro-visual" aria-hidden="true">
+                            <div><span>09:12</span><b>@T("simulations.ordinaryDay.ui.dayShort")</b></div>
+                            <strong>☁</strong>
+                            <p>@T("simulations.ordinaryDay.ui.weather") · +18°</p>
+                            <ol><li>⌖</li><li>☕</li><li>♡</li><li>↗</li></ol>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="airport-board" aria-hidden="true">
+                            <div><span>NORTHSTAR</span><b>18:42</b></div>
+                            <strong>NS 204</strong>
+                            <p>@T("simulations.publicWifi.ui.booking")</p>
+                            <i></i>
+                            <small>BOARDING · 18 MIN</small>
+                        </div>
+                    }
+                </div>
+            </section>
+        }
+        else if (SimulationState.Completed)
+        {
+            @if (_simulation.Slug == "ordinary-day")
+            {
+                <OrdinaryDayResults Simulation="@_simulation"
+                                    State="SimulationState"
+                                    Texts="_texts"
+                                    Restart="@RestartSimulation" />
+            }
+            else
+            {
+                <SimulationResults Simulation="@_simulation"
+                                   State="SimulationState"
+                                   Texts="_texts"
+                                   Restart="@RestartSimulation" />
+            }
+        }
+        else if (SimulationState.CurrentScene is not null)
+        {
+            <SimulationProgress Current="SimulationState.CurrentScene.Order"
+                                Total="@_simulation.Scenes.Count"
+                                Label="@T("simulations.common.progressLabel")"
+                                StepLabel="@T("simulations.common.step")" />
+            @if (_simulation.Slug == "ordinary-day")
+            {
+                <OrdinaryDayScene Scene="SimulationState.CurrentScene"
+                                  Texts="_texts"
+                                  ChoiceSelected="@SelectChoice" />
+            }
+            else
+            {
+                <PublicWifiScene Scene="SimulationState.CurrentScene"
+                                 State="SimulationState"
+                                 Texts="_texts"
+                                 ChoiceSelected="@SelectChoice" />
+            }
+        }
+    </main>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = string.Empty;
+
+    private static readonly string[] CommonKeys =
+    [
+        "simulations.common.available", "simulations.common.minutes", "simulations.common.start",
+        "simulations.common.loading", "simulations.common.error.label", "simulations.common.error.title",
+        "simulations.common.error.message", "simulations.common.retry", "simulations.common.introEyebrow",
+        "simulations.common.progressLabel", "simulations.common.step", "simulations.common.chooseAction",
+        "simulations.common.backToList", "simulations.common.notFound.title",
+        "simulations.common.notFound.description", "simulations.common.keyTakeaways",
+        "simulations.common.relatedTopic", "simulations.common.relatedProduct",
+        "simulations.results.eyebrow", "simulations.results.yourDecisions",
+        "simulations.results.whyImportant", "simulations.results.whatWorked",
+        "simulations.results.alternative", "simulations.results.safeDecision",
+        "simulations.results.risk", "simulations.results.criticalRisk", "simulations.results.related",
+        "simulations.results.restart", "simulations.results.otherSimulations",
+        "simulations.results.openTopic", "simulations.results.openProduct", "simulations.results.openFinder"
+    ];
+
+    private readonly Dictionary<string, string> _texts = new(StringComparer.Ordinal);
+    private Simulation? _simulation;
+    private bool _loading = true;
+    private bool _hasError;
+
+    protected override async Task OnParametersSetAsync() => await LoadContentAsync();
+
+    private async Task LoadContentAsync()
+    {
+        _loading = true;
+        _hasError = false;
+
+        try
+        {
+            var simulation = await ContentService.GetBySlugAsync(Slug);
+            _texts.Clear();
+
+            var keys = CommonKeys.AsEnumerable();
+            if (simulation is not null)
+            {
+                keys = keys.Concat(GetSimulationKeys(simulation));
+            }
+
+            foreach (var key in keys.Distinct(StringComparer.Ordinal))
+            {
+                _texts[key] = await LocalizationService.GetAsync(key, AppState.Locale);
+            }
+
+            if (SimulationState.CurrentSimulation is not null &&
+                !string.Equals(
+                    SimulationState.CurrentSimulation.Slug,
+                    simulation?.Slug,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                SimulationState.Reset();
+            }
+
+            _simulation = simulation;
+        }
+        catch
+        {
+            _hasError = true;
+            _simulation = null;
+        }
+
+        _loading = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private static IEnumerable<string> GetSimulationKeys(Simulation simulation)
+    {
+        IEnumerable<string> keys =
+        [
+            simulation.TitleKey, simulation.CardQuestionKey, simulation.IntroTitleKey,
+            simulation.IntroBodyKey, simulation.PrivacyNoteKey, simulation.CompletionKey,
+            simulation.Result.SafeTitleKey, simulation.Result.RiskTitleKey,
+            simulation.Result.CriticalTitleKey, simulation.Result.SubtitleKey,
+            simulation.RelatedTopic.TitleKey, simulation.RelatedTopic.DescriptionKey
+        ];
+
+        keys = keys
+            .Concat(simulation.Scenes.SelectMany(scene =>
+                new[] { scene.TitleKey, scene.PromptKey }
+                    .Concat(scene.ContentKeys)
+                    .Concat(scene.Choices.Select(choice => choice.LabelKey))))
+            .Concat(simulation.Outcomes.SelectMany(outcome =>
+                new[] { outcome.TitleKey, outcome.ExplanationKey, outcome.ImpactKey }
+                    .Concat(outcome.AlternativeKey is { } alternative ? [alternative] : [])))
+            .Concat(simulation.KeyTakeaways.SelectMany(takeaway =>
+                new[] { takeaway.TitleKey, takeaway.DescriptionKey }))
+            .Concat(simulation.UiLocalizationKeys ?? []);
+
+        if (simulation.RelatedProduct is not null)
+        {
+            keys = keys.Concat([simulation.RelatedProduct.TitleKey, simulation.RelatedProduct.DescriptionKey]);
+        }
+
+        if (simulation.AlternativeExit is not null)
+        {
+            keys = keys.Concat([simulation.AlternativeExit.TitleKey, simulation.AlternativeExit.DescriptionKey]);
+        }
+
+        return keys;
+    }
+
+    private string T(string key) => _texts.TryGetValue(key, out var value) ? value : key;
+
+    private string PrivacyTitle
+    {
+        get
+        {
+            var text = _simulation is null ? string.Empty : T(_simulation.PrivacyNoteKey);
+            var sentenceEnd = text.IndexOf('.');
+            return sentenceEnd >= 0 ? text[..(sentenceEnd + 1)] : text;
+        }
+    }
+
+    private string PrivacyDescription
+    {
+        get
+        {
+            var text = _simulation is null ? string.Empty : T(_simulation.PrivacyNoteKey);
+            var sentenceEnd = text.IndexOf('.');
+            return sentenceEnd >= 0 && sentenceEnd + 1 < text.Length
+                ? text[(sentenceEnd + 1)..].TrimStart()
+                : string.Empty;
+        }
+    }
+
+    private void StartSimulation() => SimulationState.Begin(_simulation!);
+
+    private void SelectChoice(string choiceId) => SimulationState.SelectChoice(choiceId);
+
+    private void RestartSimulation() => SimulationState.Restart();
+
+    private async Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        await LoadContentAsync();
+    }
+}

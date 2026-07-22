@@ -1,0 +1,13 @@
+.DS_Store
+.idea/
+.vs/
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.db
+**/*.db-shm
+**/*.db-wal
+.env
+.env.*
+!.env.example

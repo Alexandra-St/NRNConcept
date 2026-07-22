@@ -1,0 +1,128 @@
+@page "/learn/{CategoryId}"
+@inject ILearningContentService ContentService
+@inject ILearningLocalizationService LocalizationService
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.Learning.Components
+@using NRN.Web.Features.Learning.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(_categoryName ?? "Privacy Lab")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="category-shell">
+    <a class="back-link" href="/learn">← @(_backLabel ?? "Privacy Lab")</a>
+    @if (_hasError)
+    {
+        <div class="motion-enter">
+            <ContentErrorState Label="@ErrorLabel" Title="@ErrorTitle" Message="@ErrorMessage" RetryLabel="@RetryLabel" Retry="LoadContentAsync" />
+        </div>
+    }
+    else if (_loading)
+    {
+        <p class="loading-state" role="status" aria-busy="true">@LoadingLabel</p>
+    }
+    else
+    {
+        @if (!_categoryFound)
+        {
+            <section class="category-header motion-enter" role="status">
+                <p class="eyebrow">404</p>
+                <h1>@_notFoundTitle</h1>
+                <p>@_notFoundDescription</p>
+            </section>
+        }
+        else
+        {
+            <div class="motion-enter">
+                <header class="category-header">
+                    <p class="eyebrow">@_sectionLabel</p>
+                    <h1>@_categoryName</h1>
+                    <p>@_categoryDescription</p>
+                </header>
+
+                @if (_topics.Count == 0)
+                {
+                    <p class="empty-state">@_emptyMessage</p>
+                }
+                else
+                {
+                    <div class="topic-list">
+                        @foreach (var topic in _topics)
+                        {
+                            <TopicCard Order="@topic.Order" Title="@topic.Title" Tagline="@topic.Tagline"
+                                       Href="@($"/learn/{CategoryId}/{topic.Slug}")" />
+                        }
+                    </div>
+                }
+            </div>
+        }
+    }
+</main>
+
+@code {
+    [Parameter] public string CategoryId { get; set; } = string.Empty;
+    private bool _loading = true;
+    private bool _hasError;
+    private string? _backLabel;
+    private string? _categoryName;
+    private string? _categoryDescription;
+    private string? _sectionLabel;
+    private string? _emptyMessage;
+    private string? _notFoundTitle;
+    private string? _notFoundDescription;
+    private bool _categoryFound;
+    private IReadOnlyList<CategoryTopic> _topics = [];
+    private string LoadingLabel => AppState.Locale == "ru" ? "Загрузка…" : "Loading…";
+    private string ErrorLabel => AppState.Locale == "ru" ? "Ошибка" : "Error";
+    private string ErrorTitle => AppState.Locale == "ru" ? "Не удалось загрузить раздел" : "The category could not be loaded";
+    private string ErrorMessage => AppState.Locale == "ru" ? "Проверьте соединение и попробуйте ещё раз." : "Check the connection and try again.";
+    private string RetryLabel => AppState.Locale == "ru" ? "Повторить" : "Try again";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadContentAsync();
+    }
+
+    private async Task LoadContentAsync()
+    {
+        _loading = true;
+        _hasError = false;
+        try
+        {
+        var categories = await ContentService.GetCategoriesAsync();
+        var category = categories.FirstOrDefault(item => string.Equals(item.Id, CategoryId, StringComparison.OrdinalIgnoreCase));
+        _sectionLabel = await T("learning.category.eyebrow");
+        _backLabel = await T("learning.common.backToLab");
+        _emptyMessage = await T("learning.category.empty");
+        _notFoundTitle = await T("learning.category.notFound.title");
+        _notFoundDescription = await T("learning.category.notFound.description");
+        _categoryFound = category is not null;
+        _categoryName = category is null ? null : await T(category.NameKey);
+        _categoryDescription = category is null ? null : await T(category.DescriptionKey);
+
+        var topics = await ContentService.GetTopicsAsync();
+        var localized = new List<CategoryTopic>();
+        foreach (var topic in topics.Where(item => string.Equals(item.CategoryId, CategoryId, StringComparison.OrdinalIgnoreCase)).OrderBy(item => item.Order))
+        {
+            localized.Add(new CategoryTopic(topic.Slug, topic.Order,
+                await T(topic.TitleKey), await T(topic.TaglineKey)));
+        }
+
+        _topics = localized;
+        }
+        catch
+        {
+            _hasError = true;
+            _topics = [];
+        }
+        _loading = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private Task<string> T(string key) => LocalizationService.GetAsync(key, AppState.Locale);
+    private async Task ChangeLocaleAsync(string locale) { AppState.SetLocale(locale); await LoadContentAsync(); }
+    private sealed record CategoryTopic(string Slug, int Order, string Title, string Tagline);
+}

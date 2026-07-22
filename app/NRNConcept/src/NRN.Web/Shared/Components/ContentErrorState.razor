@@ -1,0 +1,14 @@
+<section class="content-error" role="alert">
+    <p class="error-label">@Label</p>
+    <h1>@Title</h1>
+    <p>@Message</p>
+    <button type="button" @onclick="Retry">@RetryLabel</button>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Message { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string RetryLabel { get; set; } = string.Empty;
+    [Parameter] public EventCallback Retry { get; set; }
+}

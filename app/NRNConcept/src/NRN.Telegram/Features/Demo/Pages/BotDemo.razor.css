@@ -1,0 +1,337 @@
+.demo-page {
+    display: grid;
+    grid-template-columns: minmax(18rem, 28rem) minmax(20rem, 28rem);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 2rem;
+    background:
+        radial-gradient(circle at 18% 15%, rgb(148 86 214 / 22%), transparent 30rem),
+        radial-gradient(circle at 82% 75%, rgb(242 191 69 / 14%), transparent 28rem),
+        #101114;
+}
+
+.demo-intro h1 {
+    max-width: 11ch;
+    margin: 1rem 0;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: .94;
+    letter-spacing: -.055em;
+}
+
+.demo-intro p {
+    max-width: 33rem;
+    color: #a9abb2;
+    line-height: 1.55;
+}
+
+.demo-label {
+    display: inline-flex;
+    padding: .42rem .68rem;
+    border: 1px solid #4b4d55;
+    border-radius: 999px;
+    color: #d8d9dd;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+.open-direct {
+    display: inline-flex;
+    margin-top: 1rem;
+    color: #f2bf45;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.phone {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    width: min(100%, 26rem);
+    height: min(52rem, calc(100dvh - 3rem));
+    min-height: 42rem;
+    overflow: hidden;
+    border: .45rem solid #292a2f;
+    border-radius: 2.6rem;
+    background: #e8d7e7;
+    color: #17171a;
+    box-shadow: 0 2rem 6rem rgb(0 0 0 / 45%);
+}
+
+.phone__status {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.35rem .7rem;
+    background: rgb(255 255 255 / 78%);
+    font-size: .75rem;
+}
+
+.chat-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .7rem;
+    align-items: center;
+    padding: .7rem 1rem;
+    border-bottom: 1px solid rgb(0 0 0 / 10%);
+    background: rgb(255 255 255 / 86%);
+    backdrop-filter: blur(18px);
+}
+
+.bot-avatar {
+    display: grid;
+    place-items: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 50%;
+    background: #18181b;
+    color: white;
+    font-weight: 850;
+}
+
+.chat-header div:nth-child(2) {
+    display: grid;
+    text-align: center;
+}
+
+.chat-header small {
+    color: #7c7d82;
+}
+
+.chat-header__more {
+    color: #8c57d6;
+    font-weight: 900;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    overflow: auto;
+    padding: .8rem;
+    background:
+        linear-gradient(135deg, rgb(218 76 169 / 64%), rgb(255 188 132 / 58%)),
+        #e6b5cd;
+}
+
+.date-chip {
+    align-self: center;
+    padding: .25rem .55rem;
+    border-radius: 999px;
+    background: rgb(28 27 31 / 75%);
+    color: white;
+    font-size: .68rem;
+}
+
+.message {
+    max-width: 88%;
+    padding: .72rem .85rem;
+    border-radius: 1rem;
+    font-size: .82rem;
+    line-height: 1.32;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+.message p {
+    margin: 0 0 .65rem;
+}
+
+.message p:last-of-type {
+    margin-bottom: .15rem;
+}
+
+.message small {
+    float: right;
+    margin-left: .5rem;
+    color: #89898d;
+    font-size: .62rem;
+}
+
+.message--in {
+    align-self: flex-start;
+    border-bottom-left-radius: .25rem;
+    background: #fff;
+}
+
+.message--out {
+    align-self: flex-end;
+    border-bottom-right-radius: .25rem;
+    background: #ead9ff;
+    color: #6636a8;
+}
+
+.welcome-message hr {
+    border: 0;
+    border-top: 1px solid #d8d8dc;
+}
+
+.bot-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .35rem;
+}
+
+.bot-actions button {
+    min-height: 2.45rem;
+    border: 0;
+    border-radius: .7rem;
+    background: rgb(255 255 255 / 75%);
+    color: #29292d;
+    font-weight: 700;
+}
+
+.open-app {
+    display: grid;
+    gap: .12rem;
+    padding: .85rem;
+    border: 0;
+    border-radius: .85rem;
+    background: linear-gradient(110deg, #18181b, #3a2c42);
+    color: #fff;
+    text-align: left;
+}
+
+.open-app span {
+    font-weight: 850;
+}
+
+.open-app small {
+    color: #b9bac0;
+}
+
+.composer {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .45rem;
+    align-items: center;
+    padding: .65rem .8rem 1rem;
+    background: rgb(255 255 255 / 86%);
+}
+
+.composer span,
+.composer div {
+    padding: .58rem .65rem;
+    border-radius: 999px;
+    background: #fff;
+    color: #929399;
+    font-size: .72rem;
+}
+
+.composer span:first-child {
+    background: #8f56d5;
+    color: #fff;
+}
+
+.mini-app-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: grid;
+    place-items: end center;
+}
+
+.overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    background: rgb(0 0 0 / 64%);
+}
+
+.mini-app-sheet {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: min(100%, 28rem);
+    height: min(92dvh, 56rem);
+    overflow: hidden;
+    border-radius: 1.8rem 1.8rem 0 0;
+    background: #f4f4f2;
+    box-shadow: 0 -1rem 4rem rgb(0 0 0 / 32%);
+}
+
+.mini-app-sheet header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: .9rem 1rem;
+    border-bottom: 1px solid #d8d8dc;
+    background: #f1f1f6;
+    color: #17171a;
+}
+
+.mini-app-sheet header button {
+    justify-self: start;
+    border: 0;
+    background: transparent;
+    color: #8f56d5;
+    font: inherit;
+}
+
+.mini-app-sheet header div {
+    display: grid;
+    text-align: center;
+}
+
+.mini-app-sheet header small {
+    color: #84858a;
+}
+
+.mini-app-sheet header > span {
+    justify-self: end;
+    color: #8f56d5;
+}
+
+.mini-app-sheet iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #f4f4f2;
+}
+
+@media (max-width: 58rem) {
+    .demo-page {
+        grid-template-columns: 1fr;
+        padding: 1.25rem;
+    }
+
+    .demo-intro {
+        max-width: 32rem;
+        margin: 0 auto;
+    }
+
+    .demo-intro h1 {
+        max-width: 14ch;
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .phone {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 32rem) {
+    .demo-page {
+        padding: 0;
+    }
+
+    .demo-intro {
+        padding: 1.5rem 1rem .5rem;
+    }
+
+    .phone {
+        width: 100%;
+        height: 48rem;
+        max-height: 78dvh;
+        min-height: 38rem;
+        border-width: 0;
+        border-radius: 1.6rem 1.6rem 0 0;
+    }
+
+    .mini-app-sheet {
+        height: 94dvh;
+    }
+}

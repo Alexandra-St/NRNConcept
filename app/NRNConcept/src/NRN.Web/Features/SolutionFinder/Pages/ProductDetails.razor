@@ -1,0 +1,67 @@
+@page "/finder/product/{ProductId}"
+@inject AppState AppState
+@inject ISolutionFinderService FinderService
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Features.SolutionFinder.Models
+@using NRN.Web.Features.SolutionFinder.Services
+@using NRN.Web.Shared.Components
+@using NRN.Web.Shared.State
+
+<PageTitle>@(_product?.Name ?? "Solution Finder")</PageTitle>
+
+<NarayanaHeader LocaleChanged="ChangeLocaleAsync" />
+
+<main id="main-content" class="product-shell motion-enter">
+    <a class="back-link" href="/finder/results">← @(Ru ? "К результатам" : "Back to results")</a>
+
+    @if (_product is null)
+    {
+        <section class="not-found">
+            <p class="eyebrow">404</p>
+            <h1>@(Ru ? "Решение не найдено" : "Solution not found")</h1>
+            <a href="/finder">@(Ru ? "Открыть Solution Finder" : "Open Solution Finder") →</a>
+        </section>
+    }
+    else
+    {
+        <header class="product-header">
+            <p class="eyebrow">@(Ru ? "ПОДХОДЯЩЕЕ РЕШЕНИЕ" : "RELEVANT SOLUTION")</p>
+            <h1>@_product.Name</h1>
+            <p>@_product.Tagline</p>
+        </header>
+
+        <article class="product-details">
+            <section><span>01</span><div><h2>@(Ru ? "Что делает" : "What it does")</h2><p>@_product.Description</p></div></section>
+            <section><span>02</span><div><h2>@(Ru ? "Кому подходит" : "Who it fits")</h2><p>@_product.Fits</p></div></section>
+            <section><span>03</span><div><h2>@(Ru ? "Когда не подходит" : "When it does not fit")</h2><p>@_product.DoesNotFit</p></div></section>
+            <section class="limitation"><span>04</span><div><h2>@(Ru ? "Важно учитывать" : "Keep in mind")</h2><p>@_product.Limitation</p></div></section>
+        </article>
+
+        <div class="product-actions">
+            <a class="primary-action" href="@_product.NarayanaUrl" target="_blank" rel="noreferrer"
+               aria-label="@(Ru ? "Открыть регистрацию Narayana в новой вкладке" : "Open Narayana registration in a new tab")">@(Ru ? "Перейти в Narayana" : "Continue to Narayana") ↗</a>
+            @if (_product.LearningUrl is not null)
+            {
+                <a class="secondary-action" href="@_product.LearningUrl">@(Ru ? "Понять контекст в Privacy Lab" : "Understand the context in Privacy Lab") →</a>
+            }
+        </div>
+    }
+</main>
+
+@code {
+    [Parameter] public string ProductId { get; set; } = string.Empty;
+    private FinderProduct? _product;
+    private bool Ru => AppState.Locale == "ru";
+
+    protected override void OnParametersSet() => LoadProduct();
+
+    private void LoadProduct() => _product = FinderService.GetProduct(ProductId, AppState.Locale);
+
+    private Task ChangeLocaleAsync(string locale)
+    {
+        AppState.SetLocale(locale);
+        LoadProduct();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

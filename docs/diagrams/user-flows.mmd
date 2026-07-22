@@ -1,0 +1,33 @@
+flowchart TB
+
+subgraph F1["Flow 1. New User"]
+  direction LR
+  A1["Ad"] --> A2["Mini App"] --> A3["Dashboard"] --> A4["Learn"] --> A5["Privacy Lab"] --> A6["Topic"] --> A7["Simulation"] --> A8["Aha!<br/>Moment"] --> A9["Solution<br/>Finder"] --> A10["Narayana<br/>Product"]
+end
+
+subgraph F2["Flow 2. Has a Problem"]
+  direction LR
+  B1["Privacy Lab"] --> B2["Topic"] --> B3["Explanation"] --> B4["Simulation"] --> B6["Solution<br/>Finder"] --> B7["Narayana"]
+end
+
+subgraph F3["Flow 3. Explorer"]
+  direction LR
+  C1["Privacy Lab"] --> C2["Categories"] --> C3["Topic"] --> C4["Related<br/>Topic"] --> C5["Simulation"] --> C6["Glossary"] --> C7["Home"]
+  C4 --> C4
+  C5 --> C4
+end
+
+subgraph F4["Flow 4. Existing&nbsp;Client"]
+  direction LR
+  D1["Mini App"] --> D2["Dashboard"] --> D3["Services"] --> D4["Learn"] --> D5["Lab"] --> D6["Simulation"] --> D7["Dashboard"]
+end
+
+subgraph F5["Flow 5. Choose Solution"]
+  direction LR
+  E1["Privacy Lab"] --> E2["Solution<br/>Finder"] --> E3["Questionnaire"] --> E4["Recommendations"] --> E5["Why<br/>These?"] --> E6["Narayana"]
+end
+
+F1 ~~~ F2
+F2 ~~~ F3
+F3 ~~~ F4
+F4 ~~~ F5

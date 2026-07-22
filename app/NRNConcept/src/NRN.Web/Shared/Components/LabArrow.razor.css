@@ -1,0 +1,28 @@
+.lab-arrow {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    color: #ff8a00;
+    background: var(--lab-arrow-background, color-mix(in srgb, var(--color-bg) 72%, transparent));
+    border: 1px solid var(--lab-arrow-border, var(--color-border));
+    border-radius: 50%;
+    transition: background-color var(--motion-fast) var(--ease-out),
+                border-color var(--motion-fast) var(--ease-out),
+                transform var(--motion-fast) var(--ease-out);
+}
+
+.lab-arrow span {
+    font-size: 1.45rem;
+    line-height: 1;
+    transform: translateX(var(--lab-arrow-offset, 0));
+    transition: transform var(--motion-fast) var(--ease-out);
+}
+
+@media (max-width: 640px) {
+    .lab-arrow {
+        width: 2.9rem;
+        height: 2.9rem;
+    }
+}

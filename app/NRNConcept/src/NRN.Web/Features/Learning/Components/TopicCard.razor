@@ -1,0 +1,17 @@
+@using NRN.Web.Shared.Components
+
+<a class="topic-card" href="@Href">
+    <span class="topic-order">@Order.ToString("00")</span>
+    <span class="topic-copy">
+        <strong>@Title</strong>
+        <span>@Tagline</span>
+    </span>
+    <LabArrow />
+</a>
+
+@code {
+    [Parameter, EditorRequired] public int Order { get; set; }
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Tagline { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Href { get; set; } = string.Empty;
+}

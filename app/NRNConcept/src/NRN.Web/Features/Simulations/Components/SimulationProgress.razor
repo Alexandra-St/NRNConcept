@@ -1,0 +1,30 @@
+<div class="simulation-progress"
+     role="progressbar"
+     aria-label="@Label"
+     aria-valuemin="1"
+     aria-valuemax="@Total"
+     aria-valuenow="@Current">
+    <div class="progress-copy">
+        <span>@Label</span>
+        <strong>@StepLabel @Current / @Total</strong>
+    </div>
+    <ol aria-hidden="true">
+        @for (var step = 1; step <= Total; step++)
+        {
+            <li class="@StepClass(step)"><span></span></li>
+        }
+    </ol>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public int Current { get; set; }
+    [Parameter, EditorRequired] public int Total { get; set; }
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string StepLabel { get; set; } = string.Empty;
+
+    private string StepClass(int step) => step == Current
+        ? "current"
+        : step < Current
+            ? "completed"
+            : "pending";
+}

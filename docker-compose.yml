@@ -1,0 +1,41 @@
+services:
+  lab:
+    build:
+      context: ./app/NRNConcept
+      dockerfile: src/NRN.Web/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      HttpsRedirection__Enabled: "false"
+    restart: unless-stopped
+
+  miniapp:
+    build:
+      context: ./app/NRNConcept
+      dockerfile: src/NRN.Telegram/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      HttpsRedirection__Enabled: "false"
+      PathBase: /miniapp
+      ConnectionStrings__NrnServices: Data Source=/app/Data/nrn-telegram.db
+    volumes:
+      - miniapp-data:/app/Data
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: ./deploy/proxy
+    environment:
+      PORT: "8080"
+      LAB_HOST: lab
+      LAB_PORT: "8080"
+      MINIAPP_HOST: miniapp
+      MINIAPP_PORT: "8080"
+    depends_on:
+      - lab
+      - miniapp
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  miniapp-data:

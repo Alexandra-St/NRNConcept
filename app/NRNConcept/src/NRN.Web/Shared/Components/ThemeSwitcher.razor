@@ -1,0 +1,21 @@
+@inject AppState AppState
+@using Microsoft.AspNetCore.Components.Web
+@using NRN.Web.Shared.State
+
+<button class="theme-switcher" type="button" aria-label="@Label" title="@Label" @onclick="ToggleTheme">
+    @if (AppState.Theme == "light")
+    {
+        <span aria-hidden="true">☼</span>
+    }
+    else
+    {
+        <span aria-hidden="true">◐</span>
+    }
+</button>
+
+@code {
+    [Parameter] public string Locale { get; set; } = "ru";
+
+    private string Label => Locale == "ru" ? "Переключить тему" : "Toggle theme";
+    private void ToggleTheme() => AppState.SetTheme(AppState.Theme == "light" ? "dark" : "light");
+}

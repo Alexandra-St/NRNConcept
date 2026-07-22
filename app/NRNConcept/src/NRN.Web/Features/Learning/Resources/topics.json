@@ -1,0 +1,160 @@
+[
+  {
+    "slug": "what-is-digital-privacy",
+    "categoryId": "foundations",
+    "order": 1,
+
+    "titleKey": "learning.topic.digitalPrivacy.title",
+    "taglineKey": "learning.topic.digitalPrivacy.tagline",
+    "summaryKey": "learning.topic.digitalPrivacy.summary",
+
+    "situationKey": "learning.topic.digitalPrivacy.situation",
+    "problemKey": "learning.topic.digitalPrivacy.problem",
+    "realityKey": "learning.topic.digitalPrivacy.reality",
+    "solutionKey": "learning.topic.digitalPrivacy.solution",
+    "relatedSimulationSlug": "ordinary-day",
+    "relatedSourceIds": ["ico-public-rights"]
+  },
+  {
+    "slug": "digital-footprint",
+    "categoryId": "foundations",
+    "order": 2,
+
+    "titleKey": "learning.topic.digitalFootprint.title",
+    "taglineKey": "learning.topic.digitalFootprint.tagline",
+    "summaryKey": "learning.topic.digitalFootprint.summary",
+
+    "situationKey": "learning.topic.digitalFootprint.situation",
+    "problemKey": "learning.topic.digitalFootprint.problem",
+    "realityKey": "learning.topic.digitalFootprint.reality",
+    "solutionKey": "learning.topic.digitalFootprint.solution",
+    "relatedSimulationSlug": "ordinary-day",
+    "relatedSourceIds": ["eff-digital-footprint"]
+  },
+  {
+    "slug": "why-should-i-care",
+    "categoryId": "foundations",
+    "order": 3,
+
+    "titleKey": "learning.topic.whyCare.title",
+    "taglineKey": "learning.topic.whyCare.tagline",
+    "summaryKey": "learning.topic.whyCare.summary",
+
+    "situationKey": "learning.topic.whyCare.situation",
+    "problemKey": "learning.topic.whyCare.problem",
+    "realityKey": "learning.topic.whyCare.reality",
+    "solutionKey": "learning.topic.whyCare.solution",
+    "relatedSimulationSlug": "ordinary-day",
+    "relatedSourceIds": ["eff-ssd"]
+  },
+  {
+    "slug": "public-wifi",
+    "categoryId": "everyday-situations",
+    "order": 1,
+
+    "titleKey": "learning.topic.publicWifi.title",
+    "taglineKey": "learning.topic.publicWifi.tagline",
+    "summaryKey": "learning.topic.publicWifi.summary",
+
+    "situationKey": "learning.topic.publicWifi.situation",
+    "problemKey": "learning.topic.publicWifi.problem",
+    "realityKey": "learning.topic.publicWifi.reality",
+    "solutionKey": "learning.topic.publicWifi.solution",
+
+    "relatedSimulationSlug": "public-wifi",
+    "relatedSourceIds": ["ftc-public-wifi", "eff-vpn"]
+  },
+  {
+    "slug": "passwords",
+    "categoryId": "everyday-situations",
+    "order": 2,
+
+    "titleKey": "learning.topic.passwords.title",
+    "taglineKey": "learning.topic.passwords.tagline",
+    "summaryKey": "learning.topic.passwords.summary",
+
+    "situationKey": "learning.topic.passwords.situation",
+    "problemKey": "learning.topic.passwords.problem",
+    "realityKey": "learning.topic.passwords.reality",
+    "solutionKey": "learning.topic.passwords.solution",
+    "relatedSourceIds": ["nist-authentication", "cisa-secure-our-world"]
+  },
+  {
+    "slug": "sms-authentication",
+    "categoryId": "everyday-situations",
+    "order": 3,
+
+    "titleKey": "learning.topic.smsAuth.title",
+    "taglineKey": "learning.topic.smsAuth.tagline",
+    "summaryKey": "learning.topic.smsAuth.summary",
+
+    "situationKey": "learning.topic.smsAuth.situation",
+    "problemKey": "learning.topic.smsAuth.problem",
+    "realityKey": "learning.topic.smsAuth.reality",
+    "solutionKey": "learning.topic.smsAuth.solution",
+    "relatedSourceIds": ["nist-authentication", "ncsc-high-risk-individuals"]
+  },
+  {
+    "slug": "social-media",
+    "categoryId": "everyday-situations",
+    "order": 4,
+
+    "titleKey": "learning.topic.socialMedia.title",
+    "taglineKey": "learning.topic.socialMedia.tagline",
+    "summaryKey": "learning.topic.socialMedia.summary",
+
+    "situationKey": "learning.topic.socialMedia.situation",
+    "problemKey": "learning.topic.socialMedia.problem",
+    "realityKey": "learning.topic.socialMedia.reality",
+    "solutionKey": "learning.topic.socialMedia.solution",
+    "relatedSourceIds": ["ico-social-media", "ncsc-high-risk-individuals"]
+  },
+  {
+    "slug": "messaging-apps",
+    "categoryId": "taking-control",
+    "order": 1,
+
+    "titleKey": "learning.topic.messagingApps.title",
+    "taglineKey": "learning.topic.messagingApps.tagline",
+    "summaryKey": "learning.topic.messagingApps.summary",
+
+    "situationKey": "learning.topic.messagingApps.situation",
+    "problemKey": "learning.topic.messagingApps.problem",
+    "realityKey": "learning.topic.messagingApps.reality",
+    "solutionKey": "learning.topic.messagingApps.solution",
+
+    "relatedProductIds": ["virtual-number"],
+    "relatedSourceIds": ["eff-encryption", "ncsc-high-risk-individuals"]
+  },
+  {
+    "slug": "vpn",
+    "categoryId": "taking-control",
+    "order": 2,
+
+    "titleKey": "learning.topic.vpn.title",
+    "taglineKey": "learning.topic.vpn.tagline",
+    "summaryKey": "learning.topic.vpn.summary",
+
+    "situationKey": "learning.topic.vpn.situation",
+    "problemKey": "learning.topic.vpn.problem",
+    "realityKey": "learning.topic.vpn.reality",
+    "solutionKey": "learning.topic.vpn.solution",
+
+    "relatedSourceIds": ["eff-vpn"]
+  },
+  {
+    "slug": "building-your-privacy-toolkit",
+    "categoryId": "taking-control",
+    "order": 3,
+
+    "titleKey": "learning.topic.privacyToolkit.title",
+    "taglineKey": "learning.topic.privacyToolkit.tagline",
+    "summaryKey": "learning.topic.privacyToolkit.summary",
+
+    "situationKey": "learning.topic.privacyToolkit.situation",
+    "problemKey": "learning.topic.privacyToolkit.problem",
+    "realityKey": "learning.topic.privacyToolkit.reality",
+    "solutionKey": "learning.topic.privacyToolkit.solution",
+    "relatedSourceIds": ["cisa-secure-our-world", "eff-ssd"]
+  }
+]

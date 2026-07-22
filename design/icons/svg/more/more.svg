@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="bevel" aria-hidden="true">
+  <g class="nrn-icon__primary" stroke="currentColor">
+    <path d="m3 10 2-1 2 1v3l-2 1-2-1v-3ZM9 10l2-1 2 1v3l-2 1-2-1v-3Z"/>
+  </g>
+  <g class="nrn-icon__accent" stroke="var(--nrn-icon-accent, #FF9A00)">
+    <path d="m15 10 2-1 2 1v3l-2 1-2-1v-3Z"/>
+  </g>
+</svg>
