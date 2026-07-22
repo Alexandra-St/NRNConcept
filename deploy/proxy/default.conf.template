@@ -7,6 +7,12 @@ server {
     listen ${PORT};
     server_name _;
 
+    location = /health {
+        access_log off;
+        add_header Content-Type text/plain;
+        return 200 "healthy\n";
+    }
+
     location = /miniapp {
         return 308 /miniapp/;
     }
