@@ -41,4 +41,4 @@ Research consists of public desk research and hypotheses, not representative cus
 
 ## Documentation plan
 
-Rewrite the English README around verified MVP functionality and independent authorship; add a factual architecture/privacy/local setup overview; refresh module specifications and design maps; capture actual application screenshots; record deployment and test limitations; prepare repository metadata and a reviewable pull request without merging. Leave source code and deployment configuration unchanged. License selection remains an owner decision.
+Rewrite the English README around verified MVP functionality and independent authorship; add a factual architecture/privacy/local setup overview; refresh module specifications and design maps; capture actual application screenshots; record deployment and test limitations; prepare repository metadata and a reviewable pull request without merging. Leave source code and deployment configuration unchanged. No license is added, as requested by the owner.

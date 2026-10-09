@@ -2,7 +2,7 @@
 
 ## Changes
 
-Rewritten English README; refreshed application setup and Mini App notes; architecture, deployment, initial audit and GitHub presentation documents; English Finder/simulation specifications and design maps; independent-concept context in product/design notes; dated annotation for one broken research citation; eight actual JPEG screenshots; MIT license explicitly selected by the owner. No application code, deployment settings or research sources were deleted. Synced project sources and the original local checkout were untouched.
+Rewritten English README; refreshed application setup and Mini App notes; architecture, deployment, initial audit and GitHub presentation documents; English Finder/simulation specifications and design maps; independent-concept context in product/design notes; dated annotation for one broken research citation; eight actual JPEG screenshots. No application code, deployment settings or research sources were deleted. Synced project sources and the original local checkout were untouched.
 
 ## Verification results
 
@@ -26,7 +26,6 @@ Rewritten English README; refreshed application setup and Mini App notes; archit
 | Markdown | Balanced fences and git diff --check passed; relative targets checked |
 | Images | Eight actual local application screenshots, visually reviewed main overview images; under 150 KB each |
 | Secrets | Limited history scan: 365 text blobs; only synthetic test token candidate, no confirmed credential |
-| License | MIT added only after explicit owner selection |
 
 ## Exact execution environment
 
@@ -53,7 +52,6 @@ External-link audit checked 60 unique documentation URLs: 54 succeeded, four ret
 
 ## Changed-file inventory
 
-- `LICENSE`
 - `README.md`
 - `app/NRNConcept/src/NRN.Telegram/README.md`
 - `app/README.md`

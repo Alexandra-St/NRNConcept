@@ -133,7 +133,3 @@ The checked-in Compose setup exposes the gateway on port 8080. Its configuration
 ## Project status & disclaimer
 
 NRN is an independent concept and prototype developed for exploration and demonstration. It is not an official Narayana production application. Narayana references identify the product research context; they do not imply endorsement, employment, commissioning or deployment. Commercial service integrations require appropriate access and authorization. Local balances, subscriptions and purchase records do not provision telecom services.
-
-## License
-
-Licensed under [MIT](LICENSE), selected by the repository owner. Narayana names and third-party branding do not imply endorsement or transfer third-party rights.
