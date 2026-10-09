@@ -1,172 +1,23 @@
-# Screen List L1
+# Screen inventory
 
-This document answers the question:
+[Complete original project document](../docs/archive/original-concept/design/screen-list.md) — preserved verbatim; this page describes the current implementation.
 
-> What should the user see on this screen?
+This separates current screens from the original L1 planning inventory. Baseline audited 9 October 2026.
 
-This level is enough to move into low-fidelity wireframes.
+## Telegram Mini App — implemented prototype
 
----
+Dashboard (`/app`): greeting, quick actions, services, catalog, learning and help. My Services (`/app/services`): service list/status. Catalog (`/app/catalog`) and details: product cards, capabilities and prototype purchase options. Account and Language: identity/balance presentation and locale preference. Learn: educational entry points. Help: support destination. Browser bot presentation (`/demo`): scripted transcript and Open App iframe.
 
-# Telegram Mini App
+Dedicated price comparison and real service management/provisioning remain planned. The public gateway prefixes these paths with `/miniapp`.
 
-## Dashboard
+## Educational Web — implemented MVP
 
-- Hero / приветствие
-- Быстрые действия
-- My Services
-- Buy Service
-- Learn
-- Help
+Privacy Lab (`/learn`): hero, privacy notice and categories. Category (`/learn/{category}`): topics. Topic: situation, explanation, practical actions and relevant links. The original broad category list was a planning sketch; production categories and topics come from JSON.
 
----
+Finder: Start, Questionnaire, Results and Product Details. Results explain why each product fits, limitations, alternatives and learning links.
 
-## My Services
+Simulations: catalog, introduction, interactive scenes, explanation, takeaways and related exits. Two scenarios are available. Filtering, persistent Continue Learning, glossary/search and separate About screens remain planning items, not implemented routes.
 
-- Список услуг
-- Статус
-- Управление
+## Visual requirements
 
----
-
-## Buy Service
-
-- Категории
-- Карточки услуг
-- CTA
-
----
-
-## Prices
-
-- Список тарифов
-- Сравнение
-
----
-
-## Learn
-
-- Рекомендуемые темы
-- Последние симуляции
-- Перейти в Privacy Lab
-
----
-
-## Help
-
-- FAQ
-- Support
-- Contact
-
----
-
-# Privacy Lab
-
-## Home
-
-- Hero
-- Featured Topic
-- Categories
-- Continue Learning
-- Featured Simulation
-
----
-
-## Topic
-
-- Краткое объяснение
-- Иллюстрации
-- Related Simulations
-- Related Products
-
----
-
-## Categories
-
-- Internet
-- Phone
-- Messaging
-- Identity
-- Tracking
-- Infrastructure
-
----
-
-## Glossary
-
-- Термины
-- Поиск
-
----
-
-## About
-
-- О проекте
-- О Narayana
-
----
-
-# Interactive Simulations
-
-## Simulations List
-
-- Карточки симуляций
-- Категории
-- Фильтр
-
----
-
-## Simulation
-
-- Intro
-- Interactive Scene
-- Explanation
-- Key Takeaways
-- Learn More
-- Related Product
-
----
-
-# Solution Finder
-
-## Start
-
-- Start CTA
-- Краткое описание
-
----
-
-## Questionnaire
-
-- Lifestyle
-- Problems
-- Privacy Needs
-
----
-
-## Results
-
-- Recommended Products
-- Why These?
-- Alternatives
-- Learn More
-
----
-
-## Product Details
-
-- What It Does
-- Who It Fits
-- When It Does Not Fit
-- Limitations
-- Open in Narayana
-
----
-
-## Design note
-
-Do not describe screens deeper at this stage.
-
-The next step should be low-fidelity wireframes: simple black-and-white screen sketches.
-
-Wireframes will show whether this screen set is enough or whether anything is missing.
+Use existing monochrome foundations, orange accent, geometric illustrations, accessible labels and responsive layouts. Wireframes describe intended hierarchy; actual screenshots and code demonstrate delivered screens. No screen inventory implies full accessibility certification or company production integration.

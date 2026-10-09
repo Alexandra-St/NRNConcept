@@ -1,360 +1,75 @@
 # Interactive Simulations — MVP
 
-## Статус
+[Complete original project document](archive/original-concept/docs/INTERACTIVE_SIMULATIONS_MVP.md) — preserved verbatim; this page describes the current implementation.
 
-Первый вертикальный срез реализован: одна законченная симуляция `public-wifi` со списком, интро, четырьмя интерактивными шагами, результатами, повторным прохождением и выходами в Privacy Lab и Solution Finder.
+## Current status
 
-Русский текст ниже является исходным редакционным вариантом. Английская локализация добавляется при реализации без изменения логики сценария.
+Two scenarios are implemented in NRN.Web: `public-wifi` and `ordinary-day`. Both are marked Available in the production JSON resource and have English/Russian localization. This document retains the original Public Wi-Fi editorial requirements; the JSON scene graph and localized resources are the source of truth for exact rendered wording and transitions. Prior single-scenario scope is historical.
 
-## Роль продукта
+## Product role and promise
 
-Interactive Simulations продолжают путь после Privacy Lab: пользователь не только читает о риске, а принимает решения внутри безопасной ситуации и видит их последствия.
+Continue learning after Privacy Lab by making decisions in a safe fictional situation and seeing consequences. This is not an exam: no right/wrong labels during scenes, no shame, no fear-based scoring. A 3–5 minute experience requires no account, personal profile or real contact information. Choices are held in server-side memory during the current circuit, not saved as a learning history.
 
-Симуляция не должна ощущаться как экзамен или викторина. Во время сцены интерфейс не сообщает, какой ответ правильный. Разбор появляется после завершения истории и объясняет последствия каждого решения без стыда и запугивания.
+The route sequence is `/simulations` → `/simulations/public-wifi` → introduction → scenes → explanation → takeaways. Related destinations are `/learn/everyday-situations/public-wifi`, `/finder/product/esim` and `/finder`.
 
-## Обещание пользователю
+## Connecting before departure
 
-> Проживите знакомую цифровую ситуацию, примите решения и посмотрите, какую информацию они могут раскрыть.
+Slug `public-wifi`, estimated four minutes. Card question: can you connect without giving away more than you intended?
 
-- 3–5 минут;
-- без аккаунта и профиля;
-- без ввода реальных персональных данных;
-- решения хранятся только во время текущего прохождения;
-- результат объясняет риск, а не оценивает человека.
+### Introduction: 18 minutes until boarding
 
-## Маршруты MVP
+At fictional Northstar Airport, mobile reception is weak and boarding is soon. The user needs to open an email containing a booking confirmation, with several free networks nearby. The task is to obtain the file while disclosing as little information as possible. The privacy notice explains that this is fictional and no real data is requested. Start opens the first scene.
 
-```text
-/simulations
-  ↓
-/simulations/public-wifi
-  ↓
-Intro → Interactive Scene → Explanation → Key Takeaways
-  ↓                         ↓
-Privacy Lab              Solution Finder / eSIM
-```
+### Scene 1: choosing a network
 
-## Первая симуляция
+| Network | Signal | Security |
+| --- | --- | --- |
+| NORTHSTAR_FREE_WIFI | Strong | Open |
+| Northstar Airport Guest | Medium | Open |
+| FREE_AIRPORT_5G | Strong | Open |
 
-### Название
+All look plausible. Connecting to the strongest network records unverified-network risk. Choosing the official-looking name records trust in a name alone. Checking the sign confirms Northstar Airport Guest and records a verified-name action. All continue to an access page: a familiar name reduces accidental connection risk but does not prove subsequent pages are safe.
 
-**Подключение перед вылетом**
+### Scene 2: the access page
 
-### Вопрос на карточке
+A fictional `northstar-airport-access.com` page offers 30 minutes of Wi-Fi and requests email/phone, with small print about partner offers. Supplying primary contacts records disclosure of both. Separate contacts reduce linkage but do not establish trust. Looking for a registration-free option reveals Continue as guest and records data minimization. Access activates and the user opens email in a browser. No real form input is required.
 
-**Сможете ли вы подключиться к Wi-Fi и не отдать больше, чем собирались?**
+### Scene 3: the browser warning
 
-### Метаданные
+With 11 minutes left, a fictional certificate warning appears. Continuing records a critical ignored-warning outcome. Enabling a VPN and continuing records misplaced VPN trust: a VPN does not fix an invalid certificate or make a fake site authentic. Closing the page and switching to mobile data records leaving an untrusted connection.
 
-- Slug: `public-wifi`
-- Продолжительность: 4 минуты
-- Статус: доступно
-- Связанная тема: `/learn/everyday-situations/public-wifi`
-- Связанное решение: `/finder/product/esim`
-- Альтернативный выход: `/finder`
+Continuing leads to a suspicious login scene. Switching to mobile data leads to a safe fourth scene with a familiar, already configured mail app.
 
-## Сценарий
+### Scene 4: unexpected login
 
-### Intro — До посадки 18 минут
+The suspicious page says the session expired at fictional `mail-account-check.com`. The password manager offers no saved login. Entering credentials under time pressure records exposed-credentials risk. Checking the address and closing the page records a checked-domain action. Opening the mail app directly records a trusted-app action. Safe alternatives switch to mobile connectivity. The safe branch offers only the direct mail-app action.
 
-**Визуальная ситуация**
+The booking confirmation opens with seven minutes left. Show what happened opens the explanation.
 
-Зал ожидания вымышленного аэропорта Northstar. На экране телефона почти нет мобильного сигнала. Рядом табло с посадкой через 18 минут.
+## Explanation and takeaways
 
-**Текст**
+The result follows actual choices and shows consequences instead of a numerical grade. Safe results describe retaining control; moderate risk explains where the user stopped; critical risk explains how urgency created the trap. Outcome severity comes from the recorded choices, including critical certificate-warning decisions; exact headings come from localization resources.
 
-> Вам нужно открыть письмо с подтверждением бронирования до посадки. Мобильный интернет почти не работает, но рядом есть несколько бесплатных сетей.
+| Decision | Explanation |
+| --- | --- |
+| Trusting a network name | Names can be copied; keep checking page addresses and warnings |
+| Sharing primary contacts | Contact details may be linked or reused; consider whether disclosure is justified |
+| Using separate contacts | Reduced linkage does not make a suspicious page safe |
+| Ignoring a certificate warning | HTTPS identity failure is not repaired by trust or VPN |
+| Unexpected login under time pressure | Stop, check the domain or open the known app directly |
 
-> Попробуйте получить нужный файл и раскрыть как можно меньше информации.
+The consequences table marks unchosen disclosures as prevented. Takeaways: verify the network, respect warnings, and pause before supplying a password. The main next step is the Privacy Lab Wi-Fi article. eSIM is a contextual connectivity option, with compatibility, coverage and tariff limitations; it does not create anonymity. Finder is an alternative next step.
 
-**Примечание о приватности**
+## Ordinary Day extension
 
-> Это вымышленная ситуация. Мы не просим настоящие данные и не сохраняем ваши решения после прохождения.
+`/simulations/ordinary-day` follows ordinary location, cafe, social-content and ticket-booking decisions to show how small signals can combine. It uses a dedicated scene/results presentation while sharing the JSON content and scoped state infrastructure. This addition supersedes the original one-complete-simulation limit.
 
-**Действие**
+## Catalog, state and scope
 
-`Начать →`
+The catalog now contains two active cards. Future teasers must be explicitly marked Coming soon and must not behave as working links. In-memory state tracks current scene, selected choice per scene, outcomes and completion; restart clears a run. Refresh may begin again. No persisted history or user profile is required.
 
----
+Not implemented: administrative scenario authoring, universal editor, achievements/leaderboards, persistent progress, real email/phone/password analysis, real network/device checks, social sharing or broad event analytics. A data-driven scene graph is implemented; it should not be confused with a complete authoring platform.
 
-### Scene 1 — Выбор сети
+## Acceptance requirements
 
-**Экран**
-
-Системная панель Wi-Fi показывает:
-
-| Сеть | Сигнал | Защита |
-|---|---:|---|
-| `NORTHSTAR_FREE_WIFI` | сильный | открытая сеть |
-| `Northstar Airport Guest` | средний | открытая сеть |
-| `FREE_AIRPORT_5G` | сильный | открытая сеть |
-
-**Текст**
-
-> Все три сети выглядят правдоподобно. Как вы поступите?
-
-**Выборы**
-
-1. `Подключиться к сети с самым сильным сигналом`
-2. `Выбрать Northstar Airport Guest — название выглядит официально`
-3. `Сначала проверить название сети на табличке у выхода`
-
-**Скрытые последствия**
-
-- Выбор 1: пользователь подключается к `NORTHSTAR_FREE_WIFI`; фиксируется риск `unverified-network`.
-- Выбор 2: пользователь подключается без проверки; фиксируется риск `trusted-name-only`.
-- Выбор 3: табличка подтверждает `Northstar Airport Guest`; фиксируется безопасное действие `verified-network-name`, затем пользователь подключается.
-
-**Переход**
-
-После подключения автоматически открывается страница доступа. Даже при проверке названия сцена продолжается: знакомое имя сети снижает риск ошибки, но само по себе не доказывает, что каждая открывшаяся страница безопасна.
-
----
-
-### Scene 2 — Страница входа
-
-**Экран**
-
-В браузере открывается страница:
-
-`northstar-airport-access.com`
-
-Заголовок: **30 минут бесплатного Wi-Fi**
-
-Форма просит указать email и номер телефона. Под формой мелким текстом написано, что данные могут использоваться для предложений партнёров.
-
-**Текст**
-
-> Для подключения страница просит контактные данные. Что вы сделаете?
-
-**Выборы**
-
-1. `Указать обычные email и номер телефона`
-2. `Указать отдельные контактные данные`
-3. `Не вводить данные и поискать способ продолжить без регистрации`
-
-**Скрытые последствия**
-
-- Выбор 1: фиксируются `shared-primary-email` и `shared-primary-phone`.
-- Выбор 2: фиксируется `shared-secondary-contact`; риск связи с основными контактами ниже, но страница всё ещё не доказала свою надёжность.
-- Выбор 3: пользователь замечает малозаметную ссылку `Продолжить как гость`; фиксируется `minimized-data`.
-
-**Переход**
-
-Страница сообщает, что доступ активирован. Пользователь открывает почту в браузере.
-
----
-
-### Scene 3 — Предупреждение браузера
-
-**Экран**
-
-Перед открытием почты появляется предупреждение:
-
-> Подключение не является приватным. Сертификат сайта не удаётся проверить.
-
-**Текст**
-
-> До посадки остаётся 11 минут. Письмо всё ещё нужно открыть.
-
-**Выборы**
-
-1. `Продолжить — в публичных сетях такое бывает`
-2. `Включить VPN и продолжить на этой странице`
-3. `Закрыть страницу и перейти на мобильный интернет`
-
-**Скрытые последствия**
-
-- Выбор 1: фиксируется критический риск `ignored-certificate-warning`.
-- Выбор 2: фиксируется риск `vpn-trust`; VPN не исправляет недействительный сертификат и не делает поддельную страницу настоящей.
-- Выбор 3: фиксируется безопасное действие `left-untrusted-connection`.
-
-**Переход**
-
-- После выборов 1 и 2 появляется экран входа в почту.
-- После выбора 3 пользователь переходит на безопасный вариант четвёртого шага: открывает уже настроенное почтовое приложение через мобильную сеть.
-
----
-
-### Scene 4 — Повторный вход
-
-Сцена имеет два варианта. После продолжения через предупреждение показывается подозрительная форма повторного входа. После перехода на мобильный интернет показывается знакомое почтовое приложение без повторного ввода данных.
-
-**Экран**
-
-Страница, похожая на форму входа в почту, сообщает:
-
-> Сеанс истёк. Войдите снова, чтобы открыть письмо.
-
-Адрес страницы:
-
-`mail-account-check.com`
-
-Менеджер паролей не предлагает сохранённый логин.
-
-**Текст**
-
-> Вы узнаёте оформление почты, но обычно входить повторно не приходится.
-
-**Выборы**
-
-1. `Ввести email и пароль — времени мало`
-2. `Проверить адрес страницы и закрыть её`
-3. `Открыть почтовое приложение напрямую`
-
-В безопасном варианте остаётся одно осмысленное действие: `Открыть почтовое приложение напрямую`.
-
-**Скрытые последствия**
-
-- Выбор 1: фиксируется критическое последствие `credentials-exposed`.
-- Выбор 2: фиксируется безопасное действие `checked-domain`; пользователь переходит на мобильную сеть.
-- Выбор 3: фиксируется безопасное действие `used-trusted-app`; пользователь переходит на мобильную сеть.
-
-**Завершение сцены**
-
-> Подтверждение бронирования открыто. До посадки осталось 7 минут.
-
-`Посмотреть, что произошло →`
-
-## Explanation — Что произошло
-
-Разбор строится из решений пользователя. Он не показывает балл и не использует формулировки «провал» или «неправильно».
-
-### Итоговый заголовок
-
-Для прохождения без критических рисков:
-
-> **Вы сохранили контроль над своими данными.**
-
-Если пользователь поделился контактами или доверился названию сети, но не передал пароль:
-
-> **Вы остановились до того, как риск стал серьёзным.**
-
-Если пользователь ввёл пароль на поддельной странице:
-
-> **Ловушка сработала — именно на срочность она и была рассчитана.**
-
-Подзаголовок для всех вариантов:
-
-> Посмотрим на сигналы, которые были видны по пути.
-
-### Карточки разбора
-
-Карточки выводятся в порядке сцен и отражают сделанный выбор.
-
-#### 1. Знакомое имя сети не является доказательством
-
-> Поддельная точка доступа может использовать убедительное или даже совпадающее название. Проверка официального имени уменьшает риск случайного подключения, но после соединения всё равно важно следить за адресами страниц и предупреждениями устройства.
-
-#### 2. Бесплатный доступ не всегда требует персональных данных
-
-> Email и телефон могут использоваться не только для подключения. Если данные действительно обязательны, стоит решить, оправдана ли их передача, и проверить, кому принадлежит страница.
-
-Дополнение после выбора отдельных контактов:
-
-> Отдельные контакты уменьшают связь с основной цифровой жизнью, но не превращают подозрительную страницу в безопасную.
-
-#### 3. Предупреждение о сертификате нельзя исправить доверием или VPN
-
-> HTTPS помогает убедиться, что соединение установлено с нужным сайтом. VPN защищает часть пути до VPN-сервера, но не делает поддельный сайт настоящим и не устраняет ошибку сертификата.
-
-#### 4. Повторный вход и срочность — сочетание для фишинга
-
-> Неожиданный запрос пароля, незнакомый домен и отсутствие подсказки менеджера паролей — причины остановиться. Надёжнее открыть знакомое приложение или набрать адрес сервиса самостоятельно.
-
-### Последствия в этой истории
-
-Интерфейс показывает только данные, которые пользователь решил передать в рамках симуляции:
-
-| Решение | Возможное последствие |
-|---|---|
-| Подключение без проверки | Соединение с сетью неизвестного владельца |
-| Основные email и телефон | Контакты можно связать между собой и использовать позже |
-| Продолжение после предупреждения | Нет уверенности, что открыта настоящая страница |
-| Ввод пароля | Доступ к почтовому аккаунту может оказаться у злоумышленника |
-
-Если пользователь не совершил соответствующее действие, строка показывается как предотвращённая, а не как полученное последствие.
-
-## Key Takeaways
-
-1. **Проверяйте сеть.** Уточните официальное название, но продолжайте оценивать страницы после подключения.
-2. **Не игнорируйте предупреждения.** VPN не исправляет поддельный сайт или неверный сертификат.
-3. **Останавливайтесь перед вводом пароля.** Проверьте домен или откройте знакомое приложение напрямую.
-
-## Связанные переходы
-
-### Related Topic — основной переход
-
-**Публичный Wi-Fi**
-
-> Разберитесь, что действительно защищает соединение в сети, которую вы не контролируете.
-
-`Открыть тему в Privacy Lab →`
-
-Маршрут: `/learn/everyday-situations/public-wifi`
-
-### Related Product — контекстный переход
-
-**eSIM**
-
-> Мобильный интернет может помочь не зависеть от случайной публичной сети во время поездки. Он не делает устройство анонимным и требует проверки совместимости, покрытия и тарифа.
-
-`Посмотреть, когда подходит eSIM →`
-
-Маршрут: `/finder/product/esim`
-
-### Solution Finder — альтернативный переход
-
-> Не уверены, какое решение подходит вашей ситуации?
-
-`Пройти Solution Finder →`
-
-Маршрут: `/finder`
-
-## Simulation List
-
-На `/simulations` в MVP показывается одна активная карточка `public-wifi`.
-
-Допустимо показать неактивные тизеры без переходов:
-
-- Что раскрывает ваш номер телефона?
-- Что сайт узнаёт за одно посещение?
-- Как отдельные следы складываются в профиль?
-
-Тизеры должны иметь явную метку `Скоро` и не попадать в Tab-порядок как интерактивные элементы.
-
-## Состояние прохождения
-
-Минимальное состояние существует только в памяти текущей сессии:
-
-- текущая сцена;
-- выбранный вариант в каждой показанной сцене;
-- список рисков;
-- список безопасных действий;
-- признак завершения.
-
-Обновление страницы может начинать симуляцию заново. Сохранение истории, аккаунт и профиль в MVP не нужны.
-
-## Не входит в MVP
-
-- универсальный редактор или движок симуляций;
-- загрузка сценариев из административной панели;
-- баллы, уровни, достижения и лидерборды;
-- авторизация и постоянный прогресс;
-- ввод или анализ реальных email, телефонов и паролей;
-- подключение к реальным сетям или проверка устройства;
-- несколько полноценных симуляций;
-- публикация результата в социальных сетях;
-- широкая событийная аналитика.
-
-## Критерии готовности
-
-- Симуляцию можно пройти от Intro до Explanation без тупиковых состояний.
-- Выборы меняют персональный разбор, а не только декоративный счётчик.
-- Во время сцены интерфейс не маркирует ответы как правильные или неправильные.
-- Ни одно поле не предлагает вводить реальные персональные данные.
-- Тексты не преувеличивают возможности публичной сети, HTTPS, VPN или eSIM.
-- Работают русская и английская версии.
-- Сценарий доступен с клавиатуры и корректно озвучивается скринридером.
-- На мобильном экране интерактивная сцена не требует горизонтальной прокрутки.
-- После результата доступны рабочие переходы в Privacy Lab и Solution Finder.
+A run reaches explanation without dead ends; decisions affect the explanation; scenes do not label answers correct/incorrect; no real personal data entry is requested; copy does not exaggerate HTTPS, VPN or eSIM; both locales work; keyboard/screen-reader behavior and mobile layout need continued QA; related educational/Finder exits resolve. Unit tests cover scene/state and production content validation. Current results are in [verification](VERIFICATION.md), not the historical implementation counts.

@@ -1,307 +1,80 @@
 # Solution Finder — MVP
 
-## Статус
+[Complete original project document](archive/original-concept/docs/SOLUTION_FINDER_MVP.md) — preserved verbatim; this page describes the current implementation.
 
-Product specification v0.1. На этом этапе фиксируется логика подбора, а не техническая реализация.
+## Current status and role
 
-## Роль продукта
+Implemented in NRN.Web: Start → Questionnaire → Results → Product Details, with links to related Privacy Lab content and official provider destinations. The implementation source is SolutionFinderService and scoped SolutionFinderState. This English specification preserves the product rules while replacing historical test counts with the current [verification report](VERIFICATION.md).
 
-Solution Finder продолжает путь после Privacy Lab: переводит понимание проблемы в небольшой персональный набор рекомендаций Narayana.
+Finder helps users choose a relevant communication solution after understanding their problem. It uses five required questions and up to two follow-ups, takes no free text, requires no account, creates no profile and persists no run history. Equal answers produce equal results; recommendations must solve an identified need.
 
-Finder не должен создавать ощущение теста с единственно правильным ответом или каталога, который пытается продать как можно больше продуктов.
+## Catalog and evidence boundary
 
-## Обещание пользователю
+| Product | Need | Benefit | Limitation |
+| --- | --- | --- | --- |
+| Virtual number | Keep primary contact separate from registrations, listings or work | Separates contexts | Does not protect all message content or metadata |
+| eSIM | Mobile connectivity while travelling | Data without a physical SIM | Verify device support, coverage and current cost |
+| SIP | Internet or international calls | Calls through a compatible SIP client | Internet/client setup and minute billing; emergency calling unconfirmed |
 
-> Ответьте на несколько вопросов о том, как вы пользуетесь интернетом. Мы подберём подходящие решения, объясним каждую рекомендацию и честно расскажем об ограничениях.
+Physical SIM is outside the current Finder catalog, although it is present in the separate Mini App catalog. VPN is educational, not presented as a Narayana product. Provider compatibility with external VPN/proxy tools does not mean a provider-operated VPN exists.
 
-- 5–10 вопросов;
-- не требует аккаунта;
-- не создаёт персональный профиль;
-- одинаковые ответы дают одинаковый результат;
-- продукт рекомендуется только тогда, когда он решает выявленную задачу.
+The original public review was dated 13 July 2026. It recorded SIM/eSIM internet connectivity, international and SIP calls, inbound virtual-number calls/SMS, compatibility with external VPN/proxy tools, stated lack of mandatory KYC, and a EUR 51 initial balance payment. These are historical research observations, not a current price/service guarantee or independent validation of company claims. Exact eSIM coverage, roaming, emergency calling and concurrent SIP device support were not established. Those gaps must remain visible rather than being turned into promises.
 
-## Пользовательский путь
-
-```text
-Start
-  ↓
-Questionnaire
-  ↓
-Results
-  ↓
-Product Details
-  ↓
-Narayana
-```
-
-Из Results пользователь также может перейти в связанный материал Privacy Lab и понять, почему рекомендация важна.
-
-## Каталог MVP
-
-### Включённые продукты
-
-Все три продукта включены только для сценариев, которые подтверждаются публичными материалами Narayana.
-
-| Продукт | Пользовательская задача | Польза | Ограничение |
-|---|---|---|---|
-| Виртуальный номер | Не раскрывать основной номер во всех контекстах | Разделяет основной номер, онлайн-аккаунты и отдельные способы общения | Не защищает содержание сообщений и все связанные метаданные |
-| eSIM | Получить мобильный интернет во время поездки | Даёт доступ к мобильным данным без физической SIM-карты | Нужно заранее проверить поддержку eSIM устройством, покрытие и актуальную стоимость данных |
-| SIP | Звонить через интернет или регулярно звонить за границу | Позволяет использовать SIP-клиент для интернет-телефонии и международных звонков | Требует интернет и настройку клиента; тариф поминутный, поддержка экстренных вызовов публично не подтверждена |
-
-Физическая SIM-карта не входит в текущую карту Finder: существующая продуктовая схема Solution Finder её не включает.
-
-### Публичная проверка Narayana — 13 июля 2026
-
-Официальные публичные страницы подтверждают:
-
-- eSIM и физические SIM-карты с доступом в интернет;
-- международные звонки и настройку SIP-клиента для звонков через интернет;
-- виртуальные номера для входящих звонков и/или SMS;
-- совместимость сервисов Narayana с внешними VPN, прокси-серверами и анонимайзерами;
-- отсутствие обязательного KYC для перечисленных сервисов;
-- минимальный первый платёж 51 EUR, который зачисляется на баланс;
-- поминутную тарификацию звонков, тарификацию SMS и мобильных данных согласно актуальным ставкам.
-
-Публичных сведений недостаточно для более широких обещаний:
-
-- географию и совместимость конкретной eSIM;
-- полный состав eSIM-услуги и ограничения роуминга;
-- поддержку экстренных вызовов через SIP;
-- одновременную работу SIP на нескольких устройствах;
-- использование SIP как замены обычной мобильной связи.
-
-Эти пробелы не блокируют MVP: Finder не использует их в правилах и прямо показывает соответствующие ограничения.
-
-### Решение по VPN
-
-Narayana не предоставляет собственный VPN. Формулировка на официальном сайте означает, что сервисами Narayana можно пользоваться через внешний VPN, прокси-сервер или анонимайзер.
-
-Поэтому VPN:
-
-- не входит в каталог Solution Finder;
-- не показывается как продукт или рекомендация Narayana;
-- остаётся самостоятельной образовательной темой Privacy Lab;
-- может упоминаться как внешний инструмент, когда это полезно для объяснения публичного Wi-Fi и сетевой приватности.
-
-Источники проверки: [официальная главная Narayana](https://narayana.im/welcome), [FAQ](https://narayana.im/about/faq), [страница тарифов](https://www4.narayana.im/about/pricing).
+Historical sources: [home](https://narayana.im/welcome), [FAQ](https://narayana.im/about/faq), and the previously cited `www4.narayana.im/about/pricing` address, which is not promoted as a verified current link. The Mini App uses a separate historical public catalog source/date; do not assume the catalogs match.
 
 ## Questionnaire
 
-Опрос состоит из пяти обязательных вопросов и максимум двух уточнений. Свободного ввода в MVP нет.
+| Question | Options | Purpose |
+| --- | --- | --- |
+| Q1: What would you like to improve? Multiple choice | Safer internet away from home; avoid using personal number everywhere; travel connectivity; separate work/personal; protect accounts/passwords; explore | Identify goals and relevant follow-ups |
+| Q2: Where do you use your primary number? Multiple choice | Registrations; listings/one-off contacts; work; close circle only; avoid sharing | Identify number separation needs |
+| Q3: How often do you travel/live abroad? | Often; a few times a year; rarely/never | Identify travel context without persisting it |
+| Q4: How do you use calls? Multiple choice | Personal; international; separate work number; internet app; rare calls | Distinguish SIP from second-number needs |
+| Q5: What matters most? | Privacy; simplicity; connectivity across countries; work/life separation | Adjust explanation/order of relevant results, never create relevance alone |
+| Q6: Separate number purpose? Conditional | Temporary registrations/contacts; ongoing personal communication; work/business; several purposes | Clarify second-number scenarios |
+| Q7: Hardest travel challenge? Conditional | Suitable mobile internet; public Wi-Fi; keep usual number; none | Avoid recommending eSIM only because someone travels |
 
-### Q1. Что вы хотите улучшить?
+Q6 appears after registration/listing/work contexts. Q7 appears for frequent or several-times-yearly travel. Users can return and change answers.
 
-Можно выбрать несколько вариантов.
+## Decision rules
 
-- Безопаснее подключаться к интернету вне дома.
-- Не использовать личный номер повсюду.
-- Оставаться на связи во время поездок.
-- Разделить личное и рабочее общение.
-- Лучше защитить аккаунты и пароли.
-- Пока не знаю — хочу разобраться.
+| Product | High-priority signal | Other relevant signals | Exclusion principle |
+| --- | --- | --- | --- |
+| Virtual number | Registration/listing use or applicable temporary-contact follow-up | Work contacts, number/work separation, separate work number | Close-circle-only use without another need does not justify it |
+| eSIM | Frequent travel with a mobile internet need | Other relevant travel/connectivity combinations | Rare travel/no connectivity problem does not justify it |
+| SIP | Internet-app calling | International calls | Registration-only number need does not justify SIP |
 
-Назначение: определить основные пользовательские задачи и выбрать нужные уточнения.
+These summarize product intent; the code defines exact combinations. Recommendation explanations identify the triggering context. Virtual-number learning links include messaging-apps. eSIM always includes device/coverage/tariff checks. SIP requires internet and a configured client and does not promise emergency service.
 
-### Q2. Где вам приходится указывать основной номер?
+## Control scenarios
 
-Можно выбрать несколько вариантов.
+| User situation | Expected outcome |
+| --- | --- |
+| Primary number in registrations and listings | High-priority virtual number |
+| Work/personal separation | Virtual number |
+| Calls through an internet app | High-priority SIP |
+| Regular international calls | Relevant SIP |
+| Frequent travel and mobile internet need | Relevant eSIM |
+| Several matching needs | Up to three results, ordered by relevance and stated priority |
+| Public Wi-Fi safety only | No product forced; Wi-Fi/VPN learning |
+| Password/account protection only | No product forced; educational next step |
 
-- При регистрациях в онлайн-сервисах.
-- В объявлениях и разовых контактах.
-- Для рабочего общения.
-- Только близким и знакомым.
-- Я стараюсь его не указывать.
+No-product outcomes also cover phishing, browser tracking and social-post privacy where the catalog does not solve the need.
 
-Назначение: определить потребность в виртуальном номере и разделении контекстов.
+## Results and product details
 
-### Q3. Как часто вы путешествуете или живёте в другой стране?
+Show at most three recommendations. Each explains the identified need, suggested change, product, reason based on answers, capability and limitation, product details and any related topic. Internal scores are not exposed. High-priority matches come first; Q5 affects ordering among relevant results.
 
-- Часто.
-- Несколько раз в год.
-- Редко или никогда.
+Product details contain the need, capability, fit, non-fit, limitation, official destination and return to results. Provider CTA currently goes to its registration page; Finder itself performs no purchase. External provider links do not imply integration or endorsement.
 
-Назначение: выявить сценарий eSIM. Finder не сохраняет ответ после текущего прохождения.
+## Trust, scope and readiness
 
-### Q4. Как вы используете телефонную связь?
+No account, stored questionnaire history or personal profile. Blazor interactions do reach the server and remain in circuit memory; this is not an entirely client-only calculator. Future analytics require a separate explicit decision consistent with the privacy promise. Finder never claims complete anonymity.
 
-Можно выбрать несколько вариантов.
+Not implemented: AI recommendations, accounts, saved/shared results, product comparison, live prices/checkout, numeric privacy scoring, administration or unverified product recommendations.
 
-- В основном принимаю личные звонки.
-- Часто звоню в другие страны.
-- Нужен отдельный рабочий номер.
-- Хочу звонить через приложение по интернету.
-- Почти не пользуюсь обычными звонками.
+Readiness requires concrete reasons for every recommendation, understandable rule effects, one/many/zero-result checks, both locales, reachable destinations and honest limits. Prior notes recorded 22 passing tests and responsive/accessibility checks at 1280×800 and 390×844; those are historical observations, not a new comprehensive QA claim. Current solution tests total 97; see the verification report for what was actually rerun.
 
-Назначение: выявить сценарии SIP и отличить их от простой потребности во втором номере.
+## Decision inputs
 
-### Q5. Что для вас важнее всего?
-
-- Приватность.
-- Простота.
-- Возможность пользоваться связью в разных странах.
-- Разделение личной и рабочей жизни.
-
-Назначение: изменить порядок и объяснение уже релевантных рекомендаций. Этот ответ не должен сам по себе создавать рекомендацию продукта.
-
-### Q6. Уточнение для второго номера
-
-Показывается, если пользователь выбрал регистрацию, объявления или рабочее общение.
-
-Для чего нужен отдельный номер?
-
-- Для регистраций и временных контактов.
-- Для постоянного личного общения.
-- Для работы или бизнеса.
-- Для нескольких задач.
-
-Назначение: отличить виртуальный номер от потенциального SIP-сценария.
-
-### Q7. Уточнение для поездок
-
-Показывается, если пользователь путешествует часто или несколько раз в год.
-
-Что обычно сложнее всего в поездках?
-
-- Найти подходящий мобильный интернет.
-- Пользоваться публичным Wi-Fi.
-- Сохранять доступ к привычному номеру.
-- Ничего из перечисленного.
-
-Назначение: не рекомендовать eSIM только на основании факта поездки.
-
-## Карта принятия решений
-
-### Виртуальный номер
-
-| Сигнал | Решение |
-|---|---|
-| Основной номер используется для регистраций, объявлений или разовых контактов | Рекомендовать с высоким приоритетом |
-| Пользователь хочет разделить личное и рабочее общение | Рекомендовать с обычным приоритетом |
-| Номер сообщается только близким и других сценариев нет | Не рекомендовать |
-
-Объяснение рекомендации должно называть конкретные контексты, которые пользователь хочет разделить. Связанный материал: `messaging-apps`.
-
-### eSIM
-
-| Сигнал | Решение |
-|---|---|
-| Частые поездки и сложность с мобильным интернетом | Рекомендовать с высоким приоритетом |
-| Несколько поездок в год и потребность в связи за границей | Рекомендовать с обычным приоритетом |
-| Поездки редкие или проблем со связью нет | Не рекомендовать |
-
-Рекомендация всегда напоминает проверить совместимость устройства, покрытие и актуальный тариф.
-
-### SIP
-
-| Сигнал | Решение |
-|---|---|
-| Пользователь хочет звонить через приложение по интернету | Рекомендовать с высоким приоритетом |
-| Пользователь часто совершает международные звонки | Рекомендовать с обычным приоритетом |
-| Номер нужен только для регистраций или разовых контактов | Не рекомендовать SIP |
-
-Рекомендация всегда объясняет необходимость интернета, SIP-клиента и поминутную тарификацию. Finder не обещает экстренные вызовы.
-
-## Контрольные сценарии
-
-| Ситуация | Ожидаемый результат MVP |
-|---|---|
-| Указывает основной номер при регистрациях и в объявлениях | Виртуальный номер с высоким приоритетом |
-| Хочет безопаснее пользоваться публичным Wi-Fi, но не имеет задачи, которую решают продукты Narayana | Нет подходящего продукта; материалы `public-wifi` и `vpn` в Privacy Lab |
-| Хочет отделить рабочие контакты от личных | Виртуальный номер |
-| Хочет звонить через приложение по интернету | SIP с высоким приоритетом |
-| Часто звонит за границу | SIP с обычным приоритетом |
-| Хочет защитить пароли и аккаунты, других потребностей не указал | Нет подходящего продукта; переход к материалам Privacy Lab |
-| Часто путешествует и ищет мобильный интернет | eSIM с высоким приоритетом |
-| Одновременно использует основной номер для регистраций, ищет интернет в поездке и хочет звонить через приложение | eSIM, SIP и виртуальный номер; порядок учитывает приоритет пользователя |
-
-### Нет подходящего продукта
-
-Finder не рекомендует продукт, если ответы относятся только к задачам, которые текущий каталог не решает, например:
-
-- уникальные пароли;
-- защита от фишинга;
-- безопасность публичного Wi-Fi и общая сетевая приватность;
-- браузерное отслеживание;
-- безопасность аккаунта;
-- приватность публикаций в социальных сетях.
-
-Вместо карточки продукта показывается честный результат и подходящий материал Privacy Lab.
-
-## Results
-
-На экране показываются не более трёх рекомендаций.
-
-Порядок каждой рекомендации:
-
-1. Выявленная задача пользователя.
-2. Рекомендуемое изменение.
-3. Подходящий продукт.
-4. Почему он подходит именно по этим ответам.
-5. Что продукт решает.
-6. Что он не решает.
-7. Ссылка на Product Details.
-8. Ссылка на связанный материал Privacy Lab, если он существует.
-
-Внутренние баллы и технические правила пользователю не показываются. Сначала идут рекомендации высокого приоритета; при равенстве учитывается выбранный приоритет в Q5.
-
-## Product Details
-
-Карточка содержит:
-
-- название;
-- одно предложение о пользовательской задаче;
-- что делает продукт;
-- кому подходит;
-- когда не подходит;
-- ограничения;
-- ссылку «Перейти в Narayana»;
-- возврат к результатам.
-
-CTA всех продуктов ведёт на официальную регистрацию Narayana: публичная покупка конкретной услуги без входа в аккаунт недоступна.
-
-## Данные и доверие
-
-- Ответы нужны только для текущего прохождения.
-- MVP не требует аккаунта и не создаёт профиль.
-- MVP не сохраняет историю прохождений.
-- Если техническая аналитика будет добавлена позднее, она должна фиксироваться отдельным решением и не противоречить обещанию пользователю.
-- Finder не утверждает, что продукт обеспечивает полную анонимность или решает все задачи приватности.
-
-## Не входит в MVP
-
-- AI-генерация рекомендаций;
-- регистрация и личный кабинет;
-- сохранение и отправка результата;
-- сравнение продуктов;
-- цены и оформление покупки внутри Finder;
-- сложная числовая оценка приватности;
-- административная панель;
-- рекомендации неподтверждённых продуктов.
-
-## Условия готовности продуктовой логики
-
-Условия выполнены для текущего MVP:
-
-- для каждого продукта подтверждены актуальная доступность, задача, польза, ограничение и официальный маршрут перехода;
-- каждый вариант ответа либо влияет на понятное правило, либо удалён;
-- для каждой рекомендации можно показать конкретное «почему»;
-- проверены сценарии с одной, несколькими и нулём рекомендаций;
-- тексты согласованы на русском и английском языках;
-- подтверждены конечные ссылки Narayana.
-
-## Проверка реализации
-
-- .NET 9 build: 0 ошибок, 0 предупреждений.
-- Автоматические тесты: 22 из 22 проходят.
-- Проверены маршруты Start, Questionnaire, Results и Product Details.
-- Проверен сценарий с одной, тремя и нулём рекомендаций.
-- Responsive QA: 1280×800 и 390×844 без горизонтального переполнения.
-- Accessibility QA: один `main` и `h1` на странице, заполненные доступные имена, отсутствие дублирующихся `id`, корректный route focus и интерактивные цели не меньше 44 px.
-- Русская и английская локали проверены в работающем приложении.
-
-## Основания
-
-- [`VISION.md`](VISION.md): сначала понимание проблемы, затем осознанный выбор решения.
-- [`PROJECT_PRINCIPLES.md`](PROJECT_PRINCIPLES.md): человеческий язык, честные ограничения, минимизация данных и баланс приватности с удобством.
-- [`RESEARCH_TO_PRODUCT.md`](RESEARCH_TO_PRODUCT.md): рекомендации должны сохранять исследовательскую прослеживаемость.
-- [`PRODUCT_RESEARCH.md`](PRODUCT_RESEARCH.md): основные пользовательские задачи — путешествия, дополнительный номер, контроль коммуникаций и снижение цифрового следа.
+[Vision](VISION.md), [principles](PROJECT_PRINCIPLES.md), [research traceability](RESEARCH_TO_PRODUCT.md) and [product hypotheses](PRODUCT_RESEARCH.md) support understandable explanations, minimal state and education before sales. They are independent research inputs, not official company requirements.

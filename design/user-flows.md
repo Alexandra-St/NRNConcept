@@ -1,127 +1,13 @@
-# User Flows
+# User flows
 
-## Goal
+[Complete original project document](../docs/archive/original-concept/design/user-flows.md) — preserved verbatim; this page describes the current implementation.
 
-Describe 4-5 key scenarios that show how users move through the ecosystem.
+These are independent concept journeys, not evidence of an authorized Narayana customer integration. Implemented routes are listed in [screen inventory](screen-list.md).
 
-We are not trying to cover every possible path.
+1. New visitor: browser bot demo → Mini App dashboard → Learn → Privacy Lab → topic → simulation → Finder → relevant product explanation. Advertising/acquisition and real company provisioning are proposed extensions.
+2. Visitor with a problem: Privacy Lab → relevant topic → simulation → Finder → external provider destination when appropriate.
+3. Explorer: category → topic → related topic → simulation → related learning → home. A glossary remains planned, so it is not a working step.
+4. Customer-oriented prototype: Mini App → My Services → Learn → Privacy Lab → simulation → dashboard. Account/service values are synthetic or local prototype records; an authoritative backend remains planned.
+5. Solution discovery: Finder → questionnaire → results with reasons/limitations → product details → external provider site. The original idea of omitting a separate details screen was superseded by the implemented ProductDetails page.
 
----
-
-## Flow 1 — Новый пользователь
-
-```text
-Увидел рекламу
-↓
-Открыл Telegram Mini App
-↓
-Посмотрел Dashboard
-↓
-Перешёл в Learn
-↓
-Открыл Privacy Lab
-↓
-Изучил тему
-↓
-Прошёл симуляцию
-↓
-Aha! Moment
-↓
-Заинтересовался решением
-↓
-Solution Finder
-↓
-Подходящий продукт Narayana
-```
-
----
-
-## Flow 2 — У меня есть проблема
-
-```text
-Попал сразу в Privacy Lab
-↓
-Нашёл нужную тему
-↓
-Прочитал объяснение
-↓
-Прошёл симуляцию
-↓
-Solution Finder
-↓
-Narayana
-```
-
----
-
-## Flow 3 — Исследователь
-
-```text
-Privacy Lab
-↓
-Категории
-↓
-Topic
-↓
-Related Topic
-↓
-Related Topic
-↓
-Simulation
-↓
-Related Topic
-↓
-Glossary
-↓
-Домой
-```
-
-This flow shows that the user can explore material without feeling like they are inside a linear course.
-
----
-
-## Flow 4 — Уже клиент Narayana
-
-```text
-Telegram Mini App
-↓
-Dashboard
-↓
-My Services
-↓
-Learn
-↓
-Privacy Lab
-↓
-Simulation
-↓
-Возврат в Dashboard
-```
-
-Learning becomes part of the product experience.
-
----
-
-## Flow 5 — Хочу подобрать решение
-
-```text
-Privacy Lab
-↓
-Solution Finder
-↓
-Questionnaire
-↓
-Recommendations
-↓
-Why These?
-↓
-Narayana
-```
-
-Product explanation should be shown directly on Results, not as a separate Product Details screen.
-
----
-
-## Result
-
-These flows are enough to move into low-fidelity wireframes.
+Learning should be useful outside a linear course and without a purchase. These journeys informed wireframes and iterative prototypes; they are not measured customer behavior.

@@ -1,0 +1,300 @@
+{
+  "checked_on": "2026-10-09",
+  "method": "HTTP GET; errors may reflect access restrictions rather than broken targets",
+  "results": [
+    {
+      "url": "https://about.fb.com/news/2022/11/find-and-buy-from-businesses-on-whatsapp/",
+      "status": 200,
+      "final_url": "https://about.fb.com/news/2022/11/find-and-buy-from-businesses-on-whatsapp/"
+    },
+    {
+      "url": "https://about.fb.com/news/2023/04/pay-small-businesses-in-brazil-on-whatsapp/",
+      "status": 200,
+      "final_url": "https://about.fb.com/news/2023/04/pay-small-businesses-in-brazil-on-whatsapp/"
+    },
+    {
+      "url": "https://about.fb.com/news/2025/04/ways-to-manage-your-businesses-chats-on-whatsapp/",
+      "status": 200,
+      "final_url": "https://about.fb.com/news/2025/04/ways-to-manage-your-businesses-chats-on-whatsapp/"
+    },
+    {
+      "url": "https://about.fb.com/news/2026/01/2026-ai-drives-performance/",
+      "status": 200,
+      "final_url": "https://about.fb.com/news/2026/01/2026-ai-drives-performance/"
+    },
+    {
+      "url": "https://about.fb.com/news/2026/05/introducing-business-ai-on-whatsapp-for-small-businesses-in-india/",
+      "status": 200,
+      "final_url": "https://about.fb.com/news/2026/05/introducing-business-ai-on-whatsapp-for-small-businesses-in-india/"
+    },
+    {
+      "url": "https://core.telegram.org/bots",
+      "status": 200,
+      "final_url": "https://core.telegram.org/bots"
+    },
+    {
+      "url": "https://core.telegram.org/bots/features",
+      "status": 200,
+      "final_url": "https://core.telegram.org/bots/features"
+    },
+    {
+      "url": "https://core.telegram.org/bots/payments-stars",
+      "status": 200,
+      "final_url": "https://core.telegram.org/bots/payments-stars"
+    },
+    {
+      "url": "https://core.telegram.org/bots/webapps",
+      "status": 200,
+      "final_url": "https://core.telegram.org/bots/webapps"
+    },
+    {
+      "url": "https://cxtrends.zendesk.com/",
+      "status": 200,
+      "final_url": "https://cxtrends.zendesk.com/"
+    },
+    {
+      "url": "https://docs.getsession.org/",
+      "status": 200,
+      "final_url": "https://docs.getsession.org/"
+    },
+    {
+      "url": "https://getsession.org/",
+      "status": 200,
+      "final_url": "https://getsession.org/"
+    },
+    {
+      "url": "https://getsession.org/faq",
+      "status": 200,
+      "final_url": "https://getsession.org/faq"
+    },
+    {
+      "url": "https://getsession.org/terms-of-service",
+      "status": 200,
+      "final_url": "https://getsession.org/terms-of-service"
+    },
+    {
+      "url": "https://git.simplex.chat/simplex-chat/simplex-chat",
+      "status": 200,
+      "final_url": "https://git.simplex.chat/simplex-chat/simplex-chat"
+    },
+    {
+      "url": "https://github.com/session-foundation",
+      "status": 200,
+      "final_url": "https://github.com/session-foundation"
+    },
+    {
+      "url": "https://github.com/signalapp",
+      "status": 200,
+      "final_url": "https://github.com/signalapp"
+    },
+    {
+      "url": "https://github.com/simplex-chat/simplex-chat",
+      "status": 200,
+      "final_url": "https://github.com/simplex-chat/simplex-chat"
+    },
+    {
+      "url": "https://mullvad.net/en",
+      "status": 200,
+      "final_url": "https://mullvad.net/en"
+    },
+    {
+      "url": "https://mullvad.net/en/help/how-report-bug-or-vulnerability",
+      "status": 200,
+      "final_url": "https://mullvad.net/en/help/how-report-bug-or-vulnerability"
+    },
+    {
+      "url": "https://mullvad.net/en/help/no-logging-data-policy",
+      "status": 200,
+      "final_url": "https://mullvad.net/en/help/no-logging-data-policy"
+    },
+    {
+      "url": "https://mullvad.net/en/help/terms-service",
+      "status": 200,
+      "final_url": "https://mullvad.net/en/help/terms-service"
+    },
+    {
+      "url": "https://mullvad.net/en/pricing",
+      "status": 200,
+      "final_url": "https://mullvad.net/en/pricing"
+    },
+    {
+      "url": "https://narayana.im/about/contacts",
+      "status": 200,
+      "final_url": "https://narayana.im/about/contacts"
+    },
+    {
+      "url": "https://narayana.im/about/faq",
+      "status": 200,
+      "final_url": "https://narayana.im/about/faq"
+    },
+    {
+      "url": "https://narayana.im/about/prices",
+      "status": 200,
+      "final_url": "https://narayana.im/about/prices"
+    },
+    {
+      "url": "https://narayana.im/welcome",
+      "status": 200,
+      "final_url": "https://narayana.im/welcome"
+    },
+    {
+      "url": "https://nrn-mvp.onrender.com",
+      "status": 200,
+      "final_url": "https://nrn-mvp.onrender.com/learn"
+    },
+    {
+      "url": "https://nrn-mvp.onrender.com/finder",
+      "status": 200,
+      "final_url": "https://nrn-mvp.onrender.com/finder"
+    },
+    {
+      "url": "https://nrn-mvp.onrender.com/learn",
+      "status": 200,
+      "final_url": "https://nrn-mvp.onrender.com/learn"
+    },
+    {
+      "url": "https://nrn-mvp.onrender.com/miniapp/demo",
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://nrn-mvp.onrender.com/simulations",
+      "status": 200,
+      "final_url": "https://nrn-mvp.onrender.com/simulations"
+    },
+    {
+      "url": "https://proton.me/",
+      "status": 200,
+      "final_url": "https://proton.me/"
+    },
+    {
+      "url": "https://proton.me/about/team",
+      "status": 200,
+      "final_url": "https://proton.me/about/team"
+    },
+    {
+      "url": "https://proton.me/community",
+      "status": 200,
+      "final_url": "https://proton.me/community"
+    },
+    {
+      "url": "https://proton.me/mail/security",
+      "status": 200,
+      "final_url": "https://proton.me/mail/security"
+    },
+    {
+      "url": "https://proton.me/support",
+      "status": 200,
+      "final_url": "https://proton.me/support"
+    },
+    {
+      "url": "https://proton.me/support/zendesk",
+      "status": 200,
+      "final_url": "https://proton.me/support/zendesk"
+    },
+    {
+      "url": "https://report.telekom.com/annual-report-2024/management-report/group-strategy/data-ai.html",
+      "status": 200,
+      "final_url": "https://report.telekom.com/annual-report-2024/management-report/group-strategy/data-ai.html"
+    },
+    {
+      "url": "https://signal.org/",
+      "status": 200,
+      "final_url": "https://signal.org/"
+    },
+    {
+      "url": "https://signalfoundation.org/",
+      "status": 200,
+      "final_url": "https://signalfoundation.org/"
+    },
+    {
+      "url": "https://silent.link/",
+      "status": 200,
+      "final_url": "https://silent.link/"
+    },
+    {
+      "url": "https://simplex.chat/",
+      "status": 200,
+      "final_url": "https://simplex.chat/"
+    },
+    {
+      "url": "https://simplex.chat/docs/guide/readme.html",
+      "status": 200,
+      "final_url": "https://simplex.chat/docs/guide/readme.html"
+    },
+    {
+      "url": "https://simplex.chat/messaging/",
+      "status": 200,
+      "final_url": "https://simplex.chat/messaging/"
+    },
+    {
+      "url": "https://support.signal.org/hc/en-us/articles/10933746286746-Signal-Official-Chat",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://support.signal.org/hc/en-us/articles/6712070553754-Phone-Number-Privacy-and-Usernames",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://support.signal.org/hc/en-us/articles/6746004451610-Contact-Us",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://t.me/",
+      "status": 200,
+      "final_url": "https://telegram.org/"
+    },
+    {
+      "url": "https://t.me/narayanaim",
+      "status": 200,
+      "final_url": "https://t.me/narayanaim"
+    },
+    {
+      "url": "https://telegram.org/faq",
+      "status": 200,
+      "final_url": "https://telegram.org/faq"
+    },
+    {
+      "url": "https://www.gsma.com/get-involved/working-groups/gsma_resources/ts-37-requirements-for-multi-sim-devices/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.ivpn.net/en/",
+      "status": 200,
+      "final_url": "https://www.ivpn.net/en/"
+    },
+    {
+      "url": "https://www.ivpn.net/en/ethics/",
+      "status": 200,
+      "final_url": "https://www.ivpn.net/en/ethics/"
+    },
+    {
+      "url": "https://www.ivpn.net/en/pricing/",
+      "status": 200,
+      "final_url": "https://www.ivpn.net/en/pricing/"
+    },
+    {
+      "url": "https://www.telekom.com/de/konzern/themenspecials/special-kundenservice/details/digitaler-serviceassistent-544878",
+      "status": 200,
+      "final_url": "https://www.telekom.com/de/newsroom/themen-hubs/kundenservice/unser-chatbot-hilft-rund-um-die-uhr"
+    },
+    {
+      "url": "https://www.telekom.com/en/company/digital-responsibility/details/artificial-intelligence-at-deutsche-telekom-1055154",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://www.vodafone.com/news/newsroom/technology/meet-super-tobi-vodafone-s-new-generative-ai-virtual-assistant-now-serving-customers-in-multiple-countries",
+      "status": 200,
+      "final_url": "https://www.vodafone.com/news/newsroom/technology/meet-super-tobi-vodafone-s-new-generative-ai-virtual-assistant-now-serving-customers-in-multiple-countries"
+    },
+    {
+      "url": "https://www.vodafone.com/news/newsroom/technology/vodafone-supercharging-customer-experience-with-microsoft-s-gen-ai-tools",
+      "status": 200,
+      "final_url": "https://www.vodafone.com/news/newsroom/technology/vodafone-supercharging-customer-experience-with-microsoft-s-gen-ai-tools"
+    },
+    {
+      "url": "https://www.zendesk.com/newsroom/articles/2025-cx-trends-report/",
+      "status": 200,
+      "final_url": "https://www.zendesk.com/newsroom/articles/2025-cx-trends-report/"
+    }
+  ]
+}

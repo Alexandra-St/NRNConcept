@@ -291,7 +291,3 @@ The research does not establish:
 - whether the additional platform and privacy risks are acceptable.
 
 These questions require Narayana's internal channel data and a limited user test. Until then, the Telegram assistant should be treated as a supported product hypothesis, not a validated user demand.
-
-## Historical source availability
-
-The cited Deutsche Telekom AI-in-customer-service page returned HTTP 404 in the 9 October 2026 link audit. The citation is preserved as research history; replace its supporting source before reusing the claim. Other HTTP 403 responses in the library indicate access restrictions rather than confirmed broken targets.

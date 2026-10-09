@@ -1,8 +1,6 @@
 # Component Library
 
-[Complete original project document](../docs/archive/original-concept/design/component-library.md) — preserved verbatim; this page describes the current implementation.
-
-This independent concept specification describes reusable interface atoms; Figma variant requirements are design intent rather than a verified published component library.
+Phase 6.5 defines reusable interface atoms before additional screens are designed.
 
 ## Figma structure
 
@@ -107,7 +105,7 @@ Mobile: collapse intermediate levels when space is limited.
 
 ## Navigation
 
-Status: Implemented for Privacy Lab. Simulations and Solution Finder now have active implemented routes.
+Status: Implemented for Privacy Lab. Deferred modules are visible as non-interactive coming-soon items.
 
 Purpose: global movement across the ecosystem.
 
