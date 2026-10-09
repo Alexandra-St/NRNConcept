@@ -1,5 +1,7 @@
 # User flows
 
+[Complete original project document](../docs/archive/original-concept/design/user-flows.md) — preserved verbatim; this page describes the current implementation.
+
 These are independent concept journeys, not evidence of an authorized Narayana customer integration. Implemented routes are listed in [screen inventory](screen-list.md).
 
 1. New visitor: browser bot demo → Mini App dashboard → Learn → Privacy Lab → topic → simulation → Finder → relevant product explanation. Advertising/acquisition and real company provisioning are proposed extensions.

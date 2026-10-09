@@ -1,5 +1,7 @@
 # Solution Finder — MVP
 
+[Complete original project document](archive/original-concept/docs/SOLUTION_FINDER_MVP.md) — preserved verbatim; this page describes the current implementation.
+
 ## Current status and role
 
 Implemented in NRN.Web: Start → Questionnaire → Results → Product Details, with links to related Privacy Lab content and official provider destinations. The implementation source is SolutionFinderService and scoped SolutionFinderState. This English specification preserves the product rules while replacing historical test counts with the current [verification report](VERIFICATION.md).

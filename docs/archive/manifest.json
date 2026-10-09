@@ -1,0 +1,92 @@
+{
+  "source_commit": "687de16104bcab8107ff08a989d110d909837f1e",
+  "captured_on": "2026-10-09",
+  "preservation": "Exact original file bytes; no translation or editorial shortening",
+  "files": [
+    {
+      "original_path": "README.md",
+      "archive_path": "docs/archive/original-concept/README.md",
+      "sha256": "a92eb29c09bd47d01a4957fcef105a4e6c4864338f7b738c7deed4ee385971c7"
+    },
+    {
+      "original_path": "app/NRNConcept/docs/TELEGRAM_REAL_DATA_TODO.md",
+      "archive_path": "docs/archive/original-concept/app/NRNConcept/docs/TELEGRAM_REAL_DATA_TODO.md",
+      "sha256": "3aa7320fa26f70058d4c8c67ed6f21ab3e943d94cfa6a04b28862e592657f5f0"
+    },
+    {
+      "original_path": "app/NRNConcept/src/NRN.Telegram/README.md",
+      "archive_path": "docs/archive/original-concept/app/NRNConcept/src/NRN.Telegram/README.md",
+      "sha256": "7710cb0e17c41c8d3d56ee510b7cf1754fc09e6cb2d08d1f6592e0bc7a4bf18e"
+    },
+    {
+      "original_path": "design/component-library.md",
+      "archive_path": "docs/archive/original-concept/design/component-library.md",
+      "sha256": "bdf5a79bce803afb9a04976e9d43a112426a4cf408aa51b9225de5a8bb3505e8"
+    },
+    {
+      "original_path": "design/design-system.md",
+      "archive_path": "docs/archive/original-concept/design/design-system.md",
+      "sha256": "fd5d3ac069c8c3143a353933063ac8943609169d6676137cf6456646bcaee023"
+    },
+    {
+      "original_path": "design/screen-list.md",
+      "archive_path": "docs/archive/original-concept/design/screen-list.md",
+      "sha256": "54a4be68a5b9507c39aa64e0b3961ec516452db2ddb65523704f83649f945346"
+    },
+    {
+      "original_path": "design/user-flows.md",
+      "archive_path": "docs/archive/original-concept/design/user-flows.md",
+      "sha256": "1d57ea81887dda45c5b333a5cf4ef2cf99f12a8d89a37ddaf179fd9e5d7dc0a0"
+    },
+    {
+      "original_path": "design/wireframes.md",
+      "archive_path": "docs/archive/original-concept/design/wireframes.md",
+      "sha256": "27113a75313e1e52b7d044e1fd100454bbffe7d11ef6cc841cd6a2084b62a668"
+    },
+    {
+      "original_path": "docs/ECOSYSTEM.md",
+      "archive_path": "docs/archive/original-concept/docs/ECOSYSTEM.md",
+      "sha256": "2bea19a1deffc8ffd1d43eab058a5fb176aa66136d6ee2de18c25e08357a330b"
+    },
+    {
+      "original_path": "docs/IDEAS.md",
+      "archive_path": "docs/archive/original-concept/docs/IDEAS.md",
+      "sha256": "8d2c6a59b11435c5aef53f5f6b0daa10d888fae27b163ec4dd3ca9c56ed4908b"
+    },
+    {
+      "original_path": "docs/INTERACTIVE_SIMULATIONS_MVP.md",
+      "archive_path": "docs/archive/original-concept/docs/INTERACTIVE_SIMULATIONS_MVP.md",
+      "sha256": "c52d8a031de5f0c2fdf7b32b6191e4cecf5281a8380b92d95e3570a5011687b6"
+    },
+    {
+      "original_path": "docs/PRODUCT_RESEARCH.md",
+      "archive_path": "docs/archive/original-concept/docs/PRODUCT_RESEARCH.md",
+      "sha256": "b84eb91ddda3799d0a1bc64e422ddfc09e69aa8078b814b9b733a7311a87772f"
+    },
+    {
+      "original_path": "docs/PROJECT_PRINCIPLES.md",
+      "archive_path": "docs/archive/original-concept/docs/PROJECT_PRINCIPLES.md",
+      "sha256": "fd4076f8b3efd526ad670ff900ff0fe62836d492a061b7a8c89c9e31bc54a405"
+    },
+    {
+      "original_path": "docs/RESEARCH_TO_PRODUCT.md",
+      "archive_path": "docs/archive/original-concept/docs/RESEARCH_TO_PRODUCT.md",
+      "sha256": "c0ad24098836618d8ed41c90857fdbfe750205f0a8646d188aad92fc633eebd9"
+    },
+    {
+      "original_path": "docs/SOLUTION_FINDER_MVP.md",
+      "archive_path": "docs/archive/original-concept/docs/SOLUTION_FINDER_MVP.md",
+      "sha256": "03e924c5b7a20ad69f96faaf3cb09557fdbf6214f0677bb88ea13a788f58db43"
+    },
+    {
+      "original_path": "docs/VISION.md",
+      "archive_path": "docs/archive/original-concept/docs/VISION.md",
+      "sha256": "94cb1d230fb5d1c790e55d7e9451cb9c4c49220fc433bcd12e2e797c9a90de40"
+    },
+    {
+      "original_path": "research/conversational-ai-messaging-assistants.md",
+      "archive_path": "docs/archive/original-concept/research/conversational-ai-messaging-assistants.md",
+      "sha256": "54250a666f270c9becc61498373bbe042cedbd652e8d68b463469d77d6b5cf4c"
+    }
+  ]
+}

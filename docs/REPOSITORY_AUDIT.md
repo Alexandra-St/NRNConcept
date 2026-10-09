@@ -42,3 +42,7 @@ Research consists of public desk research and hypotheses, not representative cus
 ## Documentation plan
 
 Rewrite the English README around verified MVP functionality and independent authorship; add a factual architecture/privacy/local setup overview; refresh module specifications and design maps; capture actual application screenshots; record deployment and test limitations; prepare repository metadata and a reviewable pull request without merging. Leave source code and deployment configuration unchanged. No license is added, as requested by the owner.
+
+## Follow-up after portfolio review
+
+The Google Docs shortcut noted above was removed from the current portfolio branch; its external contents were not retrieved. Original pre-PR concept/design documents are preserved verbatim in [the archive](archive/README.md). The original audit findings above describe the initial baseline.

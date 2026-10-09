@@ -1,5 +1,7 @@
 # Interactive Simulations — MVP
 
+[Complete original project document](archive/original-concept/docs/INTERACTIVE_SIMULATIONS_MVP.md) — preserved verbatim; this page describes the current implementation.
+
 ## Current status
 
 Two scenarios are implemented in NRN.Web: `public-wifi` and `ordinary-day`. Both are marked Available in the production JSON resource and have English/Russian localization. This document retains the original Public Wi-Fi editorial requirements; the JSON scene graph and localized resources are the source of truth for exact rendered wording and transitions. Prior single-scenario scope is historical.

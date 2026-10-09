@@ -1,5 +1,7 @@
 # Ecosystem
 
+[Complete original project document](archive/original-concept/docs/ECOSYSTEM.md) — preserved verbatim; this page describes the current implementation.
+
 NRN is an independent concept exploring privacy education and informed communication choices. It is not an official Narayana product.
 
 Privacy Lab provides category/topic discovery and practical guidance. Interactive Simulations add decision-based learning; Solution Finder explains contextual recommendations and limitations. All three are features within NRN.Web, sharing navigation, state conventions and visual components.

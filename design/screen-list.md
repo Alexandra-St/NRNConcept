@@ -1,5 +1,7 @@
 # Screen inventory
 
+[Complete original project document](../docs/archive/original-concept/design/screen-list.md) — preserved verbatim; this page describes the current implementation.
+
 This separates current screens from the original L1 planning inventory. Baseline audited 9 October 2026.
 
 ## Telegram Mini App — implemented prototype
