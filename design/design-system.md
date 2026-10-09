@@ -1,5 +1,7 @@
 # Product Design System
 
+This is the independent NRN concept design direction, inspired by public references. “Narayana-native” describes visual research intent, not company ownership or approval. Actual components are implemented separately in each app; no shared compiled library exists.
+
 ## 1. Principles
 
 - **Narayana-native.** Every product feels like part of one Narayana ecosystem.
@@ -96,14 +98,9 @@ Planned when required by real content:
 - Alert
 - Breadcrumbs
 
-Later iterations:
+Implemented in the simulation extension: simulation catalog cards and progress indicators.
 
-- Quiz
-- Simulation Card
-- Progress Bar
-- Tag
-- Chip
-- Badge
+Remaining planning items: Quiz, Tag, Chip and Badge.
 
 ## 7. Motion
 

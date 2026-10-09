@@ -1,5 +1,7 @@
 # From Research to Product
 
+Independent NRN concept research/design notes. References to Narayana describe public research context and hypotheses, not commissioning, approval or production integration. Planning statements are not implementation evidence; see the [repository README](../README.md).
+
 This document connects competitor research to concrete decisions in Privacy Lab.
 
 The research was not performed to collect references or copy features. Its purpose was to extract principles, test them against Narayana's goals and turn the useful conclusions into product behavior.

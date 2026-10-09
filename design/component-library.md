@@ -1,6 +1,6 @@
 # Component Library
 
-Phase 6.5 defines reusable interface atoms before additional screens are designed.
+This independent concept specification describes reusable interface atoms; Figma variant requirements are design intent rather than a verified published component library.
 
 ## Figma structure
 
@@ -105,7 +105,7 @@ Mobile: collapse intermediate levels when space is limited.
 
 ## Navigation
 
-Status: Implemented for Privacy Lab. Deferred modules are visible as non-interactive coming-soon items.
+Status: Implemented for Privacy Lab. Simulations and Solution Finder now have active implemented routes.
 
 Purpose: global movement across the ecosystem.
 

@@ -1,5 +1,7 @@
 # Vision
 
+Independent NRN concept research/design notes. References to Narayana describe public research context and hypotheses, not commissioning, approval or production integration. Planning statements are not implementation evidence; see the [repository README](../README.md).
+
 This document explains why the Narayana educational ecosystem is designed this way.
 
 It is an internal compass for product, content and design decisions.

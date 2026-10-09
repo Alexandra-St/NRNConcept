@@ -1,5 +1,7 @@
 # Project Principles
 
+Independent NRN concept research/design notes. References to Narayana describe public research context and hypotheses, not commissioning, approval or production integration. Planning statements are not implementation evidence; see the [repository README](../README.md).
+
 This document defines how product decisions are made.
 
 Concrete implementations of these principles are tracked in [`RESEARCH_TO_PRODUCT.md`](RESEARCH_TO_PRODUCT.md).
