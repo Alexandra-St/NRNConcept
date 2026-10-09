@@ -39,7 +39,7 @@ Bot token, webhook secret and payment prices are optional experimental integrati
 
 ## Docker Compose
 
-The existing setup uses three services and gateway port 8080. Docker engine plus Compose plugin are required. Configuration validated with standalone `docker-compose config --quiet`; image build and startup remain unverified on this host. See [deployment verification](../docs/DEPLOYMENT.md) for the exact limitation.
+The existing setup uses three services and gateway port 8080. Docker engine plus Compose plugin are required. Configuration validated with standalone `docker-compose config --quiet`; image build passed in GitHub Actions, while startup remains unverified on this host. See [deployment verification](../docs/DEPLOYMENT.md) for the exact limitation.
 
 ## Troubleshooting
 

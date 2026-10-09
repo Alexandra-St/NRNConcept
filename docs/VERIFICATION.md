@@ -21,7 +21,8 @@ Rewritten English README; refreshed application setup and Mini App notes; archit
 | Bot presentation | Open App displayed Mini App in iframe; other command buttons remain static |
 | Mini App locale | English preference applied and persisted across navigation/reload |
 | Docker configuration | docker-compose config --quiet passed |
-| Docker runtime | Not verified: no daemon running; docker compose plugin unavailable |
+| Docker image build | Passed in GitHub Actions run 37925457873 |
+| Docker runtime | Not verified locally: no daemon running; docker compose plugin unavailable |
 | Markdown | Balanced fences and git diff --check passed; relative targets checked |
 | Images | Eight actual local application screenshots, visually reviewed main overview images; under 150 KB each |
 | Secrets | Limited history scan: 365 text blobs; only synthetic test token candidate, no confirmed credential |
@@ -41,14 +42,14 @@ External-link audit checked 60 unique documentation URLs: 54 succeeded, four ret
 
 ## Remaining risks and next steps
 
-- Docker image build/start must be verified on a working engine before calling the Compose setup fully tested.
+- Docker image build passed in CI; container startup and end-to-end gateway behavior still need a working engine before calling the Compose setup fully tested.
 - Authorized Telegram bot/WebView, commercial backend, real payment, refunds and provisioning QA remain unfinished.
 - Synthetic preview user 0 is shared; prototype purchases can persist across sessions.
 - Render blueprint does not declare persistent SQLite storage; do not rely on it for durable real account/payment data.
 - Tracked Google Docs shortcut target permissions/content remain unverified; owner review is recommended before further sharing.
 - Public desk research does not establish customer demand, conversion gains or comprehensive security/accessibility assurance.
-- Repository About metadata values are prepared; automatic update is unavailable through the connected tools.
-- Review the full pull-request diff before merging. No merge, force-push, history rewrite or redeployment was performed.
+- Repository About description, verified homepage and nine topics were applied and read back successfully through the authorized GitHub CLI.
+- Review the [draft PR and full diff](https://github.com/Alexandra-St/NRNConcept/pull/1/files) before merging. No merge, force-push, history rewrite or redeployment was performed.
 
 ## Changed-file inventory
 
@@ -87,3 +88,7 @@ External-link audit checked 60 unique documentation URLs: 54 succeeded, four ret
 - `research/conversational-ai-messaging-assistants.md`
 
 Final local checks: 76 relative Markdown targets resolve; fences are balanced; changed text contains no matched GitHub/AWS/Telegram token or private-key marker; all eight images have JPEG signatures. The limited scan does not constitute a security guarantee.
+
+## GitHub Actions evidence
+
+[Run 37925457873](https://github.com/Alexandra-St/NRNConcept/actions/runs/37925457873) completed successfully on the portfolio branch: dependency restore, tests, Web publish, Mini App publish and Docker Compose image build all passed. The PR-triggered run was still building images at the time of this report update; its final status should be checked on the PR.

@@ -115,7 +115,7 @@ dotnet publish app/NRNConcept/src/NRN.Telegram/NRN.Telegram.csproj --configurati
 
 Dependency restore and the commands above succeeded on the audit host. Published launch instructions, URLs, Docker prerequisites and host troubleshooting are recorded in [local setup](app/README.md). Browser preview does not require a bot token. The Mini App applies migrations and seeds its local database at startup.
 
-The checked-in Compose setup exposes the gateway on port 8080. Its configuration was validated, but container startup was not tested because the available host has no running Docker daemon. This limitation is explicit in [deployment notes](docs/DEPLOYMENT.md).
+The checked-in Compose setup exposes the gateway on port 8080. Its configuration was validated and all three images built successfully in GitHub Actions. Container startup was not tested because the available host has no running Docker daemon. This limitation is explicit in [deployment notes](docs/DEPLOYMENT.md).
 
 ## Testing
 

@@ -12,7 +12,7 @@ No Telegram BotFather settings, bot credentials, live payments, external account
 
 ## Docker limitation
 
-Standalone `docker-compose config --quiet` passes on the audit host. The `docker compose` plugin is unavailable and the daemon is stopped, so image build and `docker compose up --build` are not verified here. CI defines a Compose image build, but that configuration alone is not proof of a passing run. Once a Docker engine and Compose plugin are available, verify the existing entry point and gateway port 8080 before using it as the sole setup path.
+Standalone `docker-compose config --quiet` passes on the audit host. The `docker compose` plugin is unavailable and the daemon is stopped, so image build and `docker compose up --build` are not verified here. [GitHub Actions run 37925457873](https://github.com/Alexandra-St/NRNConcept/actions/runs/37925457873) successfully restored dependencies, tested, published both applications and built all Compose images. This verifies image build on Linux, not container startup or end-to-end gateway operation. Once a Docker engine and Compose plugin are available, verify the existing entry point and gateway port 8080 before using it as the sole setup path.
 
 ## Operational gaps
 

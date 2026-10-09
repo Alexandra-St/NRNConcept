@@ -10,7 +10,7 @@ Homepage: https://nrn-mvp.onrender.com
 
 Topics: `csharp`, `dotnet`, `aspnetcore`, `blazor`, `privacy`, `product-development`, `telegram-mini-app`, `docker`, `ux-design`.
 
-These match the audited implementation. The homepage was verified on 9 October 2026. The connected GitHub tools do not expose repository metadata updates, and CLI authentication could not be verified on this host. Apply the values in the repository page: About → edit (pencil) → Description, Website and Topics → Save changes. Metadata was not changed by this task.
+These match the audited implementation. The homepage was verified on 9 October 2026. Description, homepage and all nine topics were applied and read back successfully on 9 October 2026. The sandboxed CLI authentication check was misleading because network access was restricted; authorized CLI requests succeeded. Manual maintenance: repository page → About → edit (pencil) → Description, Website and Topics → Save changes.
 
 ## License decision
 
