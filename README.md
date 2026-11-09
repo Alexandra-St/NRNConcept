@@ -6,7 +6,7 @@ An independently developed, privacy-first product ecosystem exploring how educat
 
 **Implemented:** Privacy Lab, Solution Finder and two interactive simulations. **Prototype:** Telegram Mini App and browser bot presentation.
 
-**Independent concept. Not commissioned, approved or deployed by Narayana.** Real commercial accounts, service provisioning and authorized bot integration remain unfinished.
+**Independent concept. Not commissioned, approved or deployed by Narayana.** Real telecom provisioning, commercial accounts and authorized production integrations are intentionally outside this portfolio concept's scope.
 
 ## Overview
 
@@ -23,7 +23,7 @@ Education remains useful without a purchase: Finder can return no suitable produ
 | Interactive Simulations | [Explore scenarios](https://nrn-mvp.onrender.com/simulations) | Public Wi-Fi and Ordinary Day: decisions, consequences and restart |
 | Telegram browser prototype | [Bot presentation](https://nrn-mvp.onrender.com/miniapp/demo) | Scripted conversation opens the Mini App with synthetic account data |
 
-Render's free-tier services may take longer to load initially. Browser preview is not Telegram authentication. The Mini App's dashboard, catalog, services, account, help and language preferences are implemented; real backend integration and payments remain in development.
+Render's free-tier services may take longer to load initially. Browser preview is not Telegram authentication. The Mini App's dashboard, catalog, services, account, help and language preferences are implemented; real commercial backend integration, provisioning and live payments are intentionally out of scope.
 
 ## Screenshots
 
@@ -65,7 +65,7 @@ Education and customer identity have separate application boundaries. Learning, 
 - **Choosing what not to store.** I kept reading and learning choices in scoped memory instead of building an unnecessary account/profile database. This supports immediate access while avoiding persistent learning history.
 - **Making content maintainable.** I separated educational content and simulation scenes into JSON resources, then implemented startup validators and tests for broken references and transitions. Content errors are detected before visitors encounter them.
 - **Separating demonstration from identity.** I built a browser preview alongside server-side Telegram signature and freshness validation. Recruiters can explore the same Mini App screens with synthetic data while authenticated API calls derive identity from validated initData.
-- **Protecting prototype account consistency.** I implemented transactional balance, purchase and subscription updates in SQLite, with tests for the ledger and payment idempotency. These are local prototype records; commercial provisioning remains unfinished.
+- **Protecting prototype account consistency.** I implemented transactional balance, purchase and subscription updates in SQLite, with tests for the ledger and payment idempotency. These are local prototype records; they do not provision commercial services.
 - **Delivering two apps through one entry point.** I configured an Nginx gateway, path-base handling and WebSocket forwarding, then added CI for tests, publishing and Docker image builds. This makes the educational and Mini App surfaces accessible through one demo address.
 
 ## Product research & UX
@@ -93,8 +93,6 @@ dotnet test app/NRNConcept/NRNConcept.sln --configuration Release --no-restore
 
 Follow [tested local setup](app/README.md) to launch the apps. [Verification](docs/VERIFICATION.md) and [deployment notes](docs/DEPLOYMENT.md) record infrastructure checks and remaining operational work.
 
-## Next steps
+## Project status
 
-Connect an authorized account/service backend, verify the Mini App and payments inside Telegram, expand educational scenarios with user feedback and refine component consistency.
-
-NRN is an independent exploration and portfolio prototype. Commercial integration requires appropriate access and authorization; local purchase records do not provision telecommunications services.
+NRN is complete as a portfolio concept and prototype; no production rollout is planned. Real telecom provisioning, commercial accounts and authorized production integrations were intentionally outside scope. The repository remains public to demonstrate product research, UX, architecture, implementation, testing and deployment work.
